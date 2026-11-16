@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b40d07a7257f5ca89a271521b8fd9a6d {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_b40d07a7257f5ca89a271521b8fd9a6d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b40d07a7257f5ca89a271521b8fd9a6d = L.map(
+                "map_b40d07a7257f5ca89a271521b8fd9a6d",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b57e996b506a33765a1acff7513e4d96 = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b57e996b506a33765a1acff7513e4d96.addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+            var circle_marker_0417541e64d3c718a915cd4dec272b72 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.9009474880274695, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_5714b98d973f5fae6a3ce1cdbaa2014f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e42f22da311f9d2fd6754b1d5075d1f5 = $(`<div id="html_e42f22da311f9d2fd6754b1d5075d1f5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</h4>             <p><b>Endereço:</b> PRAÇA DO MILITO, S/N</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 511</p>         </div>         </div>`)[0];
+                popup_5714b98d973f5fae6a3ce1cdbaa2014f.setContent(html_e42f22da311f9d2fd6754b1d5075d1f5);
+            
+        
+
+        circle_marker_0417541e64d3c718a915cd4dec272b72.bindPopup(popup_5714b98d973f5fae6a3ce1cdbaa2014f)
+        ;
+
+        
+    
+    
+            circle_marker_0417541e64d3c718a915cd4dec272b72.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR — 511 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b9aec624b6a8d126bad322c12c22aef = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.628000962898832, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_081177ebfcf28634fdd2b2441eb692b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c4ce80c9609bb5a32a96075789b0bc2 = $(`<div id="html_9c4ce80c9609bb5a32a96075789b0bc2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</h4>             <p><b>Endereço:</b> RUA CORNÉLIO ROCHA.322</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 89</p>         </div>         </div>`)[0];
+                popup_081177ebfcf28634fdd2b2441eb692b4.setContent(html_9c4ce80c9609bb5a32a96075789b0bc2);
+            
+        
+
+        circle_marker_2b9aec624b6a8d126bad322c12c22aef.bindPopup(popup_081177ebfcf28634fdd2b2441eb692b4)
+        ;
+
+        
+    
+    
+            circle_marker_2b9aec624b6a8d126bad322c12c22aef.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA — 89 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_391a092ae1486ba42ad7ae7c7a338b41 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.847280541500023, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_97c3fcac707370aaf0d6467add06b9b8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_377bb8ff415aaf94b3245e8dfee93655 = $(`<div id="html_377bb8ff415aaf94b3245e8dfee93655" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  ESTADUAL  DR. AVELAR</h4>             <p><b>Endereço:</b> RUA CAMPINAS, 59</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 789</p>         </div>         </div>`)[0];
+                popup_97c3fcac707370aaf0d6467add06b9b8.setContent(html_377bb8ff415aaf94b3245e8dfee93655);
+            
+        
+
+        circle_marker_391a092ae1486ba42ad7ae7c7a338b41.bindPopup(popup_97c3fcac707370aaf0d6467add06b9b8)
+        ;
+
+        
+    
+    
+            circle_marker_391a092ae1486ba42ad7ae7c7a338b41.bindTooltip(
+                `<div>
+                     ESCOLA  ESTADUAL  DR. AVELAR — 789 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a91388ed59bb88c27919fc84e2432d8 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.19642896053521, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_43583f8a22d96942345e8737523d8a76 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_30353dfc9d817bd4dd00ee14a67bdbf9 = $(`<div id="html_30353dfc9d817bd4dd00ee14a67bdbf9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</h4>             <p><b>Endereço:</b> RUA JOAQUIM HENRIQUE NOGUEIRA,347</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 162</p>         </div>         </div>`)[0];
+                popup_43583f8a22d96942345e8737523d8a76.setContent(html_30353dfc9d817bd4dd00ee14a67bdbf9);
+            
+        
+
+        circle_marker_1a91388ed59bb88c27919fc84e2432d8.bindPopup(popup_43583f8a22d96942345e8737523d8a76)
+        ;
+
+        
+    
+    
+            circle_marker_1a91388ed59bb88c27919fc84e2432d8.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND — 162 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_57f214b1a83a4a499a45bd99495d6420 = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.001233618857814, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_907af3f3fa3b0990a6511093149b8323 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8e374e10bc727b4fe0bc600fa267a28 = $(`<div id="html_e8e374e10bc727b4fe0bc600fa267a28" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</h4>             <p><b>Endereço:</b> RUA SANTA JULIANA, 2287</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,646</p>         </div>         </div>`)[0];
+                popup_907af3f3fa3b0990a6511093149b8323.setContent(html_e8e374e10bc727b4fe0bc600fa267a28);
+            
+        
+
+        circle_marker_57f214b1a83a4a499a45bd99495d6420.bindPopup(popup_907af3f3fa3b0990a6511093149b8323)
+        ;
+
+        
+    
+    
+            circle_marker_57f214b1a83a4a499a45bd99495d6420.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM — 1,646 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a440ae2011d61671a0906b031a2b6b64 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.386023897145867, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_03b663ee04c16a4e8fba72ac72722d2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_315b15dfb211b472b6684d2f797a0b12 = $(`<div id="html_315b15dfb211b472b6684d2f797a0b12" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIVERSIDADE UNOPAR</h4>             <p><b>Endereço:</b> RUA MONSENHOR MESSIAS, 94</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 385</p>         </div>         </div>`)[0];
+                popup_03b663ee04c16a4e8fba72ac72722d2d.setContent(html_315b15dfb211b472b6684d2f797a0b12);
+            
+        
+
+        circle_marker_a440ae2011d61671a0906b031a2b6b64.bindPopup(popup_03b663ee04c16a4e8fba72ac72722d2d)
+        ;
+
+        
+    
+    
+            circle_marker_a440ae2011d61671a0906b031a2b6b64.bindTooltip(
+                `<div>
+                     UNIVERSIDADE UNOPAR — 385 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b53fb08228699ad0c313594a6be70a1 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.019853809156324, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_e4719924dcd8cf24d994ab798ab8ff8a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ad640d3e11aa76ac35361377b592082 = $(`<div id="html_6ad640d3e11aa76ac35361377b592082" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADES PROMOVE</h4>             <p><b>Endereço:</b> RUA DR PENA, 157</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 137</p>         </div>         </div>`)[0];
+                popup_e4719924dcd8cf24d994ab798ab8ff8a.setContent(html_6ad640d3e11aa76ac35361377b592082);
+            
+        
+
+        circle_marker_3b53fb08228699ad0c313594a6be70a1.bindPopup(popup_e4719924dcd8cf24d994ab798ab8ff8a)
+        ;
+
+        
+    
+    
+            circle_marker_3b53fb08228699ad0c313594a6be70a1.bindTooltip(
+                `<div>
+                     FACULDADES PROMOVE — 137 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e3a68fcd879142da2a5038a3ba415317 = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.30310335693319, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_bb61bddb0807d26b7985693550e83572 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b196c0ec72af65d5ab88af502262ab5f = $(`<div id="html_b196c0ec72af65d5ab88af502262ab5f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 275</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,791</p>         </div>         </div>`)[0];
+                popup_bb61bddb0807d26b7985693550e83572.setContent(html_b196c0ec72af65d5ab88af502262ab5f);
+            
+        
+
+        circle_marker_e3a68fcd879142da2a5038a3ba415317.bindPopup(popup_bb61bddb0807d26b7985693550e83572)
+        ;
+
+        
+    
+    
+            circle_marker_e3a68fcd879142da2a5038a3ba415317.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO — 1,791 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4ba821b47c50f338e8607d4313ee5a8 = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.6280293251019735, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_59f78f7b425370bf335a8327aa094a8e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7d9c11a817f64233a7def2ae821c5c2c = $(`<div id="html_7d9c11a817f64233a7def2ae821c5c2c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</h4>             <p><b>Endereço:</b> RUA A, S/NR</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 442</p>         </div>         </div>`)[0];
+                popup_59f78f7b425370bf335a8327aa094a8e.setContent(html_7d9c11a817f64233a7def2ae821c5c2c);
+            
+        
+
+        circle_marker_a4ba821b47c50f338e8607d4313ee5a8.bindPopup(popup_59f78f7b425370bf335a8327aa094a8e)
+        ;
+
+        
+    
+    
+            circle_marker_a4ba821b47c50f338e8607d4313ee5a8.bindTooltip(
+                `<div>
+                     ESF MORRO REDONDO ANEXO DE FAZENDA VELHA — 442 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c96484fa53fd8a161657cbb0a4fc1364 = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.775130248885558, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_88272b47eb76577fb5ba0d2068b4dd58 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2beb422eb5808ba2bbcfc9b50a40d877 = $(`<div id="html_2beb422eb5808ba2bbcfc9b50a40d877" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</h4>             <p><b>Endereço:</b> R. JOSÉ LUIZ BARBOSA, 91</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 2,030</p>         </div>         </div>`)[0];
+                popup_88272b47eb76577fb5ba0d2068b4dd58.setContent(html_2beb422eb5808ba2bbcfc9b50a40d877);
+            
+        
+
+        circle_marker_c96484fa53fd8a161657cbb0a4fc1364.bindPopup(popup_88272b47eb76577fb5ba0d2068b4dd58)
+        ;
+
+        
+    
+    
+            circle_marker_c96484fa53fd8a161657cbb0a4fc1364.bindTooltip(
+                `<div>
+                     ESCOLA  MUNICIPAL QUINCAS NOGUEIRA — 2,030 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f06a4c23fbdbbea0d2f061e223ba8abb = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.202844743058781, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_f029275e880dcd015225bf03eb074ac3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d38d7807a13cd7f4a921335e4a1a556f = $(`<div id="html_d38d7807a13cd7f4a921335e4a1a556f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</h4>             <p><b>Endereço:</b> RUA MAJOR CAMPOS,82</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,292</p>         </div>         </div>`)[0];
+                popup_f029275e880dcd015225bf03eb074ac3.setContent(html_d38d7807a13cd7f4a921335e4a1a556f);
+            
+        
+
+        circle_marker_f06a4c23fbdbbea0d2f061e223ba8abb.bindPopup(popup_f029275e880dcd015225bf03eb074ac3)
+        ;
+
+        
+    
+    
+            circle_marker_f06a4c23fbdbbea0d2f061e223ba8abb.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO — 1,292 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2184e6d59de6252b5cdb920d9de7ce05 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.904762596507041, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_6e63bf0904ec79d4cfffb5d417b797cb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85efb86f25ea5e1e7ecc6fee76262d83 = $(`<div id="html_85efb86f25ea5e1e7ecc6fee76262d83" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO FRANCISCANO REGINA PACIS</h4>             <p><b>Endereço:</b> PRACA TIRADENTES, 34</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 512</p>         </div>         </div>`)[0];
+                popup_6e63bf0904ec79d4cfffb5d417b797cb.setContent(html_85efb86f25ea5e1e7ecc6fee76262d83);
+            
+        
+
+        circle_marker_2184e6d59de6252b5cdb920d9de7ce05.bindPopup(popup_6e63bf0904ec79d4cfffb5d417b797cb)
+        ;
+
+        
+    
+    
+            circle_marker_2184e6d59de6252b5cdb920d9de7ce05.bindTooltip(
+                `<div>
+                     COLÉGIO FRANCISCANO REGINA PACIS — 512 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1df116d71d3e059ea3893be6dc5a003 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.325518092378281, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_ebf5e9e7f217257c54c4df33b45b7b1e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_adef4a97671c00d577523191f9146fc7 = $(`<div id="html_adef4a97671c00d577523191f9146fc7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</h4>             <p><b>Endereço:</b> R. MANOEL DE SOUZA, S/N</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 59</p>         </div>         </div>`)[0];
+                popup_ebf5e9e7f217257c54c4df33b45b7b1e.setContent(html_adef4a97671c00d577523191f9146fc7);
+            
+        
+
+        circle_marker_e1df116d71d3e059ea3893be6dc5a003.bindPopup(popup_ebf5e9e7f217257c54c4df33b45b7b1e)
+        ;
+
+        
+    
+    
+            circle_marker_e1df116d71d3e059ea3893be6dc5a003.bindTooltip(
+                `<div>
+                     SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS — 59 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a3d794061ea21a9785a11a7fed1b9a7b = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.9692594818127, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_25c5ae5faf80b81ea84be39ca12db53c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_59b2037d7ba21714821b016ddfa8b2f6 = $(`<div id="html_59b2037d7ba21714821b016ddfa8b2f6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</h4>             <p><b>Endereço:</b> RUA DR LUCIANO SOARES SANTANA, 641</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,631</p>         </div>         </div>`)[0];
+                popup_25c5ae5faf80b81ea84be39ca12db53c.setContent(html_59b2037d7ba21714821b016ddfa8b2f6);
+            
+        
+
+        circle_marker_a3d794061ea21a9785a11a7fed1b9a7b.bindPopup(popup_25c5ae5faf80b81ea84be39ca12db53c)
+        ;
+
+        
+    
+    
+            circle_marker_a3d794061ea21a9785a11a7fed1b9a7b.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DR. MÁRCIO PAULINO — 1,631 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6407b6109f58734a77fdb1f7ab8f066 = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.668906691747841, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_56d00d8f03082407b42e8a5991308b23 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c09037e86f8ccfccbd319fb0b8cb96de = $(`<div id="html_c09037e86f8ccfccbd319fb0b8cb96de" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIFEMM CENTRO UNIVERSITÁRIO</h4>             <p><b>Endereço:</b> AV. MARECHAL CASTELO BRANCO, 2765</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 732</p>         </div>         </div>`)[0];
+                popup_56d00d8f03082407b42e8a5991308b23.setContent(html_c09037e86f8ccfccbd319fb0b8cb96de);
+            
+        
+
+        circle_marker_f6407b6109f58734a77fdb1f7ab8f066.bindPopup(popup_56d00d8f03082407b42e8a5991308b23)
+        ;
+
+        
+    
+    
+            circle_marker_f6407b6109f58734a77fdb1f7ab8f066.bindTooltip(
+                `<div>
+                     UNIFEMM CENTRO UNIVERSITÁRIO — 732 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9eb720d38d708e168e304bbd92d753a1 = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.355413272773639, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_04421e9678b3efa22b61d6ab10c3b5b0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_92c3dda18579ebcef260ff6ec4738b13 = $(`<div id="html_92c3dda18579ebcef260ff6ec4738b13" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO EDUCACIONAL PETER PAN</h4>             <p><b>Endereço:</b> RUA JOAQUIM MURTINHO, 317/325</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 637</p>         </div>         </div>`)[0];
+                popup_04421e9678b3efa22b61d6ab10c3b5b0.setContent(html_92c3dda18579ebcef260ff6ec4738b13);
+            
+        
+
+        circle_marker_9eb720d38d708e168e304bbd92d753a1.bindPopup(popup_04421e9678b3efa22b61d6ab10c3b5b0)
+        ;
+
+        
+    
+    
+            circle_marker_9eb720d38d708e168e304bbd92d753a1.bindTooltip(
+                `<div>
+                     INSTITUTO EDUCACIONAL PETER PAN — 637 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_370d97ba16733383c6fb2e21c60478d4 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.619811807585406, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_24a2033c8d408c56fc9c4a715428c9af = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a199e9c7a27079b7c95c0b3e4753ea6f = $(`<div id="html_a199e9c7a27079b7c95c0b3e4753ea6f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</h4>             <p><b>Endereço:</b> RUA CAPITÃO JOSÉ PEREIRA DA COSTA,167</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 440</p>         </div>         </div>`)[0];
+                popup_24a2033c8d408c56fc9c4a715428c9af.setContent(html_a199e9c7a27079b7c95c0b3e4753ea6f);
+            
+        
+
+        circle_marker_370d97ba16733383c6fb2e21c60478d4.bindPopup(popup_24a2033c8d408c56fc9c4a715428c9af)
+        ;
+
+        
+    
+    
+            circle_marker_370d97ba16733383c6fb2e21c60478d4.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL GOVERNADOR JUSCELINO — 440 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_385dea69cd72fba3fad04177d6e12f75 = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.125000907915492, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_1d5627128c1a4cadf7712c87d832266d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7df8e568bd2b813e459ccfa0fbe31827 = $(`<div id="html_7df8e568bd2b813e459ccfa0fbe31827" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MARIA AMÂNCIO</h4>             <p><b>Endereço:</b> RUA SÃO JOSÉ,747</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 882</p>         </div>         </div>`)[0];
+                popup_1d5627128c1a4cadf7712c87d832266d.setContent(html_7df8e568bd2b813e459ccfa0fbe31827);
+            
+        
+
+        circle_marker_385dea69cd72fba3fad04177d6e12f75.bindPopup(popup_1d5627128c1a4cadf7712c87d832266d)
+        ;
+
+        
+    
+    
+            circle_marker_385dea69cd72fba3fad04177d6e12f75.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MARIA AMÂNCIO — 882 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_74e44c4ea3ab887bbc25c644c37c8447 = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.930695807179088, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_9e9dae63482eb832ad8bf071ceb52438 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7c5a22532f33946f95b7e07cf3280064 = $(`<div id="html_7c5a22532f33946f95b7e07cf3280064" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOVELINO LANZA</h4>             <p><b>Endereço:</b> RUA RUI BARBOSA, 59</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,613</p>         </div>         </div>`)[0];
+                popup_9e9dae63482eb832ad8bf071ceb52438.setContent(html_7c5a22532f33946f95b7e07cf3280064);
+            
+        
+
+        circle_marker_74e44c4ea3ab887bbc25c644c37c8447.bindPopup(popup_9e9dae63482eb832ad8bf071ceb52438)
+        ;
+
+        
+    
+    
+            circle_marker_74e44c4ea3ab887bbc25c644c37c8447.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOVELINO LANZA — 1,613 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fd7e72ae9d9cc713c703eb29220493b = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.279541202107538, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_9fc2e202787f3ceac961a98587ff7a26 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f9d2cb87e156735d79ea22b19bbdd19d = $(`<div id="html_f9d2cb87e156735d79ea22b19bbdd19d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO ALICE MACIEL</h4>             <p><b>Endereço:</b> RUA GOIÁS,609</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 615</p>         </div>         </div>`)[0];
+                popup_9fc2e202787f3ceac961a98587ff7a26.setContent(html_f9d2cb87e156735d79ea22b19bbdd19d);
+            
+        
+
+        circle_marker_5fd7e72ae9d9cc713c703eb29220493b.bindPopup(popup_9fc2e202787f3ceac961a98587ff7a26)
+        ;
+
+        
+    
+    
+            circle_marker_5fd7e72ae9d9cc713c703eb29220493b.bindTooltip(
+                `<div>
+                     INSTITUTO ALICE MACIEL — 615 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_db8de4f213d4591039558e695e09ba18 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.129784685424394, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_8840b93c35a53ee25b31c7cee632d14a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ee47f4d1af0d39578cda86fc3227aee = $(`<div id="html_0ee47f4d1af0d39578cda86fc3227aee" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL LUZIA BARBOSA</h4>             <p><b>Endereço:</b> AV. MAURÍLIO DE JESUS PEIXOTO,1160</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,707</p>         </div>         </div>`)[0];
+                popup_8840b93c35a53ee25b31c7cee632d14a.setContent(html_0ee47f4d1af0d39578cda86fc3227aee);
+            
+        
+
+        circle_marker_db8de4f213d4591039558e695e09ba18.bindPopup(popup_8840b93c35a53ee25b31c7cee632d14a)
+        ;
+
+        
+    
+    
+            circle_marker_db8de4f213d4591039558e695e09ba18.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL LUZIA BARBOSA — 1,707 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f9775143558c8ae78986934a16713628 = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.917793476770921, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_6bfbd9d0e058f68ed402253afe094c6f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_36d7ab58efcd2e2a69b1671a68c40eed = $(`<div id="html_36d7ab58efcd2e2a69b1671a68c40eed" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</h4>             <p><b>Endereço:</b> RUA APUCARANA, 68</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,607</p>         </div>         </div>`)[0];
+                popup_6bfbd9d0e058f68ed402253afe094c6f.setContent(html_36d7ab58efcd2e2a69b1671a68c40eed);
+            
+        
+
+        circle_marker_f9775143558c8ae78986934a16713628.bindPopup(popup_6bfbd9d0e058f68ed402253afe094c6f)
+        ;
+
+        
+    
+    
+            circle_marker_f9775143558c8ae78986934a16713628.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PREFEITO ZICO PAIVA — 1,607 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_886c3207980ae3a683c16484522795e6 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.063610233246285, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_93b3631068833273eb2c099634510312 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9b16509dd46d8785a4e3a17996c13248 = $(`<div id="html_9b16509dd46d8785a4e3a17996c13248" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</h4>             <p><b>Endereço:</b> RUA GOIÁS, 1696</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 143</p>         </div>         </div>`)[0];
+                popup_93b3631068833273eb2c099634510312.setContent(html_9b16509dd46d8785a4e3a17996c13248);
+            
+        
+
+        circle_marker_886c3207980ae3a683c16484522795e6.bindPopup(popup_93b3631068833273eb2c099634510312)
+        ;
+
+        
+    
+    
+            circle_marker_886c3207980ae3a683c16484522795e6.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR — 143 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9315acf30550b534ba33f8213eddc4ed = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.059117484424371, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_1b74a0e37a34b3224fb96eb159759901 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f4ffcfac096947a382ddd50defdde634 = $(`<div id="html_f4ffcfac096947a382ddd50defdde634" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</h4>             <p><b>Endereço:</b> RUA ARAÇAÍ, 150</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 2,181</p>         </div>         </div>`)[0];
+                popup_1b74a0e37a34b3224fb96eb159759901.setContent(html_f4ffcfac096947a382ddd50defdde634);
+            
+        
+
+        circle_marker_9315acf30550b534ba33f8213eddc4ed.bindPopup(popup_1b74a0e37a34b3224fb96eb159759901)
+        ;
+
+        
+    
+    
+            circle_marker_9315acf30550b534ba33f8213eddc4ed.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL) — 2,181 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b5e5dc66aa13e9939a9e7e1bbb08313e = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.233055889887337, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_5141c79bdc26704d8cefbcdd552a684b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6efb751b48c0faf777f4b7e8f3c2bfec = $(`<div id="html_6efb751b48c0faf777f4b7e8f3c2bfec" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SANTOS AZEREDO</h4>             <p><b>Endereço:</b> AV. FRANCISCO ANTONIO DE MENDONÇA CHAVES, 22</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 351</p>         </div>         </div>`)[0];
+                popup_5141c79bdc26704d8cefbcdd552a684b.setContent(html_6efb751b48c0faf777f4b7e8f3c2bfec);
+            
+        
+
+        circle_marker_b5e5dc66aa13e9939a9e7e1bbb08313e.bindPopup(popup_5141c79bdc26704d8cefbcdd552a684b)
+        ;
+
+        
+    
+    
+            circle_marker_b5e5dc66aa13e9939a9e7e1bbb08313e.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SANTOS AZEREDO — 351 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4690b1cafb5731471cf9e08c90a5e87 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.21997857554777, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_25725f6339265443cf8c16cb4a1f2b94 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d18306c725c7fbb36490a9595940223 = $(`<div id="html_5d18306c725c7fbb36490a9595940223" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 1111</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 598</p>         </div>         </div>`)[0];
+                popup_25725f6339265443cf8c16cb4a1f2b94.setContent(html_5d18306c725c7fbb36490a9595940223);
+            
+        
+
+        circle_marker_a4690b1cafb5731471cf9e08c90a5e87.bindPopup(popup_25725f6339265443cf8c16cb4a1f2b94)
+        ;
+
+        
+    
+    
+            circle_marker_a4690b1cafb5731471cf9e08c90a5e87.bindTooltip(
+                `<div>
+                     ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP — 598 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2f9bd8746dc006370bf7f6af929c531b = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.750194525791702, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_82bb8dbb0d3815d4aa5be55b98bb3188 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8e7cdd34ec54788dd0fa99217b0c6310 = $(`<div id="html_8e7cdd34ec54788dd0fa99217b0c6310" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</h4>             <p><b>Endereço:</b> RUA ALECRIM, 329</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 2,017</p>         </div>         </div>`)[0];
+                popup_82bb8dbb0d3815d4aa5be55b98bb3188.setContent(html_8e7cdd34ec54788dd0fa99217b0c6310);
+            
+        
+
+        circle_marker_2f9bd8746dc006370bf7f6af929c531b.bindPopup(popup_82bb8dbb0d3815d4aa5be55b98bb3188)
+        ;
+
+        
+    
+    
+            circle_marker_2f9bd8746dc006370bf7f6af929c531b.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA — 2,017 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_125fee5d5f075185c618696e7f70a681 = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.241680034361604, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_19fc9b8ffdcbf71241d11e110742f6fa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a3045d6b52972a1ad2420487e104d90e = $(`<div id="html_a3045d6b52972a1ad2420487e104d90e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</h4>             <p><b>Endereço:</b> RUA PINTASSILGO, 1491</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,761</p>         </div>         </div>`)[0];
+                popup_19fc9b8ffdcbf71241d11e110742f6fa.setContent(html_a3045d6b52972a1ad2420487e104d90e);
+            
+        
+
+        circle_marker_125fee5d5f075185c618696e7f70a681.bindPopup(popup_19fc9b8ffdcbf71241d11e110742f6fa)
+        ;
+
+        
+    
+    
+            circle_marker_125fee5d5f075185c618696e7f70a681.bindTooltip(
+                `<div>
+                     E. M. DOUTOR ENÍZIO ANTÔNIO VIANA — 1,761 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_15c561a0fcf1326dd68ef65a88fd1fbf = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.287857350300671, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_721abce52c9a88f7ff47d6083b93ba65 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d086ad73fd45089af71b3972ddcbbee4 = $(`<div id="html_d086ad73fd45089af71b3972ddcbbee4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL TEREZINHA GODOY</h4>             <p><b>Endereço:</b> RUA ORQUIDEA, Nº 30</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 363</p>         </div>         </div>`)[0];
+                popup_721abce52c9a88f7ff47d6083b93ba65.setContent(html_d086ad73fd45089af71b3972ddcbbee4);
+            
+        
+
+        circle_marker_15c561a0fcf1326dd68ef65a88fd1fbf.bindPopup(popup_721abce52c9a88f7ff47d6083b93ba65)
+        ;
+
+        
+    
+    
+            circle_marker_15c561a0fcf1326dd68ef65a88fd1fbf.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL TEREZINHA GODOY — 363 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4358b6830772a55be8530372264372df = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.341716970706688, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_af1f09c1aa3c523590ed0ea3a6dfd441 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f9b10d0f06ac46cd03f947638c870c04 = $(`<div id="html_f9b10d0f06ac46cd03f947638c870c04" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</h4>             <p><b>Endereço:</b> RUA QUINTINO BOCAIUVA, 331              </p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 633</p>         </div>         </div>`)[0];
+                popup_af1f09c1aa3c523590ed0ea3a6dfd441.setContent(html_f9b10d0f06ac46cd03f947638c870c04);
+            
+        
+
+        circle_marker_4358b6830772a55be8530372264372df.bindPopup(popup_af1f09c1aa3c523590ed0ea3a6dfd441)
+        ;
+
+        
+    
+    
+            circle_marker_4358b6830772a55be8530372264372df.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA — 633 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fd500ce0ac8ccad9c50796630f48132 = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.738548466816024, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_b0cbafc7b3263bd88b22b3e073ab0a28 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2dd931d894673d4cb45e479bd381e2fc = $(`<div id="html_2dd931d894673d4cb45e479bd381e2fc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</h4>             <p><b>Endereço:</b> AVENIDA VILLA LOBOS, 730</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 754</p>         </div>         </div>`)[0];
+                popup_b0cbafc7b3263bd88b22b3e073ab0a28.setContent(html_2dd931d894673d4cb45e479bd381e2fc);
+            
+        
+
+        circle_marker_5fd500ce0ac8ccad9c50796630f48132.bindPopup(popup_b0cbafc7b3263bd88b22b3e073ab0a28)
+        ;
+
+        
+    
+    
+            circle_marker_5fd500ce0ac8ccad9c50796630f48132.bindTooltip(
+                `<div>
+                     COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA — 754 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab7df12323e4593108163886c2a72499 = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.170411471961305, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_ce38e889cfd3436a94b25945042fe4fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7b41ada8adc72b1153eb6756ad8235d6 = $(`<div id="html_7b41ada8adc72b1153eb6756ad8235d6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</h4>             <p><b>Endereço:</b> AVENIDA PIO RODRIGUES DE LIMA, 289</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 46</p>         </div>         </div>`)[0];
+                popup_ce38e889cfd3436a94b25945042fe4fc.setContent(html_7b41ada8adc72b1153eb6756ad8235d6);
+            
+        
+
+        circle_marker_ab7df12323e4593108163886c2a72499.bindPopup(popup_ce38e889cfd3436a94b25945042fe4fc)
+        ;
+
+        
+    
+    
+            circle_marker_ab7df12323e4593108163886c2a72499.bindTooltip(
+                `<div>
+                     ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX — 46 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_60bfa776b2a71236dcb653bd55be587e = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.274445937966899, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_8357ada2d170f2f9a7091f62142ba4de = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9d6874e670416bf9137f288df84b610e = $(`<div id="html_9d6874e670416bf9137f288df84b610e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</h4>             <p><b>Endereço:</b> PRACA JK, 110                              </p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,322</p>         </div>         </div>`)[0];
+                popup_8357ada2d170f2f9a7091f62142ba4de.setContent(html_9d6874e670416bf9137f288df84b610e);
+            
+        
+
+        circle_marker_60bfa776b2a71236dcb653bd55be587e.bindPopup(popup_8357ada2d170f2f9a7091f62142ba4de)
+        ;
+
+        
+    
+    
+            circle_marker_60bfa776b2a71236dcb653bd55be587e.bindTooltip(
+                `<div>
+                     ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA — 1,322 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e97ae21fd5bf1d9e8b95adccd35c4e31 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.529967922563166, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_3d9ee5c98f5d73dfa27e5d502a51d36c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_810c3261d48db7939692b0621de2a729 = $(`<div id="html_810c3261d48db7939692b0621de2a729" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</h4>             <p><b>Endereço:</b> RUA VEREADORA LUMARIZA MARQUES VIANA, 95</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,904</p>         </div>         </div>`)[0];
+                popup_3d9ee5c98f5d73dfa27e5d502a51d36c.setContent(html_810c3261d48db7939692b0621de2a729);
+            
+        
+
+        circle_marker_e97ae21fd5bf1d9e8b95adccd35c4e31.bindPopup(popup_3d9ee5c98f5d73dfa27e5d502a51d36c)
+        ;
+
+        
+    
+    
+            circle_marker_e97ae21fd5bf1d9e8b95adccd35c4e31.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO — 1,904 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_105f59c1158101b68d7b49456cd6c26e = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.362245297793091, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_0703275ee14ec10d0686a4b2a80dcaec = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e16654c458f24f9376ebba5e7ffb09c0 = $(`<div id="html_e16654c458f24f9376ebba5e7ffb09c0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</h4>             <p><b>Endereço:</b> AV. GOVERNADOR BIAS FORTES, 375</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 639</p>         </div>         </div>`)[0];
+                popup_0703275ee14ec10d0686a4b2a80dcaec.setContent(html_e16654c458f24f9376ebba5e7ffb09c0);
+            
+        
+
+        circle_marker_105f59c1158101b68d7b49456cd6c26e.bindPopup(popup_0703275ee14ec10d0686a4b2a80dcaec)
+        ;
+
+        
+    
+    
+            circle_marker_105f59c1158101b68d7b49456cd6c26e.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO — 639 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ba7fc7f077a609ce3b3624dc3917c8a7 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.533921699639267, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_3f8662f6a3f202ad7b5eedfdaad4c4c3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5ecfdb42f397571e988ad180679029ba = $(`<div id="html_5ecfdb42f397571e988ad180679029ba" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</h4>             <p><b>Endereço:</b> RUA DAS PALMAS, 638</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,906</p>         </div>         </div>`)[0];
+                popup_3f8662f6a3f202ad7b5eedfdaad4c4c3.setContent(html_5ecfdb42f397571e988ad180679029ba);
+            
+        
+
+        circle_marker_ba7fc7f077a609ce3b3624dc3917c8a7.bindPopup(popup_3f8662f6a3f202ad7b5eedfdaad4c4c3)
+        ;
+
+        
+    
+    
+            circle_marker_ba7fc7f077a609ce3b3624dc3917c8a7.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC) — 1,906 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_11c4c7b46bb416f3e484d9283d8f4ca2 = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.188524470622774, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_6ecc72ce3e9e123b4a341c6228ef1444 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e0bc0406ab3c331e17e4056deafc434 = $(`<div id="html_5e0bc0406ab3c331e17e4056deafc434" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</h4>             <p><b>Endereço:</b> RUA ZEZITO FILIZOLLA, 15</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 904</p>         </div>         </div>`)[0];
+                popup_6ecc72ce3e9e123b4a341c6228ef1444.setContent(html_5e0bc0406ab3c331e17e4056deafc434);
+            
+        
+
+        circle_marker_11c4c7b46bb416f3e484d9283d8f4ca2.bindPopup(popup_6ecc72ce3e9e123b4a341c6228ef1444)
+        ;
+
+        
+    
+    
+            circle_marker_11c4c7b46bb416f3e484d9283d8f4ca2.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR EDSON ABREU — 904 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5b72215141e682a4d81629f5513a9e1c = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.757145907944347, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_7d8b9d8b46f100415b4048f82ba0433b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b0d2861a8374d1bf4ba61854f094d1f0 = $(`<div id="html_b0d2861a8374d1bf4ba61854f094d1f0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</h4>             <p><b>Endereço:</b> RUA HONDURAS, 28</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,113</p>         </div>         </div>`)[0];
+                popup_7d8b9d8b46f100415b4048f82ba0433b.setContent(html_b0d2861a8374d1bf4ba61854f094d1f0);
+            
+        
+
+        circle_marker_5b72215141e682a4d81629f5513a9e1c.bindPopup(popup_7d8b9d8b46f100415b4048f82ba0433b)
+        ;
+
+        
+    
+    
+            circle_marker_5b72215141e682a4d81629f5513a9e1c.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO — 1,113 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5d07b65bf067ab5fb467bc1696512d89 = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.72911225074715, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_59e0c129a081856419186d9abcd7d5cc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b563520ec1a2d06666e9ee1b058fa9f7 = $(`<div id="html_b563520ec1a2d06666e9ee1b058fa9f7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</h4>             <p><b>Endereço:</b> AV. JOSE SERVULO SOALHEIRO, 2585</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 751</p>         </div>         </div>`)[0];
+                popup_59e0c129a081856419186d9abcd7d5cc.setContent(html_b563520ec1a2d06666e9ee1b058fa9f7);
+            
+        
+
+        circle_marker_5d07b65bf067ab5fb467bc1696512d89.bindPopup(popup_59e0c129a081856419186d9abcd7d5cc)
+        ;
+
+        
+    
+    
+            circle_marker_5d07b65bf067ab5fb467bc1696512d89.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS — 751 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9d57335eedb3de896a074b68c47f569b = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.885041252360876, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_9094eb6fbbeae2d7b08d6c0cad03b70a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ae61aea6b0375238807af8d4377a5ea1 = $(`<div id="html_ae61aea6b0375238807af8d4377a5ea1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JUCA DIAS</h4>             <p><b>Endereço:</b> AVENIDA EURO ANDRADE, 241</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,163</p>         </div>         </div>`)[0];
+                popup_9094eb6fbbeae2d7b08d6c0cad03b70a.setContent(html_ae61aea6b0375238807af8d4377a5ea1);
+            
+        
+
+        circle_marker_9d57335eedb3de896a074b68c47f569b.bindPopup(popup_9094eb6fbbeae2d7b08d6c0cad03b70a)
+        ;
+
+        
+    
+    
+            circle_marker_9d57335eedb3de896a074b68c47f569b.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JUCA DIAS — 1,163 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_054704aac4db0128db79df9e35d18b58 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.013823641657066, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_8ccb90b539e38dff240d817c28a98526 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4a24347b49e0a75004a468e5a6ea27b2 = $(`<div id="html_4a24347b49e0a75004a468e5a6ea27b2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SINHÁ ANDRADE</h4>             <p><b>Endereço:</b> AV. RENATO AZEREDO, 2423</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 541</p>         </div>         </div>`)[0];
+                popup_8ccb90b539e38dff240d817c28a98526.setContent(html_4a24347b49e0a75004a468e5a6ea27b2);
+            
+        
+
+        circle_marker_054704aac4db0128db79df9e35d18b58.bindPopup(popup_8ccb90b539e38dff240d817c28a98526)
+        ;
+
+        
+    
+    
+            circle_marker_054704aac4db0128db79df9e35d18b58.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SINHÁ ANDRADE — 541 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5b01b40a16e638abcb37416208784616 = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.754435156422105, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_48d0f4f394173a8249d860fe3dd31104 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_60c77b4cc5c722c1d75851ac6dbec583 = $(`<div id="html_60c77b4cc5c722c1d75851ac6dbec583" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</h4>             <p><b>Endereço:</b> RUA TUPINIQUINS, 19</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 1,532</p>         </div>         </div>`)[0];
+                popup_48d0f4f394173a8249d860fe3dd31104.setContent(html_60c77b4cc5c722c1d75851ac6dbec583);
+            
+        
+
+        circle_marker_5b01b40a16e638abcb37416208784616.bindPopup(popup_48d0f4f394173a8249d860fe3dd31104)
+        ;
+
+        
+    
+    
+            circle_marker_5b01b40a16e638abcb37416208784616.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS — 1,532 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_12a224f2438197fc9e84fd09ebcf79c8 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.532373886913808, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_ba25ca92e95f78ac45d4046d09388d1e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_54568f74fbe9de1d1f2b2eaab085571e = $(`<div id="html_54568f74fbe9de1d1f2b2eaab085571e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADE ATENAS DE SETE LAGOAS</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 6000</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 419</p>         </div>         </div>`)[0];
+                popup_ba25ca92e95f78ac45d4046d09388d1e.setContent(html_54568f74fbe9de1d1f2b2eaab085571e);
+            
+        
+
+        circle_marker_12a224f2438197fc9e84fd09ebcf79c8.bindPopup(popup_ba25ca92e95f78ac45d4046d09388d1e)
+        ;
+
+        
+    
+    
+            circle_marker_12a224f2438197fc9e84fd09ebcf79c8.bindTooltip(
+                `<div>
+                     FACULDADE ATENAS DE SETE LAGOAS — 419 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5d722f50d91466cefbd33a2c4107c3b8 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.382897054820878, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_04bc190151afad22b2bd138b5e1ed540 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_839416b63254a028184b6011d88a847c = $(`<div id="html_839416b63254a028184b6011d88a847c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</h4>             <p><b>Endereço:</b> R. LAURA BRAGA CUNHA, 88</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 973</p>         </div>         </div>`)[0];
+                popup_04bc190151afad22b2bd138b5e1ed540.setContent(html_839416b63254a028184b6011d88a847c);
+            
+        
+
+        circle_marker_5d722f50d91466cefbd33a2c4107c3b8.bindPopup(popup_04bc190151afad22b2bd138b5e1ed540)
+        ;
+
+        
+    
+    
+            circle_marker_5d722f50d91466cefbd33a2c4107c3b8.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA — 973 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0e15a5be1f5baa452ae5b0be885a866 = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.738548466816024, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_5408307b05e010e4187ed136a9483dc0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ddb9dcef9a4de422c46332f145d1e8b8 = $(`<div id="html_ddb9dcef9a4de422c46332f145d1e8b8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</h4>             <p><b>Endereço:</b> RUA DELCI BARBOSA, 566</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 754</p>         </div>         </div>`)[0];
+                popup_5408307b05e010e4187ed136a9483dc0.setContent(html_ddb9dcef9a4de422c46332f145d1e8b8);
+            
+        
+
+        circle_marker_a0e15a5be1f5baa452ae5b0be885a866.bindPopup(popup_5408307b05e010e4187ed136a9483dc0)
+        ;
+
+        
+    
+    
+            circle_marker_a0e15a5be1f5baa452ae5b0be885a866.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURO FACCIO GONÇALVES — 754 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0d02a0a68b21a9da3af65eb0d187f18d = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.536217703241787, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_e7be0d3ba6bc8f0e4a69cd2c4176aa34 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c9be7001feda3a339264e5076ec64443 = $(`<div id="html_c9be7001feda3a339264e5076ec64443" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</h4>             <p><b>Endereço:</b> RUA ADOLAR NAPOLEÃO FRANÇA, 175</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 216</p>         </div>         </div>`)[0];
+                popup_e7be0d3ba6bc8f0e4a69cd2c4176aa34.setContent(html_c9be7001feda3a339264e5076ec64443);
+            
+        
+
+        circle_marker_0d02a0a68b21a9da3af65eb0d187f18d.bindPopup(popup_e7be0d3ba6bc8f0e4a69cd2c4176aa34)
+        ;
+
+        
+    
+    
+            circle_marker_0d02a0a68b21a9da3af65eb0d187f18d.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS — 216 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_057ff2e6e4c1fd91911748c8e0c8dbd3 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.835577595093513, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_0e6d47fe1e0efa065c5f05b59bd8dd2a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a327dd76188424da8e2e32c41dc804d7 = $(`<div id="html_a327dd76188424da8e2e32c41dc804d7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JULIO CÉSAR</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 95 - ENTRADA PELA RUA DIVINÓPOLIS</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 270</p>         </div>         </div>`)[0];
+                popup_0e6d47fe1e0efa065c5f05b59bd8dd2a.setContent(html_a327dd76188424da8e2e32c41dc804d7);
+            
+        
+
+        circle_marker_057ff2e6e4c1fd91911748c8e0c8dbd3.bindPopup(popup_0e6d47fe1e0efa065c5f05b59bd8dd2a)
+        ;
+
+        
+    
+    
+            circle_marker_057ff2e6e4c1fd91911748c8e0c8dbd3.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JULIO CÉSAR — 270 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b263c48808b45f1cdcc069c18e402bc4 = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.825055935080074, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_7e6b53281c3921426518f4cb59c58822 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4e0ff4965e76f668c9e714e9aeb5a484 = $(`<div id="html_4e0ff4965e76f668c9e714e9aeb5a484" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</h4>             <p><b>Endereço:</b> RUA CEL. JOÃO ANTONIO AVELAR, 217</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 268</p>         </div>         </div>`)[0];
+                popup_7e6b53281c3921426518f4cb59c58822.setContent(html_4e0ff4965e76f668c9e714e9aeb5a484);
+            
+        
+
+        circle_marker_b263c48808b45f1cdcc069c18e402bc4.bindPopup(popup_7e6b53281c3921426518f4cb59c58822)
+        ;
+
+        
+    
+    
+            circle_marker_b263c48808b45f1cdcc069c18e402bc4.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO — 268 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c7585abf9b83c925b9850730d9378f4 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.973978871407115, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_3b57caad9e804a127ce7b8a8cca3d55c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14c6ba4c099ca5bf3bdd146ac265ac2d = $(`<div id="html_14c6ba4c099ca5bf3bdd146ac265ac2d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</h4>             <p><b>Endereço:</b> RUA EZIO SOUZA DE DEUS, 87</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 297</p>         </div>         </div>`)[0];
+                popup_3b57caad9e804a127ce7b8a8cca3d55c.setContent(html_14c6ba4c099ca5bf3bdd146ac265ac2d);
+            
+        
+
+        circle_marker_0c7585abf9b83c925b9850730d9378f4.bindPopup(popup_3b57caad9e804a127ce7b8a8cca3d55c)
+        ;
+
+        
+    
+    
+            circle_marker_0c7585abf9b83c925b9850730d9378f4.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY — 297 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9db080b17abe7c3cab5dbcc7795603a7 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.319407081250234, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_8862992cbe64aa8c2200b333b58895d9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f7e2569ade25a546ec1ddac24353665c = $(`<div id="html_f7e2569ade25a546ec1ddac24353665c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</h4>             <p><b>Endereço:</b> AV. JOSÉ SÉRVULO SOALHEIRO, 4373</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 370</p>         </div>         </div>`)[0];
+                popup_8862992cbe64aa8c2200b333b58895d9.setContent(html_f7e2569ade25a546ec1ddac24353665c);
+            
+        
+
+        circle_marker_9db080b17abe7c3cab5dbcc7795603a7.bindPopup(popup_8862992cbe64aa8c2200b333b58895d9)
+        ;
+
+        
+    
+    
+            circle_marker_9db080b17abe7c3cab5dbcc7795603a7.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO — 370 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e4cc93b6cc9d280e431fd8837be9ce90 = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.5654041381232595, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_7dff382aa2d9beda32db0fcf7c6f6bfa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bf1880717f833fb571fce4f63a04611e = $(`<div id="html_bf1880717f833fb571fce4f63a04611e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</h4>             <p><b>Endereço:</b> AVENIDA SETE, 200</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 221</p>         </div>         </div>`)[0];
+                popup_7dff382aa2d9beda32db0fcf7c6f6bfa.setContent(html_bf1880717f833fb571fce4f63a04611e);
+            
+        
+
+        circle_marker_e4cc93b6cc9d280e431fd8837be9ce90.bindPopup(popup_7dff382aa2d9beda32db0fcf7c6f6bfa)
+        ;
+
+        
+    
+    
+            circle_marker_e4cc93b6cc9d280e431fd8837be9ce90.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO — 221 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_423c742356056ca8199f1d06893efba0 = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.890385063395675, "stroke": true, "weight": 1}
+            ).addTo(map_b40d07a7257f5ca89a271521b8fd9a6d);
+        
+    
+        var popup_524557d7c58e3c1cbbed4b7821c3bc4a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_26216eb0efcc89dc2bf4daf0e4d11827 = $(`<div id="html_26216eb0efcc89dc2bf4daf0e4d11827" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CEMEI MARISA MARA VAZ COSTA GALUPPO</h4>             <p><b>Endereço:</b> RUA MARIA DA CONCEIÇÃO BARCELOS, 185</p>             <hr>             <p><b>Candidato:</b> LUIZ INÁCIO LULA DA SILVA</p>             <p><b>Votos recebidos:</b> 120</p>         </div>         </div>`)[0];
+                popup_524557d7c58e3c1cbbed4b7821c3bc4a.setContent(html_26216eb0efcc89dc2bf4daf0e4d11827);
+            
+        
+
+        circle_marker_423c742356056ca8199f1d06893efba0.bindPopup(popup_524557d7c58e3c1cbbed4b7821c3bc4a)
+        ;
+
+        
+    
+    
+            circle_marker_423c742356056ca8199f1d06893efba0.bindTooltip(
+                `<div>
+                     CEMEI MARISA MARA VAZ COSTA GALUPPO — 120 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_b40d07a7257f5ca89a271521b8fd9a6d.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>

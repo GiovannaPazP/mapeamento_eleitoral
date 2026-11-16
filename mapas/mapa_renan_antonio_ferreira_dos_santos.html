@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_5ef6981db386013b80b786ce3a2c3595 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_5ef6981db386013b80b786ce3a2c3595" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_5ef6981db386013b80b786ce3a2c3595 = L.map(
+                "map_5ef6981db386013b80b786ce3a2c3595",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_14b3760d5ff5432f0f6b8e131dd54749 = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_14b3760d5ff5432f0f6b8e131dd54749.addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+            var circle_marker_61556a54f6d1359e9a150d1090b1aec2 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0209246180008895, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_8cf43696378769c67a4c0a67b8335ea1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5a0ab8f6ed91188077ec593c68869368 = $(`<div id="html_5a0ab8f6ed91188077ec593c68869368" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</h4>             <p><b>Endereço:</b> PRAÇA DO MILITO, S/N</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 35</p>         </div>         </div>`)[0];
+                popup_8cf43696378769c67a4c0a67b8335ea1.setContent(html_5a0ab8f6ed91188077ec593c68869368);
+            
+        
+
+        circle_marker_61556a54f6d1359e9a150d1090b1aec2.bindPopup(popup_8cf43696378769c67a4c0a67b8335ea1)
+        ;
+
+        
+    
+    
+            circle_marker_61556a54f6d1359e9a150d1090b1aec2.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR — 35 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b5033d617aa9397e0041c1128774cb2f = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.24404766228169, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_02e9f15b14452812113fbd12dd3b8651 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_36dbc5ef5ad435e2d4121b0decc4ec0d = $(`<div id="html_36dbc5ef5ad435e2d4121b0decc4ec0d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</h4>             <p><b>Endereço:</b> RUA CORNÉLIO ROCHA.322</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 2</p>         </div>         </div>`)[0];
+                popup_02e9f15b14452812113fbd12dd3b8651.setContent(html_36dbc5ef5ad435e2d4121b0decc4ec0d);
+            
+        
+
+        circle_marker_b5033d617aa9397e0041c1128774cb2f.bindPopup(popup_02e9f15b14452812113fbd12dd3b8651)
+        ;
+
+        
+    
+    
+            circle_marker_b5033d617aa9397e0041c1128774cb2f.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA — 2 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e665bab9fe91303d6af0e1d5b49bbac4 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.195584491018426, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_c9cea993d799a25114d087b4ef0592fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b4ff77be6bd76244651d16a65bb74f27 = $(`<div id="html_b4ff77be6bd76244651d16a65bb74f27" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  ESTADUAL  DR. AVELAR</h4>             <p><b>Endereço:</b> RUA CAMPINAS, 59</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 48</p>         </div>         </div>`)[0];
+                popup_c9cea993d799a25114d087b4ef0592fc.setContent(html_b4ff77be6bd76244651d16a65bb74f27);
+            
+        
+
+        circle_marker_e665bab9fe91303d6af0e1d5b49bbac4.bindPopup(popup_c9cea993d799a25114d087b4ef0592fc)
+        ;
+
+        
+    
+    
+            circle_marker_e665bab9fe91303d6af0e1d5b49bbac4.bindTooltip(
+                `<div>
+                     ESCOLA  ESTADUAL  DR. AVELAR — 48 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_37a82e3c06e581b8c54f850d674f6fb5 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.517703270796322, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_e737174754feb690b67482cea41fd207 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_635a8a1a1f6e0f2f4fd1bf8cecc4ab12 = $(`<div id="html_635a8a1a1f6e0f2f4fd1bf8cecc4ab12" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</h4>             <p><b>Endereço:</b> RUA JOAQUIM HENRIQUE NOGUEIRA,347</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 9</p>         </div>         </div>`)[0];
+                popup_e737174754feb690b67482cea41fd207.setContent(html_635a8a1a1f6e0f2f4fd1bf8cecc4ab12);
+            
+        
+
+        circle_marker_37a82e3c06e581b8c54f850d674f6fb5.bindPopup(popup_e737174754feb690b67482cea41fd207)
+        ;
+
+        
+    
+    
+            circle_marker_37a82e3c06e581b8c54f850d674f6fb5.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND — 9 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_895e49cd6eadaff846b0072fbab101f5 = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.866605688331559, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_5fc21a8920735614b2a4d24f1c1aa317 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_abdddd3be0c7288ba111061505e904b3 = $(`<div id="html_abdddd3be0c7288ba111061505e904b3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</h4>             <p><b>Endereço:</b> RUA SANTA JULIANA, 2287</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 117</p>         </div>         </div>`)[0];
+                popup_5fc21a8920735614b2a4d24f1c1aa317.setContent(html_abdddd3be0c7288ba111061505e904b3);
+            
+        
+
+        circle_marker_895e49cd6eadaff846b0072fbab101f5.bindPopup(popup_5fc21a8920735614b2a4d24f1c1aa317)
+        ;
+
+        
+    
+    
+            circle_marker_895e49cd6eadaff846b0072fbab101f5.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM — 117 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_365b99bc362c575a89b46475f17c213f = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.827605888602368, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_685ae66cc2ce316d6e59febe5bf7f54b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2565ea9511b141566b2c8a533549c362 = $(`<div id="html_2565ea9511b141566b2c8a533549c362" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIVERSIDADE UNOPAR</h4>             <p><b>Endereço:</b> RUA MONSENHOR MESSIAS, 94</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 23</p>         </div>         </div>`)[0];
+                popup_685ae66cc2ce316d6e59febe5bf7f54b.setContent(html_2565ea9511b141566b2c8a533549c362);
+            
+        
+
+        circle_marker_365b99bc362c575a89b46475f17c213f.bindPopup(popup_685ae66cc2ce316d6e59febe5bf7f54b)
+        ;
+
+        
+    
+    
+            circle_marker_365b99bc362c575a89b46475f17c213f.bindTooltip(
+                `<div>
+                     UNIVERSIDADE UNOPAR — 23 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a54cf234221f221c13465b28478c19b4 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.517703270796322, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_630e9d0e5fb3f8b541d7dd8b7b9daac4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0e14499d383a62aa7812baea5968414a = $(`<div id="html_0e14499d383a62aa7812baea5968414a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADES PROMOVE</h4>             <p><b>Endereço:</b> RUA DR PENA, 157</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 9</p>         </div>         </div>`)[0];
+                popup_630e9d0e5fb3f8b541d7dd8b7b9daac4.setContent(html_0e14499d383a62aa7812baea5968414a);
+            
+        
+
+        circle_marker_a54cf234221f221c13465b28478c19b4.bindPopup(popup_630e9d0e5fb3f8b541d7dd8b7b9daac4)
+        ;
+
+        
+    
+    
+            circle_marker_a54cf234221f221c13465b28478c19b4.bindTooltip(
+                `<div>
+                     FACULDADES PROMOVE — 9 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_20a81378860626bcee295612a3b8dabc = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.858611622953853, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_10a8bacf3e9bba5c08736778ff6c6035 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_baba121c9cdf47c04b0ac1b9cf55ff18 = $(`<div id="html_baba121c9cdf47c04b0ac1b9cf55ff18" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 275</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 116</p>         </div>         </div>`)[0];
+                popup_10a8bacf3e9bba5c08736778ff6c6035.setContent(html_baba121c9cdf47c04b0ac1b9cf55ff18);
+            
+        
+
+        circle_marker_20a81378860626bcee295612a3b8dabc.bindPopup(popup_10a8bacf3e9bba5c08736778ff6c6035)
+        ;
+
+        
+    
+    
+            circle_marker_20a81378860626bcee295612a3b8dabc.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO — 116 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e0faa1db00ae98ca9c7e716a5aa91fd = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.668352048690422, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_5f1b56e05c7625caf74fcd217e1ca78c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_64192a8b93858b53dfe7908045ae7ef1 = $(`<div id="html_64192a8b93858b53dfe7908045ae7ef1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</h4>             <p><b>Endereço:</b> RUA A, S/NR</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 15</p>         </div>         </div>`)[0];
+                popup_5f1b56e05c7625caf74fcd217e1ca78c.setContent(html_64192a8b93858b53dfe7908045ae7ef1);
+            
+        
+
+        circle_marker_7e0faa1db00ae98ca9c7e716a5aa91fd.bindPopup(popup_5f1b56e05c7625caf74fcd217e1ca78c)
+        ;
+
+        
+    
+    
+            circle_marker_7e0faa1db00ae98ca9c7e716a5aa91fd.bindTooltip(
+                `<div>
+                     ESF MORRO REDONDO ANEXO DE FAZENDA VELHA — 15 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e610b85c0c85570ddd9e5f8c965320d1 = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.063610233246285, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_f74ef1beb92ab967914df7c7b35e034b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e2fefffbdaf43761eba54f4fd8bbeed9 = $(`<div id="html_e2fefffbdaf43761eba54f4fd8bbeed9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</h4>             <p><b>Endereço:</b> R. JOSÉ LUIZ BARBOSA, 91</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 143</p>         </div>         </div>`)[0];
+                popup_f74ef1beb92ab967914df7c7b35e034b.setContent(html_e2fefffbdaf43761eba54f4fd8bbeed9);
+            
+        
+
+        circle_marker_e610b85c0c85570ddd9e5f8c965320d1.bindPopup(popup_f74ef1beb92ab967914df7c7b35e034b)
+        ;
+
+        
+    
+    
+            circle_marker_e610b85c0c85570ddd9e5f8c965320d1.bindTooltip(
+                `<div>
+                     ESCOLA  MUNICIPAL QUINCAS NOGUEIRA — 143 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e8282bf71b48c0236b2f7a61765e89b9 = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.8425194445416295, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_6dd55fcdb927cb93006ed90354457c9e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c58acb3f0b307beffe13f7f18edb5157 = $(`<div id="html_c58acb3f0b307beffe13f7f18edb5157" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</h4>             <p><b>Endereço:</b> RUA MAJOR CAMPOS,82</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 114</p>         </div>         </div>`)[0];
+                popup_6dd55fcdb927cb93006ed90354457c9e.setContent(html_c58acb3f0b307beffe13f7f18edb5157);
+            
+        
+
+        circle_marker_e8282bf71b48c0236b2f7a61765e89b9.bindPopup(popup_6dd55fcdb927cb93006ed90354457c9e)
+        ;
+
+        
+    
+    
+            circle_marker_e8282bf71b48c0236b2f7a61765e89b9.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO — 114 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a1949b0bca089ded3ff33966387fe541 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.960816607220101, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_992ac3fb96cfbc8aa69221cff34a0ebc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac833245d9935d891d37fdd13db54c15 = $(`<div id="html_ac833245d9935d891d37fdd13db54c15" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO FRANCISCANO REGINA PACIS</h4>             <p><b>Endereço:</b> PRACA TIRADENTES, 34</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 31</p>         </div>         </div>`)[0];
+                popup_992ac3fb96cfbc8aa69221cff34a0ebc.setContent(html_ac833245d9935d891d37fdd13db54c15);
+            
+        
+
+        circle_marker_a1949b0bca089ded3ff33966387fe541.bindPopup(popup_992ac3fb96cfbc8aa69221cff34a0ebc)
+        ;
+
+        
+    
+    
+            circle_marker_a1949b0bca089ded3ff33966387fe541.bindTooltip(
+                `<div>
+                     COLÉGIO FRANCISCANO REGINA PACIS — 31 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_09c7a59e9f2bffbd70250b9644b1df56 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.172567756932107, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_1b84d254d82338ce13ddc520e6227f17 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f8ff4cec22334553ff1b964d129d3402 = $(`<div id="html_f8ff4cec22334553ff1b964d129d3402" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</h4>             <p><b>Endereço:</b> R. MANOEL DE SOUZA, S/N</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 1</p>         </div>         </div>`)[0];
+                popup_1b84d254d82338ce13ddc520e6227f17.setContent(html_f8ff4cec22334553ff1b964d129d3402);
+            
+        
+
+        circle_marker_09c7a59e9f2bffbd70250b9644b1df56.bindPopup(popup_1b84d254d82338ce13ddc520e6227f17)
+        ;
+
+        
+    
+    
+            circle_marker_09c7a59e9f2bffbd70250b9644b1df56.bindTooltip(
+                `<div>
+                     SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS — 1 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c74655ac29c9f329636669a220388942 = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.690811802161192, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_31400ec695150deda9631900ddd5d792 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9dca15fbce503ba290b15196daa932fa = $(`<div id="html_9dca15fbce503ba290b15196daa932fa" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</h4>             <p><b>Endereço:</b> RUA DR LUCIANO SOARES SANTANA, 641</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 96</p>         </div>         </div>`)[0];
+                popup_31400ec695150deda9631900ddd5d792.setContent(html_9dca15fbce503ba290b15196daa932fa);
+            
+        
+
+        circle_marker_c74655ac29c9f329636669a220388942.bindPopup(popup_31400ec695150deda9631900ddd5d792)
+        ;
+
+        
+    
+    
+            circle_marker_c74655ac29c9f329636669a220388942.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DR. MÁRCIO PAULINO — 96 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1a30d0eb7b104bfc4dd21b1839e5ce9d = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.913142738301198, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_4efa473cac7b97322349e1679de535fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_96f806bfb269b4fcceb6b844c92357cb = $(`<div id="html_96f806bfb269b4fcceb6b844c92357cb" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIFEMM CENTRO UNIVERSITÁRIO</h4>             <p><b>Endereço:</b> AV. MARECHAL CASTELO BRANCO, 2765</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 28</p>         </div>         </div>`)[0];
+                popup_4efa473cac7b97322349e1679de535fc.setContent(html_96f806bfb269b4fcceb6b844c92357cb);
+            
+        
+
+        circle_marker_1a30d0eb7b104bfc4dd21b1839e5ce9d.bindPopup(popup_4efa473cac7b97322349e1679de535fc)
+        ;
+
+        
+    
+    
+            circle_marker_1a30d0eb7b104bfc4dd21b1839e5ce9d.bindTooltip(
+                `<div>
+                     UNIFEMM CENTRO UNIVERSITÁRIO — 28 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e7999dcedc03b72a7a65f721dc487d4 = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.035406541592645, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_e025b08c7b04bd396290d17521e2a29f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_15a149faee078ac53087513343af63c3 = $(`<div id="html_15a149faee078ac53087513343af63c3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO EDUCACIONAL PETER PAN</h4>             <p><b>Endereço:</b> RUA JOAQUIM MURTINHO, 317/325</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 36</p>         </div>         </div>`)[0];
+                popup_e025b08c7b04bd396290d17521e2a29f.setContent(html_15a149faee078ac53087513343af63c3);
+            
+        
+
+        circle_marker_2e7999dcedc03b72a7a65f721dc487d4.bindPopup(popup_e025b08c7b04bd396290d17521e2a29f)
+        ;
+
+        
+    
+    
+            circle_marker_2e7999dcedc03b72a7a65f721dc487d4.bindTooltip(
+                `<div>
+                     INSTITUTO EDUCACIONAL PETER PAN — 36 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_99b0d3be2da0179535a92ac3767370b3 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0496886858042345, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_1f291c1e40e703b5143c6d818b87d362 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_012419dc5d653e564c0a5c87fecab4f4 = $(`<div id="html_012419dc5d653e564c0a5c87fecab4f4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</h4>             <p><b>Endereço:</b> RUA CAPITÃO JOSÉ PEREIRA DA COSTA,167</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 37</p>         </div>         </div>`)[0];
+                popup_1f291c1e40e703b5143c6d818b87d362.setContent(html_012419dc5d653e564c0a5c87fecab4f4);
+            
+        
+
+        circle_marker_99b0d3be2da0179535a92ac3767370b3.bindPopup(popup_1f291c1e40e703b5143c6d818b87d362)
+        ;
+
+        
+    
+    
+            circle_marker_99b0d3be2da0179535a92ac3767370b3.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL GOVERNADOR JUSCELINO — 37 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_801c2e5373e0de4d2209b1bf5ae6f469 = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.268108851620894, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_76e7eb35f6a92557d77045e176ec2761 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8eea4d35db9bfe655b652f1b3687190f = $(`<div id="html_8eea4d35db9bfe655b652f1b3687190f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MARIA AMÂNCIO</h4>             <p><b>Endereço:</b> RUA SÃO JOSÉ,747</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 54</p>         </div>         </div>`)[0];
+                popup_76e7eb35f6a92557d77045e176ec2761.setContent(html_8eea4d35db9bfe655b652f1b3687190f);
+            
+        
+
+        circle_marker_801c2e5373e0de4d2209b1bf5ae6f469.bindPopup(popup_76e7eb35f6a92557d77045e176ec2761)
+        ;
+
+        
+    
+    
+            circle_marker_801c2e5373e0de4d2209b1bf5ae6f469.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MARIA AMÂNCIO — 54 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9ebb2ff40b8b33beb9e163ec0938059 = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.944739854848849, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_692100fc4b4ef5ffb746450dbcb9cfdb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d602c87229a5c57ed2b4bd1660fd8c86 = $(`<div id="html_d602c87229a5c57ed2b4bd1660fd8c86" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOVELINO LANZA</h4>             <p><b>Endereço:</b> RUA RUI BARBOSA, 59</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 127</p>         </div>         </div>`)[0];
+                popup_692100fc4b4ef5ffb746450dbcb9cfdb.setContent(html_d602c87229a5c57ed2b4bd1660fd8c86);
+            
+        
+
+        circle_marker_d9ebb2ff40b8b33beb9e163ec0938059.bindPopup(popup_692100fc4b4ef5ffb746450dbcb9cfdb)
+        ;
+
+        
+    
+    
+            circle_marker_d9ebb2ff40b8b33beb9e163ec0938059.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOVELINO LANZA — 127 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bfe5bc14ddeeff4aeb2eeb5d1bd737b3 = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.06377909729323, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_8037e43a4bab79764b6ab26ed432f3ac = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d6776d2e53c0a0043397da9515c79d76 = $(`<div id="html_d6776d2e53c0a0043397da9515c79d76" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO ALICE MACIEL</h4>             <p><b>Endereço:</b> RUA GOIÁS,609</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 38</p>         </div>         </div>`)[0];
+                popup_8037e43a4bab79764b6ab26ed432f3ac.setContent(html_d6776d2e53c0a0043397da9515c79d76);
+            
+        
+
+        circle_marker_bfe5bc14ddeeff4aeb2eeb5d1bd737b3.bindPopup(popup_8037e43a4bab79764b6ab26ed432f3ac)
+        ;
+
+        
+    
+    
+            circle_marker_bfe5bc14ddeeff4aeb2eeb5d1bd737b3.bindTooltip(
+                `<div>
+                     INSTITUTO ALICE MACIEL — 38 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_93cde627d9641cc9ecd3eb5c8d563dd3 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.818114135943137, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_b5094743c8380ca7432417148ab077be = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ef689f230270073c67f81a6089ec83a5 = $(`<div id="html_ef689f230270073c67f81a6089ec83a5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL LUZIA BARBOSA</h4>             <p><b>Endereço:</b> AV. MAURÍLIO DE JESUS PEIXOTO,1160</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 111</p>         </div>         </div>`)[0];
+                popup_b5094743c8380ca7432417148ab077be.setContent(html_ef689f230270073c67f81a6089ec83a5);
+            
+        
+
+        circle_marker_93cde627d9641cc9ecd3eb5c8d563dd3.bindPopup(popup_b5094743c8380ca7432417148ab077be)
+        ;
+
+        
+    
+    
+            circle_marker_93cde627d9641cc9ecd3eb5c8d563dd3.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL LUZIA BARBOSA — 111 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b078351076a84f16b1588a43c5b7170 = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.921633214440202, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_d177417180c96a74a5a86058f76fcfce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d563ef7bdd0c3cd4a2896f089e95f773 = $(`<div id="html_d563ef7bdd0c3cd4a2896f089e95f773" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</h4>             <p><b>Endereço:</b> RUA APUCARANA, 68</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 124</p>         </div>         </div>`)[0];
+                popup_d177417180c96a74a5a86058f76fcfce.setContent(html_d563ef7bdd0c3cd4a2896f089e95f773);
+            
+        
+
+        circle_marker_3b078351076a84f16b1588a43c5b7170.bindPopup(popup_d177417180c96a74a5a86058f76fcfce)
+        ;
+
+        
+    
+    
+            circle_marker_3b078351076a84f16b1588a43c5b7170.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PREFEITO ZICO PAIVA — 124 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a182db89d675839134822ac6d022ac32 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.809414526751736, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_5f1e85489125a68c9038ab2f11574bb6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eb1b1d5853ad90a52a1647ab44c280cf = $(`<div id="html_eb1b1d5853ad90a52a1647ab44c280cf" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</h4>             <p><b>Endereço:</b> RUA GOIÁS, 1696</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 22</p>         </div>         </div>`)[0];
+                popup_5f1e85489125a68c9038ab2f11574bb6.setContent(html_eb1b1d5853ad90a52a1647ab44c280cf);
+            
+        
+
+        circle_marker_a182db89d675839134822ac6d022ac32.bindPopup(popup_5f1e85489125a68c9038ab2f11574bb6)
+        ;
+
+        
+    
+    
+            circle_marker_a182db89d675839134822ac6d022ac32.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR — 22 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e185514caf54b5ffb129b09da0995f15 = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.256616240141641, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_11e5cbc86a01e5054ac646daf6cd87d1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_73f0e3f1660dff1709e54361ba718fab = $(`<div id="html_73f0e3f1660dff1709e54361ba718fab" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</h4>             <p><b>Endereço:</b> RUA ARAÇAÍ, 150</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 171</p>         </div>         </div>`)[0];
+                popup_11e5cbc86a01e5054ac646daf6cd87d1.setContent(html_73f0e3f1660dff1709e54361ba718fab);
+            
+        
+
+        circle_marker_e185514caf54b5ffb129b09da0995f15.bindPopup(popup_11e5cbc86a01e5054ac646daf6cd87d1)
+        ;
+
+        
+    
+    
+            circle_marker_e185514caf54b5ffb129b09da0995f15.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL) — 171 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ae329be16f4d6b738cc64348e0c0bc5e = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.73214298684507, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_3f1ccbc77818a88f40d7cc1603de7d37 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1c382169c704ded7c1aa4e84984fa6b0 = $(`<div id="html_1c382169c704ded7c1aa4e84984fa6b0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SANTOS AZEREDO</h4>             <p><b>Endereço:</b> AV. FRANCISCO ANTONIO DE MENDONÇA CHAVES, 22</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 18</p>         </div>         </div>`)[0];
+                popup_3f1ccbc77818a88f40d7cc1603de7d37.setContent(html_1c382169c704ded7c1aa4e84984fa6b0);
+            
+        
+
+        circle_marker_ae329be16f4d6b738cc64348e0c0bc5e.bindPopup(popup_3f1ccbc77818a88f40d7cc1603de7d37)
+        ;
+
+        
+    
+    
+            circle_marker_ae329be16f4d6b738cc64348e0c0bc5e.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SANTOS AZEREDO — 18 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1942fc35868711e92be39cb8304f1c17 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.195584491018426, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_a84bb9a8bbb3d40ebcfb2a91f2fc7e53 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_27e3bc8e3e6327b575bed5b34bbedacd = $(`<div id="html_27e3bc8e3e6327b575bed5b34bbedacd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 1111</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 48</p>         </div>         </div>`)[0];
+                popup_a84bb9a8bbb3d40ebcfb2a91f2fc7e53.setContent(html_27e3bc8e3e6327b575bed5b34bbedacd);
+            
+        
+
+        circle_marker_1942fc35868711e92be39cb8304f1c17.bindPopup(popup_a84bb9a8bbb3d40ebcfb2a91f2fc7e53)
+        ;
+
+        
+    
+    
+            circle_marker_1942fc35868711e92be39cb8304f1c17.bindTooltip(
+                `<div>
+                     ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP — 48 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_213b2ab395ad8f29a11b6e644c6d04b0 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.027212135198457, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_edd3a05482cafa219e850525cc626ae8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_30b054964708b9ce093c5f9be0515e0e = $(`<div id="html_30b054964708b9ce093c5f9be0515e0e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</h4>             <p><b>Endereço:</b> RUA ALECRIM, 329</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 138</p>         </div>         </div>`)[0];
+                popup_edd3a05482cafa219e850525cc626ae8.setContent(html_30b054964708b9ce093c5f9be0515e0e);
+            
+        
+
+        circle_marker_213b2ab395ad8f29a11b6e644c6d04b0.bindPopup(popup_edd3a05482cafa219e850525cc626ae8)
+        ;
+
+        
+    
+    
+            circle_marker_213b2ab395ad8f29a11b6e644c6d04b0.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA — 138 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1835459a023d8a927ff8c9cd541ec908 = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.553109812388967, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_0b8ad7da8456c6b12ad830c244a1aeb6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_de7fde38f1ee392fffdd77c9b38a36ad = $(`<div id="html_de7fde38f1ee392fffdd77c9b38a36ad" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</h4>             <p><b>Endereço:</b> RUA PINTASSILGO, 1491</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 81</p>         </div>         </div>`)[0];
+                popup_0b8ad7da8456c6b12ad830c244a1aeb6.setContent(html_de7fde38f1ee392fffdd77c9b38a36ad);
+            
+        
+
+        circle_marker_1835459a023d8a927ff8c9cd541ec908.bindPopup(popup_0b8ad7da8456c6b12ad830c244a1aeb6)
+        ;
+
+        
+    
+    
+            circle_marker_1835459a023d8a927ff8c9cd541ec908.bindTooltip(
+                `<div>
+                     E. M. DOUTOR ENÍZIO ANTÔNIO VIANA — 81 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b37def454e108c76a74f1202c8ea145d = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.73214298684507, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_638b460bda4c04afeb0c3a455d9ec018 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e6c0558d45ef0bc77866e81eb3bcde3 = $(`<div id="html_9e6c0558d45ef0bc77866e81eb3bcde3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL TEREZINHA GODOY</h4>             <p><b>Endereço:</b> RUA ORQUIDEA, Nº 30</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 18</p>         </div>         </div>`)[0];
+                popup_638b460bda4c04afeb0c3a455d9ec018.setContent(html_9e6c0558d45ef0bc77866e81eb3bcde3);
+            
+        
+
+        circle_marker_b37def454e108c76a74f1202c8ea145d.bindPopup(popup_638b460bda4c04afeb0c3a455d9ec018)
+        ;
+
+        
+    
+    
+            circle_marker_b37def454e108c76a74f1202c8ea145d.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL TEREZINHA GODOY — 18 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cedb4366b5b1f5d10f9a46ad2d6f7a47 = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.991326290469038, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_47582f41e96256c38f20822828f94f6a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bb3c180a0c164792a45104b2df999150 = $(`<div id="html_bb3c180a0c164792a45104b2df999150" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</h4>             <p><b>Endereço:</b> RUA QUINTINO BOCAIUVA, 331              </p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 33</p>         </div>         </div>`)[0];
+                popup_47582f41e96256c38f20822828f94f6a.setContent(html_bb3c180a0c164792a45104b2df999150);
+            
+        
+
+        circle_marker_cedb4366b5b1f5d10f9a46ad2d6f7a47.bindPopup(popup_47582f41e96256c38f20822828f94f6a)
+        ;
+
+        
+    
+    
+            circle_marker_cedb4366b5b1f5d10f9a46ad2d6f7a47.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA — 33 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_650ca717e9f2f140074344bd4f5910f5 = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.369714107451797, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_d335e7ea5f33edf5a324b573929ace46 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_824695fbda1c0a184926b64b9f9ce568 = $(`<div id="html_824695fbda1c0a184926b64b9f9ce568" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</h4>             <p><b>Endereço:</b> AVENIDA VILLA LOBOS, 730</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 63</p>         </div>         </div>`)[0];
+                popup_d335e7ea5f33edf5a324b573929ace46.setContent(html_824695fbda1c0a184926b64b9f9ce568);
+            
+        
+
+        circle_marker_650ca717e9f2f140074344bd4f5910f5.bindPopup(popup_d335e7ea5f33edf5a324b573929ace46)
+        ;
+
+        
+    
+    
+            circle_marker_650ca717e9f2f140074344bd4f5910f5.bindTooltip(
+                `<div>
+                     COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA — 63 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_216d7e31b71a0f0d5f5cd5571ff73252 = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.24404766228169, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_6f20ec794bae6e60dee891831ecf12b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_35e51e0500d6d9401cc40eabc72e7ee2 = $(`<div id="html_35e51e0500d6d9401cc40eabc72e7ee2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</h4>             <p><b>Endereço:</b> AVENIDA PIO RODRIGUES DE LIMA, 289</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 2</p>         </div>         </div>`)[0];
+                popup_6f20ec794bae6e60dee891831ecf12b4.setContent(html_35e51e0500d6d9401cc40eabc72e7ee2);
+            
+        
+
+        circle_marker_216d7e31b71a0f0d5f5cd5571ff73252.bindPopup(popup_6f20ec794bae6e60dee891831ecf12b4)
+        ;
+
+        
+    
+    
+            circle_marker_216d7e31b71a0f0d5f5cd5571ff73252.bindTooltip(
+                `<div>
+                     ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX — 2 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ba9dc331c95bb4dcd60c8d586c0ba1c8 = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.681982437362233, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_cffabb93e1b5f7c9c70c1a9e1d039c2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8e7911b5c24c3a0f709f484b2310562 = $(`<div id="html_e8e7911b5c24c3a0f709f484b2310562" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</h4>             <p><b>Endereço:</b> PRACA JK, 110                              </p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 95</p>         </div>         </div>`)[0];
+                popup_cffabb93e1b5f7c9c70c1a9e1d039c2d.setContent(html_e8e7911b5c24c3a0f709f484b2310562);
+            
+        
+
+        circle_marker_ba9dc331c95bb4dcd60c8d586c0ba1c8.bindPopup(popup_cffabb93e1b5f7c9c70c1a9e1d039c2d)
+        ;
+
+        
+    
+    
+            circle_marker_ba9dc331c95bb4dcd60c8d586c0ba1c8.bindTooltip(
+                `<div>
+                     ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA — 95 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_641326df5da1cba5ef28e6d976a910b4 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.085144140570748, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_9bb55810e7c77ada94f4f7d92eee2a5f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dfbb7598ad67523be0d4ad32b85f7c88 = $(`<div id="html_dfbb7598ad67523be0d4ad32b85f7c88" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</h4>             <p><b>Endereço:</b> RUA VEREADORA LUMARIZA MARQUES VIANA, 95</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 146</p>         </div>         </div>`)[0];
+                popup_9bb55810e7c77ada94f4f7d92eee2a5f.setContent(html_dfbb7598ad67523be0d4ad32b85f7c88);
+            
+        
+
+        circle_marker_641326df5da1cba5ef28e6d976a910b4.bindPopup(popup_9bb55810e7c77ada94f4f7d92eee2a5f)
+        ;
+
+        
+    
+    
+            circle_marker_641326df5da1cba5ef28e6d976a910b4.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO — 146 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_437ea87d9b7fc91cd4be261c58f48257 = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.170411471961305, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_d49e90e40e21ea33a21b39c92f2d176a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fe935dc4e6bae14b8e9400dfb140b9f6 = $(`<div id="html_fe935dc4e6bae14b8e9400dfb140b9f6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</h4>             <p><b>Endereço:</b> AV. GOVERNADOR BIAS FORTES, 375</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 46</p>         </div>         </div>`)[0];
+                popup_d49e90e40e21ea33a21b39c92f2d176a.setContent(html_fe935dc4e6bae14b8e9400dfb140b9f6);
+            
+        
+
+        circle_marker_437ea87d9b7fc91cd4be261c58f48257.bindPopup(popup_d49e90e40e21ea33a21b39c92f2d176a)
+        ;
+
+        
+    
+    
+            circle_marker_437ea87d9b7fc91cd4be261c58f48257.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO — 46 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_971d8596c0d6d15270f3da37f7718214 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.913869008084724, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_d296d9603a7119f3138e758cb8b5ca7f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_876b1cfe5bae274d5d3e7c9face5b5cf = $(`<div id="html_876b1cfe5bae274d5d3e7c9face5b5cf" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</h4>             <p><b>Endereço:</b> RUA DAS PALMAS, 638</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 123</p>         </div>         </div>`)[0];
+                popup_d296d9603a7119f3138e758cb8b5ca7f.setContent(html_876b1cfe5bae274d5d3e7c9face5b5cf);
+            
+        
+
+        circle_marker_971d8596c0d6d15270f3da37f7718214.bindPopup(popup_d296d9603a7119f3138e758cb8b5ca7f)
+        ;
+
+        
+    
+    
+            circle_marker_971d8596c0d6d15270f3da37f7718214.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC) — 123 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e877f9e3438ca5d32c0712df1ab7965 = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.091414325223541, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_90f3b1b673038527a9f6b20d0532dbe1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_312df577b193ed067c6a0c79c297e79f = $(`<div id="html_312df577b193ed067c6a0c79c297e79f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</h4>             <p><b>Endereço:</b> RUA ZEZITO FILIZOLLA, 15</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 40</p>         </div>         </div>`)[0];
+                popup_90f3b1b673038527a9f6b20d0532dbe1.setContent(html_312df577b193ed067c6a0c79c297e79f);
+            
+        
+
+        circle_marker_0e877f9e3438ca5d32c0712df1ab7965.bindPopup(popup_90f3b1b673038527a9f6b20d0532dbe1)
+        ;
+
+        
+    
+    
+            circle_marker_0e877f9e3438ca5d32c0712df1ab7965.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR EDSON ABREU — 40 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_215ab4b0e2cfc257daad7270567bf799 = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.609604881247061, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_765caed46a847cc6f11b8b08c8facc8e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_523d54294f1d75a22b16ba032c6dc17e = $(`<div id="html_523d54294f1d75a22b16ba032c6dc17e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</h4>             <p><b>Endereço:</b> RUA HONDURAS, 28</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 87</p>         </div>         </div>`)[0];
+                popup_765caed46a847cc6f11b8b08c8facc8e.setContent(html_523d54294f1d75a22b16ba032c6dc17e);
+            
+        
+
+        circle_marker_215ab4b0e2cfc257daad7270567bf799.bindPopup(popup_765caed46a847cc6f11b8b08c8facc8e)
+        ;
+
+        
+    
+    
+            circle_marker_215ab4b0e2cfc257daad7270567bf799.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO — 87 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_49f4035bf7b96c4c78b2227c6159440c = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.1830649366924915, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_ca4788d1538ed97e2504782f3069c479 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3b48e4ba3eb28b5d51ac3bdac60017ee = $(`<div id="html_3b48e4ba3eb28b5d51ac3bdac60017ee" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</h4>             <p><b>Endereço:</b> AV. JOSE SERVULO SOALHEIRO, 2585</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 47</p>         </div>         </div>`)[0];
+                popup_ca4788d1538ed97e2504782f3069c479.setContent(html_3b48e4ba3eb28b5d51ac3bdac60017ee);
+            
+        
+
+        circle_marker_49f4035bf7b96c4c78b2227c6159440c.bindPopup(popup_ca4788d1538ed97e2504782f3069c479)
+        ;
+
+        
+    
+    
+            circle_marker_49f4035bf7b96c4c78b2227c6159440c.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS — 47 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51da2141acbcf2920ec9e840d0a06d55 = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.302857993703457, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_0cb34f2c0c8ad879490d0fdb736917b2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d373c42fb0e2e53b4569b6cb8b256891 = $(`<div id="html_d373c42fb0e2e53b4569b6cb8b256891" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JUCA DIAS</h4>             <p><b>Endereço:</b> AVENIDA EURO ANDRADE, 241</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 57</p>         </div>         </div>`)[0];
+                popup_0cb34f2c0c8ad879490d0fdb736917b2.setContent(html_d373c42fb0e2e53b4569b6cb8b256891);
+            
+        
+
+        circle_marker_51da2141acbcf2920ec9e840d0a06d55.bindPopup(popup_0cb34f2c0c8ad879490d0fdb736917b2)
+        ;
+
+        
+    
+    
+            circle_marker_51da2141acbcf2920ec9e840d0a06d55.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JUCA DIAS — 57 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3228b22e10b3bf3160ef99fa1dbb6ed7 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.118366885582864, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_6e44b1c8a74bb3ddf946bb2a78054a0b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a454abee6050ea12f5b6b79d08858282 = $(`<div id="html_a454abee6050ea12f5b6b79d08858282" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SINHÁ ANDRADE</h4>             <p><b>Endereço:</b> AV. RENATO AZEREDO, 2423</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 42</p>         </div>         </div>`)[0];
+                popup_6e44b1c8a74bb3ddf946bb2a78054a0b.setContent(html_a454abee6050ea12f5b6b79d08858282);
+            
+        
+
+        circle_marker_3228b22e10b3bf3160ef99fa1dbb6ed7.bindPopup(popup_6e44b1c8a74bb3ddf946bb2a78054a0b)
+        ;
+
+        
+    
+    
+            circle_marker_3228b22e10b3bf3160ef99fa1dbb6ed7.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SINHÁ ANDRADE — 42 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_19a79bfd05428efe189a0c3d21a497a5 = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.524077162462962, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_55a12cb5262f2fb7a9aa4eb1a251108f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d3b738087d5c66036c6be0491a32283 = $(`<div id="html_5d3b738087d5c66036c6be0491a32283" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</h4>             <p><b>Endereço:</b> RUA TUPINIQUINS, 19</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 78</p>         </div>         </div>`)[0];
+                popup_55a12cb5262f2fb7a9aa4eb1a251108f.setContent(html_5d3b738087d5c66036c6be0491a32283);
+            
+        
+
+        circle_marker_19a79bfd05428efe189a0c3d21a497a5.bindPopup(popup_55a12cb5262f2fb7a9aa4eb1a251108f)
+        ;
+
+        
+    
+    
+            circle_marker_19a79bfd05428efe189a0c3d21a497a5.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS — 78 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_18ee55a82fb98386b42f3f4f7c7f9e7b = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.035406541592645, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_c3ce72ec95d4757b634ad3d6f13375a2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bae4d60c72bad4e5dcf46ac4141dd6e5 = $(`<div id="html_bae4d60c72bad4e5dcf46ac4141dd6e5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADE ATENAS DE SETE LAGOAS</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 6000</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 36</p>         </div>         </div>`)[0];
+                popup_c3ce72ec95d4757b634ad3d6f13375a2.setContent(html_bae4d60c72bad4e5dcf46ac4141dd6e5);
+            
+        
+
+        circle_marker_18ee55a82fb98386b42f3f4f7c7f9e7b.bindPopup(popup_c3ce72ec95d4757b634ad3d6f13375a2)
+        ;
+
+        
+    
+    
+            circle_marker_18ee55a82fb98386b42f3f4f7c7f9e7b.bindTooltip(
+                `<div>
+                     FACULDADE ATENAS DE SETE LAGOAS — 36 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_146ea9c3169007b3283d8678cd0aa084 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.524077162462962, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_ee3f71e3eea3041bf6ff8084aff8abee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_28e2c9817224d8b7b03567113e5f3bfc = $(`<div id="html_28e2c9817224d8b7b03567113e5f3bfc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</h4>             <p><b>Endereço:</b> R. LAURA BRAGA CUNHA, 88</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 78</p>         </div>         </div>`)[0];
+                popup_ee3f71e3eea3041bf6ff8084aff8abee.setContent(html_28e2c9817224d8b7b03567113e5f3bfc);
+            
+        
+
+        circle_marker_146ea9c3169007b3283d8678cd0aa084.bindPopup(popup_ee3f71e3eea3041bf6ff8084aff8abee)
+        ;
+
+        
+    
+    
+            circle_marker_146ea9c3169007b3283d8678cd0aa084.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA — 78 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d00613a37e607d5f845bf79289e0f6e9 = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.553109812388967, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_a92235f985bb6943db1cccbf50074e24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cc9b0185e12072a2f7c34f3a254f31e0 = $(`<div id="html_cc9b0185e12072a2f7c34f3a254f31e0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</h4>             <p><b>Endereço:</b> RUA DELCI BARBOSA, 566</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 81</p>         </div>         </div>`)[0];
+                popup_a92235f985bb6943db1cccbf50074e24.setContent(html_cc9b0185e12072a2f7c34f3a254f31e0);
+            
+        
+
+        circle_marker_d00613a37e607d5f845bf79289e0f6e9.bindPopup(popup_a92235f985bb6943db1cccbf50074e24)
+        ;
+
+        
+    
+    
+            circle_marker_d00613a37e607d5f845bf79289e0f6e9.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURO FACCIO GONÇALVES — 81 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_91a54d5803150e09233877d3bc27f637 = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.7908048086501225, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_df81bc04d3da83851ded05433a27a7f3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ce62b49332f80f2e1c71b47c30671965 = $(`<div id="html_ce62b49332f80f2e1c71b47c30671965" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</h4>             <p><b>Endereço:</b> RUA ADOLAR NAPOLEÃO FRANÇA, 175</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 21</p>         </div>         </div>`)[0];
+                popup_df81bc04d3da83851ded05433a27a7f3.setContent(html_ce62b49332f80f2e1c71b47c30671965);
+            
+        
+
+        circle_marker_91a54d5803150e09233877d3bc27f637.bindPopup(popup_df81bc04d3da83851ded05433a27a7f3)
+        ;
+
+        
+    
+    
+            circle_marker_91a54d5803150e09233877d3bc27f637.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS — 21 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9d348c9a54c0b83aab75481feaad9c97 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.809414526751736, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_4011bea96eef1e350d3004da400b1ff0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b26691d67f9a3452e3ddc5cd0c5572b5 = $(`<div id="html_b26691d67f9a3452e3ddc5cd0c5572b5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JULIO CÉSAR</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 95 - ENTRADA PELA RUA DIVINÓPOLIS</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 22</p>         </div>         </div>`)[0];
+                popup_4011bea96eef1e350d3004da400b1ff0.setContent(html_b26691d67f9a3452e3ddc5cd0c5572b5);
+            
+        
+
+        circle_marker_9d348c9a54c0b83aab75481feaad9c97.bindPopup(popup_4011bea96eef1e350d3004da400b1ff0)
+        ;
+
+        
+    
+    
+            circle_marker_9d348c9a54c0b83aab75481feaad9c97.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JULIO CÉSAR — 22 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_315fb6249aaa583874c1254321018444 = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.809414526751736, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_d8cd9d48bdce5de6d0ae16bdf5279567 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e733d6908d067f8f6acc7cb1ee0b41fc = $(`<div id="html_e733d6908d067f8f6acc7cb1ee0b41fc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</h4>             <p><b>Endereço:</b> RUA CEL. JOÃO ANTONIO AVELAR, 217</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 22</p>         </div>         </div>`)[0];
+                popup_d8cd9d48bdce5de6d0ae16bdf5279567.setContent(html_e733d6908d067f8f6acc7cb1ee0b41fc);
+            
+        
+
+        circle_marker_315fb6249aaa583874c1254321018444.bindPopup(popup_d8cd9d48bdce5de6d0ae16bdf5279567)
+        ;
+
+        
+    
+    
+            circle_marker_315fb6249aaa583874c1254321018444.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO — 22 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0049a93a57c1deba832d2a4e4f534e70 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.48809532456338, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_390d5b61da95c960a49a5eb3852d91e6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1fd965760126322366e94383d6978b47 = $(`<div id="html_1fd965760126322366e94383d6978b47" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</h4>             <p><b>Endereço:</b> RUA EZIO SOUZA DE DEUS, 87</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 8</p>         </div>         </div>`)[0];
+                popup_390d5b61da95c960a49a5eb3852d91e6.setContent(html_1fd965760126322366e94383d6978b47);
+            
+        
+
+        circle_marker_0049a93a57c1deba832d2a4e4f534e70.bindPopup(popup_390d5b61da95c960a49a5eb3852d91e6)
+        ;
+
+        
+    
+    
+            circle_marker_0049a93a57c1deba832d2a4e4f534e70.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY — 8 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2553724e976a92a450126f2fc27fd75 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.845405901080595, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_a24c563beb76cc638e0ed587c0f2f41a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70b10333b8c1f172744e21264e6c74b6 = $(`<div id="html_70b10333b8c1f172744e21264e6c74b6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</h4>             <p><b>Endereço:</b> AV. JOSÉ SÉRVULO SOALHEIRO, 4373</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 24</p>         </div>         </div>`)[0];
+                popup_a24c563beb76cc638e0ed587c0f2f41a.setContent(html_70b10333b8c1f172744e21264e6c74b6);
+            
+        
+
+        circle_marker_f2553724e976a92a450126f2fc27fd75.bindPopup(popup_a24c563beb76cc638e0ed587c0f2f41a)
+        ;
+
+        
+    
+    
+            circle_marker_f2553724e976a92a450126f2fc27fd75.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO — 24 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8bf1dd698bd4e8d4e1eae42223ebd741 = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.752205413380547, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_fa1493496eb804a7062fb25c445a39ff = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c58dad3dd6e3ae6f367f4b8ab698cd94 = $(`<div id="html_c58dad3dd6e3ae6f367f4b8ab698cd94" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</h4>             <p><b>Endereço:</b> AVENIDA SETE, 200</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 19</p>         </div>         </div>`)[0];
+                popup_fa1493496eb804a7062fb25c445a39ff.setContent(html_c58dad3dd6e3ae6f367f4b8ab698cd94);
+            
+        
+
+        circle_marker_8bf1dd698bd4e8d4e1eae42223ebd741.bindPopup(popup_fa1493496eb804a7062fb25c445a39ff)
+        ;
+
+        
+    
+    
+            circle_marker_8bf1dd698bd4e8d4e1eae42223ebd741.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO — 19 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8c9ebc9ae8cb0d6c1853f597b948129f = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.597792245509213, "stroke": true, "weight": 1}
+            ).addTo(map_5ef6981db386013b80b786ce3a2c3595);
+        
+    
+        var popup_9bcd5b11e4aeaaafaf627fe28a637159 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3c18de4e20cf1b50871ac4f063dc8337 = $(`<div id="html_3c18de4e20cf1b50871ac4f063dc8337" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CEMEI MARISA MARA VAZ COSTA GALUPPO</h4>             <p><b>Endereço:</b> RUA MARIA DA CONCEIÇÃO BARCELOS, 185</p>             <hr>             <p><b>Candidato:</b> RENAN ANTONIO FERREIRA DOS SANTOS</p>             <p><b>Votos recebidos:</b> 12</p>         </div>         </div>`)[0];
+                popup_9bcd5b11e4aeaaafaf627fe28a637159.setContent(html_3c18de4e20cf1b50871ac4f063dc8337);
+            
+        
+
+        circle_marker_8c9ebc9ae8cb0d6c1853f597b948129f.bindPopup(popup_9bcd5b11e4aeaaafaf627fe28a637159)
+        ;
+
+        
+    
+    
+            circle_marker_8c9ebc9ae8cb0d6c1853f597b948129f.bindTooltip(
+                `<div>
+                     CEMEI MARISA MARA VAZ COSTA GALUPPO — 12 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_5ef6981db386013b80b786ce3a2c3595.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>

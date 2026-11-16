@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_6ab1c38b4c00018968426cfc2a05eb2a {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_6ab1c38b4c00018968426cfc2a05eb2a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_6ab1c38b4c00018968426cfc2a05eb2a = L.map(
+                "map_6ab1c38b4c00018968426cfc2a05eb2a",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_80055cca2b2a93236caa976c79dd4dcf = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_80055cca2b2a93236caa976c79dd4dcf.addTo(map_6ab1c38b4c00018968426cfc2a05eb2a);
+        
+    
+            var feature_group_3b615852b77d3cc466572e67ba3ee95c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_af36c5a3cf5b62f62858785c3c92c605 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#86b5e4ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.045765827767323, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_af36c5a3cf5b62f62858785c3c92c605.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.6% · Flávio: 58.4%<br>
+      Vantagem: 16.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cd25ccae98ab964f9f228ee82380166e = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066ccff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.440117919231115, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_cd25ccae98ab964f9f228ee82380166e.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 31.6% · Flávio: 68.4%<br>
+      Vantagem: 36.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6e542a2effd15c7e3b3f45d015131bc2 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#64a1deff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.219286912139363, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_6e542a2effd15c7e3b3f45d015131bc2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA  ESTADUAL  DR. AVELAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.1% · Flávio: 60.9%<br>
+      Vantagem: 21.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1a7eaa898e301d408bf4fd781e04509 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#99c0e7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.681460821543664, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e1a7eaa898e301d408bf4fd781e04509.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.0% · Flávio: 57.0%<br>
+      Vantagem: 14.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c9654fcf0ec1f259e5049d34261e6ff = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91bbe6ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.779961837980522, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_1c9654fcf0ec1f259e5049d34261e6ff.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.4% · Flávio: 57.6%<br>
+      Vantagem: 15.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9bf794776daf9a62905260db92e33ac2 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1c76d1ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.684820483274304, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_9bf794776daf9a62905260db92e33ac2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>UNIVERSIDADE UNOPAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 33.7% · Flávio: 66.3%<br>
+      Vantagem: 32.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f4ac735890b2c872cb0f42e0bf20342 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3485d5ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.7943264799114, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_3f4ac735890b2c872cb0f42e0bf20342.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>FACULDADES PROMOVE</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 35.5% · Flávio: 64.5%<br>
+      Vantagem: 29.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f94960dbaa765258dba1a4dc452e6bf3 = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#86b5e4ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.189329382225104, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_f94960dbaa765258dba1a4dc452e6bf3.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.6% · Flávio: 58.4%<br>
+      Vantagem: 16.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6c953f03d80844cfa9cd7ef329670c5e = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f5f6f7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.293638682091043, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_6c953f03d80844cfa9cd7ef329670c5e.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 49.8% · Flávio: 50.2%<br>
+      Vantagem: 0.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fdca6fff5a63a13472030f3f04d967f2 = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a3c6e9ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.73573026405801, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_fdca6fff5a63a13472030f3f04d967f2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.8% · Flávio: 56.2%<br>
+      Vantagem: 12.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e5a1d8a0b1a5af2fcd3ae5bf95264c9b = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#88b6e4ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.918791928157166, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e5a1d8a0b1a5af2fcd3ae5bf95264c9b.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.8% · Flávio: 58.2%<br>
+      Vantagem: 16.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da4d7c4353164dc203507303f2e9cc18 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#257cd3ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.226264230331807, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_da4d7c4353164dc203507303f2e9cc18.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>COLÉGIO FRANCISCANO REGINA PACIS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 34.4% · Flávio: 65.6%<br>
+      Vantagem: 31.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_08a83c543265b22cffbb5f127c02cd34 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#99c0e7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.5770818676800165, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_08a83c543265b22cffbb5f127c02cd34.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.0% · Flávio: 57.0%<br>
+      Vantagem: 13.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c500945938ef769e501a5ddbe63ddea = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a0c4e8ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.63105008823175, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_3c500945938ef769e501a5ddbe63ddea.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.5% · Flávio: 56.5%<br>
+      Vantagem: 13.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_880ace115a75811733f742194fcfbca4 = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#96bee7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.750830640872149, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_880ace115a75811733f742194fcfbca4.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>UNIFEMM CENTRO UNIVERSITÁRIO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.8% · Flávio: 57.2%<br>
+      Vantagem: 14.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_53adfff50d9b370c6fb06175d66c5b0b = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#65a2deff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.61690243868701, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_53adfff50d9b370c6fb06175d66c5b0b.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>INSTITUTO EDUCACIONAL PETER PAN</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.2% · Flávio: 60.8%<br>
+      Vantagem: 21.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_333887f8d9b92cd4169e2d4a3adcecdf = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6fa7e0ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.583989912865663, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_333887f8d9b92cd4169e2d4a3adcecdf.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.9% · Flávio: 60.1%<br>
+      Vantagem: 20.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e027cc0f99c49b3ab1a86d980714085f = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#8db9e5ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.411428972169883, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e027cc0f99c49b3ab1a86d980714085f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MARIA AMÂNCIO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.1% · Flávio: 57.9%<br>
+      Vantagem: 15.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e508c67d8608f316a8056f5a6fd3c99c = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#6ea7e0ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.7885418867767, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e508c67d8608f316a8056f5a6fd3c99c.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JOVELINO LANZA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.8% · Flávio: 60.2%<br>
+      Vantagem: 20.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f402a2d170e6ac11bc2391d443eabafd = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#80b1e3ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.379759743053176, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_f402a2d170e6ac11bc2391d443eabafd.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>INSTITUTO ALICE MACIEL</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.1% · Flávio: 58.9%<br>
+      Vantagem: 17.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0597dda233695f24df6455a47a0ab608 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#accbeaff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.71966510490825, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_0597dda233695f24df6455a47a0ab608.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL LUZIA BARBOSA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.4% · Flávio: 55.6%<br>
+      Vantagem: 11.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_85f009d5419c95d709073b09337e393b = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#77ace1ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.849221021773145, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_85f009d5419c95d709073b09337e393b.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.5% · Flávio: 59.5%<br>
+      Vantagem: 19.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c8a3ab4db63563f87018ef1f0c4ec72 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1673d0ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.956829368696539, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_1c8a3ab4db63563f87018ef1f0c4ec72.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 33.3% · Flávio: 66.7%<br>
+      Vantagem: 33.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cb42a6fd98c02520db1d8620ace0b7b4 = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#aeccebff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.0, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_cb42a6fd98c02520db1d8620ace0b7b4.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.5% · Flávio: 55.5%<br>
+      Vantagem: 10.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6844305510d48977e46d31fb5c995b99 = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9ec3e8ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.959395964078583, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_6844305510d48977e46d31fb5c995b99.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL SANTOS AZEREDO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.4% · Flávio: 56.6%<br>
+      Vantagem: 13.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_030f2f5e5fcb501e2e11863c8590afa1 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b3cfecff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.282207722180118, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_030f2f5e5fcb501e2e11863c8590afa1.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.9% · Flávio: 55.1%<br>
+      Vantagem: 10.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d97697691b44b2af515ac0658c2baa10 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b4d0ecff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.507783651029214, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_d97697691b44b2af515ac0658c2baa10.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.0% · Flávio: 55.0%<br>
+      Vantagem: 9.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b516f940f3efb984c3a75837ed8f08d = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6edf4ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.458164617017927, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_0b516f940f3efb984c3a75837ed8f08d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.7% · Flávio: 51.3%<br>
+      Vantagem: 2.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e61a9a1f1bdad5363550d84919b23970 = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#96bfe7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.123507760344722, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e61a9a1f1bdad5363550d84919b23970.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL TEREZINHA GODOY</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.8% · Flávio: 57.2%<br>
+      Vantagem: 14.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da83f8b117d4fd85471bf5a21da26379 = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a0c4e8ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.118434528536266, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_da83f8b117d4fd85471bf5a21da26379.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.6% · Flávio: 56.4%<br>
+      Vantagem: 12.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e46349eb4f6abf42b065a14505605a80 = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#619fddff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.131411879577282, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e46349eb4f6abf42b065a14505605a80.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 38.9% · Flávio: 61.1%<br>
+      Vantagem: 22.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_423c1b21feaf909bea5156b15e227857 = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7aaee2ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.452701163102539, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_423c1b21feaf909bea5156b15e227857.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.7% · Flávio: 59.3%<br>
+      Vantagem: 18.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_79eaf29f454fdac9b0913a2a41220f69 = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#b7d1ecff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.844201958862351, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_79eaf29f454fdac9b0913a2a41220f69.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.2% · Flávio: 54.8%<br>
+      Vantagem: 9.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eea362ac4e03fbd448ef4b8e246fbf03 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a5c7e9ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.32286907826487, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_eea362ac4e03fbd448ef4b8e246fbf03.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.9% · Flávio: 56.1%<br>
+      Vantagem: 12.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b48afaa5d5dc4015676b9534a21c2383 = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e7eef5ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.169715387739652, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_b48afaa5d5dc4015676b9534a21c2383.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.8% · Flávio: 51.2%<br>
+      Vantagem: 2.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a4796b367141df2a40560f9482eb3d03 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#bdd5edff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.189329382225104, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_a4796b367141df2a40560f9482eb3d03.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.7% · Flávio: 54.3%<br>
+      Vantagem: 8.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_91264849522cfa09677a27b9f9a93493 = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e6edf4ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.164511814325111, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_91264849522cfa09677a27b9f9a93493.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.7% · Flávio: 51.3%<br>
+      Vantagem: 2.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_791dcd7134aaf9349c617fed04009d06 = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a3c6e9ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.078525060594473, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_791dcd7134aaf9349c617fed04009d06.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.8% · Flávio: 56.2%<br>
+      Vantagem: 12.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b5ae535c4e142bd915afe9ab211da7a8 = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9cc2e8ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.784805396035637, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_b5ae535c4e142bd915afe9ab211da7a8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.2% · Flávio: 56.8%<br>
+      Vantagem: 13.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b1ede53c541d0e81b883fe90c620854d = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d3e2f1ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.048648728629345, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_b1ede53c541d0e81b883fe90c620854d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JUCA DIAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 47.3% · Flávio: 52.7%<br>
+      Vantagem: 5.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_98dae36e3b5b76e92ed1171acc03c914 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5b9cdcff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.127261958828788, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_98dae36e3b5b76e92ed1171acc03c914.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL SINHÁ ANDRADE</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 38.4% · Flávio: 61.6%<br>
+      Vantagem: 23.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e90a65263b1fcd0278895e8961403a8f = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a0c4e8ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.342422939437451, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e90a65263b1fcd0278895e8961403a8f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.5% · Flávio: 56.5%<br>
+      Vantagem: 13.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9ac6a7c0708f73e714a1a4f68b7c13d4 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#72a9e0ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.409680473823242, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_9ac6a7c0708f73e714a1a4f68b7c13d4.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>FACULDADE ATENAS DE SETE LAGOAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.2% · Flávio: 59.8%<br>
+      Vantagem: 19.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cb0d7f6cf2e8701160073ca7d7fba1d2 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d5e3f2ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.437239037622785, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_cb0d7f6cf2e8701160073ca7d7fba1d2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 47.5% · Flávio: 52.5%<br>
+      Vantagem: 5.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_767640209b11ed1054b1b563601e557d = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#97bfe7ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.989640337929398, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_767640209b11ed1054b1b563601e557d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.9% · Flávio: 57.1%<br>
+      Vantagem: 14.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0673d540e2a6512858cba8df429262ba = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#74abe1ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.166088782563982, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_0673d540e2a6512858cba8df429262ba.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.3% · Flávio: 59.7%<br>
+      Vantagem: 19.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_220a4ce73ee3ef7371807842049acce6 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#a6c8e9ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.642114563356541, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_220a4ce73ee3ef7371807842049acce6.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JULIO CÉSAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.0% · Flávio: 56.0%<br>
+      Vantagem: 12.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ca9c9665ea8740bc61c77ccc2b61b178 = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#5095daff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.784199892613172, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_ca9c9665ea8740bc61c77ccc2b61b178.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 37.6% · Flávio: 62.4%<br>
+      Vantagem: 24.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ba03aa53f2f28ef9a2cee415c40e3773 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e15b60ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.017385060238181, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_ba03aa53f2f28ef9a2cee415c40e3773.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 62.9% · Flávio: 37.1%<br>
+      Vantagem: 25.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_07e535b8ac5b53f526c2395c6c1c90d9 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#efbfc1ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.725993401963324, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_07e535b8ac5b53f526c2395c6c1c90d9.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 54.6% · Flávio: 45.4%<br>
+      Vantagem: 9.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_392d3c249cb22f473deef0381ecab452 = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#eeb9baff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.853048446600475, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_392d3c249cb22f473deef0381ecab452.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 55.2% · Flávio: 44.8%<br>
+      Vantagem: 10.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e1134ae19fd9bf250feca2fba41ede08 = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#333", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#dce8f3ff", "fillOpacity": 0.85, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.213369631379507, "stroke": true, "weight": 0.8}
+            ).addTo(feature_group_3b615852b77d3cc466572e67ba3ee95c);
+        
+    
+            circle_marker_e1134ae19fd9bf250feca2fba41ede08.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CEMEI MARISA MARA VAZ COSTA GALUPPO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.0% · Flávio: 52.0%<br>
+      Vantagem: 4.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_3b615852b77d3cc466572e67ba3ee95c.addTo(map_6ab1c38b4c00018968426cfc2a05eb2a);
+        
+    
+            var feature_group_c7ad9a0c2d846ac903537c341a3835cb = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_4e75334271bf8317fa417b07562016e8 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.7369719113952959, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.017385060238181, "stroke": true, "weight": 1}
+            ).addTo(feature_group_c7ad9a0c2d846ac903537c341a3835cb);
+        
+    
+            circle_marker_4e75334271bf8317fa417b07562016e8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 62.9% · Flávio: 37.1%<br>
+      Vantagem: 25.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cada421fe2496821198c29de28832d60 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.4882773596914899, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.725993401963324, "stroke": true, "weight": 1}
+            ).addTo(feature_group_c7ad9a0c2d846ac903537c341a3835cb);
+        
+    
+            circle_marker_cada421fe2496821198c29de28832d60.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 54.6% · Flávio: 45.4%<br>
+      Vantagem: 9.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8c04af61f5c7b5e919658a9616b8ac9f = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#D71920", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#D71920", "fillOpacity": 0.5053767560664113, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.853048446600475, "stroke": true, "weight": 1}
+            ).addTo(feature_group_c7ad9a0c2d846ac903537c341a3835cb);
+        
+    
+            circle_marker_8c04af61f5c7b5e919658a9616b8ac9f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</b><br>
+      Líder: <b>Lula</b><br>
+      Lula: 55.2% · Flávio: 44.8%<br>
+      Vantagem: 10.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var feature_group_24f149bbcde3bae88e48ad144fa36cca = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_699f064a57af76e9aeef7869f5a4a348 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6010432616728937, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.045765827767323, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_699f064a57af76e9aeef7869f5a4a348.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.6% · Flávio: 58.4%<br>
+      Vantagem: 16.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_348ec1a16353ddf2d15f3dccd2a1e0be = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.440117919231115, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_348ec1a16353ddf2d15f3dccd2a1e0be.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 31.6% · Flávio: 68.4%<br>
+      Vantagem: 36.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_69dca02674d418ae1a90fb4b09ef3f10 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6769814819791975, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.219286912139363, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_69dca02674d418ae1a90fb4b09ef3f10.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA  ESTADUAL  DR. AVELAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.1% · Flávio: 60.9%<br>
+      Vantagem: 21.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e171c06793e742d0609b6dcfc1e54dc8 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5604496493891418, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.681460821543664, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_e171c06793e742d0609b6dcfc1e54dc8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.0% · Flávio: 57.0%<br>
+      Vantagem: 14.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_568962b78e765217bfc98461e9da40b8 = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5779348104594555, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.779961837980522, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_568962b78e765217bfc98461e9da40b8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.4% · Flávio: 57.6%<br>
+      Vantagem: 15.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6b1499514922b8009d26c4852ac0d8d3 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.8377628836680562, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.684820483274304, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_6b1499514922b8009d26c4852ac0d8d3.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>UNIVERSIDADE UNOPAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 33.7% · Flávio: 66.3%<br>
+      Vantagem: 32.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cf81cdbcb36ee13ac585fb31bd9fc0bf = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.7838636666222876, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.7943264799114, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_cf81cdbcb36ee13ac585fb31bd9fc0bf.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>FACULDADES PROMOVE</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 35.5% · Flávio: 64.5%<br>
+      Vantagem: 29.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f75c70dc78e628e2468555e88c8fd5d = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6019414248605794, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.189329382225104, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_9f75c70dc78e628e2468555e88c8fd5d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.6% · Flávio: 58.4%<br>
+      Vantagem: 16.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_15d71703e0da77f046cc33f66a5e3104 = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.35612541235514705, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.293638682091043, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_15d71703e0da77f046cc33f66a5e3104.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 49.8% · Flávio: 50.2%<br>
+      Vantagem: 0.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f4df700bf996311ccd0ad8ab221a428e = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5372844827586207, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.73573026405801, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_f4df700bf996311ccd0ad8ab221a428e.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.8% · Flávio: 56.2%<br>
+      Vantagem: 12.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_525b56161332636e7f088c5b9eb8bbdd = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.597071452254642, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.918791928157166, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_525b56161332636e7f088c5b9eb8bbdd.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.8% · Flávio: 58.2%<br>
+      Vantagem: 16.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b854be2dd0f277f186ef6f1c41fa326a = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.8163507650148436, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.226264230331807, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_b854be2dd0f277f186ef6f1c41fa326a.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>COLÉGIO FRANCISCANO REGINA PACIS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 34.4% · Flávio: 65.6%<br>
+      Vantagem: 31.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da573f6270f1d15259eb124c8a7ec026 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5588505747126438, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.5770818676800165, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_da573f6270f1d15259eb124c8a7ec026.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.0% · Flávio: 57.0%<br>
+      Vantagem: 13.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8744186a0c3a88f884d86bfc694966e2 = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5440300590295706, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.63105008823175, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_8744186a0c3a88f884d86bfc694966e2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.5% · Flávio: 56.5%<br>
+      Vantagem: 13.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f700c048d81ab757ceb499f6b97eb4e1 = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5657954295413826, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.750830640872149, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_f700c048d81ab757ceb499f6b97eb4e1.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>UNIFEMM CENTRO UNIVERSITÁRIO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.8% · Flávio: 57.2%<br>
+      Vantagem: 14.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c1e285097afb2eb32a61408f2e1adb8 = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6742804421964843, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.61690243868701, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_0c1e285097afb2eb32a61408f2e1adb8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>INSTITUTO EDUCACIONAL PETER PAN</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.2% · Flávio: 60.8%<br>
+      Vantagem: 21.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_81c0a4cf3ca523f3081336f8f503fac6 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6530945431158167, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.583989912865663, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_81c0a4cf3ca523f3081336f8f503fac6.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.9% · Flávio: 60.1%<br>
+      Vantagem: 20.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7d5c53ce25456c657dc28868ce40da38 = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5857023633397823, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.411428972169883, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_7d5c53ce25456c657dc28868ce40da38.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MARIA AMÂNCIO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.1% · Flávio: 57.9%<br>
+      Vantagem: 15.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aaa8188ff7b6412570c0f101853a4408 = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6552693208430915, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.7885418867767, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_aaa8188ff7b6412570c0f101853a4408.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JOVELINO LANZA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 39.8% · Flávio: 60.2%<br>
+      Vantagem: 20.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f62ed1182f979da4fdb1efe0383799c0 = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6153196839080461, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.379759743053176, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_f62ed1182f979da4fdb1efe0383799c0.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>INSTITUTO ALICE MACIEL</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 41.1% · Flávio: 58.9%<br>
+      Vantagem: 17.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_72afccfaa9d817cb558a27e3fd78f6a3 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5175312423090597, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.71966510490825, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_72afccfaa9d817cb558a27e3fd78f6a3.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL LUZIA BARBOSA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.4% · Flávio: 55.6%<br>
+      Vantagem: 11.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_da6bc749dac65aedb5dd2603c63569e4 = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6340811788523448, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.849221021773145, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_da6bc749dac65aedb5dd2603c63569e4.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.5% · Flávio: 59.5%<br>
+      Vantagem: 19.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_90232fdedeb0b50d6fd17603e5995fb4 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.8511474435196196, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.956829368696539, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_90232fdedeb0b50d6fd17603e5995fb4.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 33.3% · Flávio: 66.7%<br>
+      Vantagem: 33.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6abda2d871da4683717e898926b1980f = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.513965673177882, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.0, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_6abda2d871da4683717e898926b1980f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.5% · Flávio: 55.5%<br>
+      Vantagem: 10.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0f6ee39752e58bdcfe102d4075c5722d = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5488096816976129, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.959395964078583, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_0f6ee39752e58bdcfe102d4075c5722d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL SANTOS AZEREDO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.4% · Flávio: 56.6%<br>
+      Vantagem: 13.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f8296a17dd127a2391cd0e3aaa86ef0 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.501365524693083, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.282207722180118, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_3f8296a17dd127a2391cd0e3aaa86ef0.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.9% · Flávio: 55.1%<br>
+      Vantagem: 10.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e87ca577cb827da601e8dc05bd57b9a8 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.4986533496633375, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.507783651029214, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_e87ca577cb827da601e8dc05bd57b9a8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.0% · Flávio: 55.0%<br>
+      Vantagem: 9.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_696ed11a102dc6c61093ec48ec6af80a = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.3885144659023206, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.458164617017927, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_696ed11a102dc6c61093ec48ec6af80a.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.7% · Flávio: 51.3%<br>
+      Vantagem: 2.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b20290615748b9c52f6e0c692c4e3e5 = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5651779163609685, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.123507760344722, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_3b20290615748b9c52f6e0c692c4e3e5.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL TEREZINHA GODOY</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.8% · Flávio: 57.2%<br>
+      Vantagem: 14.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7cae8528c9c68a90c5a5511ed5e154ff = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5431034482758621, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.118434528536266, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_7cae8528c9c68a90c5a5511ed5e154ff.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.6% · Flávio: 56.4%<br>
+      Vantagem: 12.9 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5348125d7f17ee52e879712ed5ea79ba = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6828166910931064, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.131411879577282, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_5348125d7f17ee52e879712ed5ea79ba.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 38.9% · Flávio: 61.1%<br>
+      Vantagem: 22.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_98b9b00f06cce0534fda9b5b8507cc8d = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6282512315270936, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.452701163102539, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_98b9b00f06cce0534fda9b5b8507cc8d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.7% · Flávio: 59.3%<br>
+      Vantagem: 18.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c369ce06b355f08242139fc73401e8a6 = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.4938814644613019, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.844201958862351, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_c369ce06b355f08242139fc73401e8a6.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.2% · Flávio: 54.8%<br>
+      Vantagem: 9.6 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3019b0d3272f830c13691d58d2faa7d3 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5339714377982706, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.32286907826487, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_3019b0d3272f830c13691d58d2faa7d3.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.9% · Flávio: 56.1%<br>
+      Vantagem: 12.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_422aa9e1446733b84ed82bffd363a09f = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.38633720364859875, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.169715387739652, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_422aa9e1446733b84ed82bffd363a09f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.8% · Flávio: 51.2%<br>
+      Vantagem: 2.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4def33c422b2fe896fe901fbea1d6208 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.4799825185586429, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.189329382225104, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_4def33c422b2fe896fe901fbea1d6208.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 45.7% · Flávio: 54.3%<br>
+      Vantagem: 8.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d3f473782f9fcbe5811e837f32a5ec1f = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.38981931089195593, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.164511814325111, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_d3f473782f9fcbe5811e837f32a5ec1f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.7% · Flávio: 51.3%<br>
+      Vantagem: 2.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_32e516ef6c4e9b9ff6cd52f77603a8f8 = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5366083654923443, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.078525060594473, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_32e516ef6c4e9b9ff6cd52f77603a8f8.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.8% · Flávio: 56.2%<br>
+      Vantagem: 12.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_332320e94c557de0534ca091d5b5dd96 = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5524697110904009, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.784805396035637, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_332320e94c557de0534ca091d5b5dd96.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.2% · Flávio: 56.8%<br>
+      Vantagem: 13.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_98664c436d71e35cdf4aef9ecaa6b794 = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.4318233177100769, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.048648728629345, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_98664c436d71e35cdf4aef9ecaa6b794.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JUCA DIAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 47.3% · Flávio: 52.7%<br>
+      Vantagem: 5.5 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9cb72385a569d99c75070f2da0db1f81 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6970776652957926, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.127261958828788, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_9cb72385a569d99c75070f2da0db1f81.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL SINHÁ ANDRADE</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 38.4% · Flávio: 61.6%<br>
+      Vantagem: 23.2 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_47fb34ec3b152d575cfe9d38eef8c84d = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.545032227226218, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.342422939437451, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_47fb34ec3b152d575cfe9d38eef8c84d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 43.5% · Flávio: 56.5%<br>
+      Vantagem: 13.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_85cfadd1133e129e9145b1fdeb3f2060 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.6450093557872227, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.409680473823242, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_85cfadd1133e129e9145b1fdeb3f2060.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>FACULDADE ATENAS DE SETE LAGOAS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.2% · Flávio: 59.8%<br>
+      Vantagem: 19.7 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b0747a95e6249aed09367f4603904eda = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.42575858305841635, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.437239037622785, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_b0747a95e6249aed09367f4603904eda.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 47.5% · Flávio: 52.5%<br>
+      Vantagem: 5.1 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d7ffb2abf2871887d3786853fb969fea = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5640394088669951, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.989640337929398, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_d7ffb2abf2871887d3786853fb969fea.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 42.9% · Flávio: 57.1%<br>
+      Vantagem: 14.3 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_76775c47879c79152aaeb7a13cfa9eaa = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.640642986777288, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.166088782563982, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_76775c47879c79152aaeb7a13cfa9eaa.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 40.3% · Flávio: 59.7%<br>
+      Vantagem: 19.4 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cbb7cfb88434e0604924a1ffe1a92d63 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.5304741379310345, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.642114563356541, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_cbb7cfb88434e0604924a1ffe1a92d63.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>ESCOLA MUNICIPAL JULIO CÉSAR</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 44.0% · Flávio: 56.0%<br>
+      Vantagem: 12.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e9d18d887be2a5ad075a8bc690e4c0d5 = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.722203266787659, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.784199892613172, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_e9d18d887be2a5ad075a8bc690e4c0d5.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 37.6% · Flávio: 62.4%<br>
+      Vantagem: 24.8 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b5278af14a0d00a74bb4ea6a539a1c2 = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.40993103448275864, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.213369631379507, "stroke": true, "weight": 1}
+            ).addTo(feature_group_24f149bbcde3bae88e48ad144fa36cca);
+        
+    
+            circle_marker_0b5278af14a0d00a74bb4ea6a539a1c2.bindTooltip(
+                `<div>
+                     
+    <div style="font-family:Arial; font-size:12px">
+      <b>CEMEI MARISA MARA VAZ COSTA GALUPPO</b><br>
+      Líder: <b>Flávio Bolsonaro</b><br>
+      Lula: 48.0% · Flávio: 52.0%<br>
+      Vantagem: 4.0 p.p.
+    </div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+    var color_map_5b89b2e3e579feccc5f2fd617d480fe7 = {};
+
+    
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.color = d3.scale.threshold()
+              .domain([-36.70886075949366, -36.5617310570508, -36.41460135460794, -36.26747165216508, -36.12034194972222, -35.973212247279356, -35.826082544836495, -35.678952842393635, -35.53182313995078, -35.38469343750792, -35.23756373506506, -35.0904340326222, -34.94330433017934, -34.79617462773648, -34.649044925293616, -34.501915222850755, -34.354785520407894, -34.20765581796503, -34.06052611552217, -33.91339641307931, -33.76626671063645, -33.61913700819359, -33.47200730575073, -33.32487760330787, -33.177747900865015, -33.030618198422154, -32.88348849597929, -32.73635879353643, -32.58922909109357, -32.44209938865071, -32.29496968620785, -32.14783998376499, -32.00071028132213, -31.853580578879267, -31.706450876436406, -31.559321173993546, -31.41219147155069, -31.265061769107827, -31.117932066664967, -30.970802364222106, -30.823672661779245, -30.676542959336384, -30.529413256893527, -30.382283554450666, -30.235153852007805, -30.088024149564944, -29.940894447122083, -29.793764744679223, -29.646635042236362, -29.4995053397935, -29.352375637350644, -29.205245934907783, -29.058116232464922, -28.91098653002206, -28.7638568275792, -28.616727125136343, -28.46959742269348, -28.32246772025062, -28.17533801780776, -28.0282083153649, -27.88107861292204, -27.733948910479178, -27.586819208036317, -27.439689505593456, -27.292559803150596, -27.145430100707735, -26.998300398264874, -26.851170695822017, -26.704040993379156, -26.556911290936295, -26.409781588493434, -26.262651886050573, -26.115522183607716, -25.968392481164855, -25.821262778721994, -25.674133076279134, -25.527003373836273, -25.379873671393412, -25.23274396895055, -25.08561426650769, -24.93848456406483, -24.79135486162197, -24.644225159179108, -24.49709545673625, -24.34996575429339, -24.202836051850532, -24.05570634940767, -23.90857664696481, -23.76144694452195, -23.61431724207909, -23.467187539636228, -23.320057837193367, -23.172928134750507, -23.025798432307646, -22.878668729864785, -22.731539027421924, -22.584409324979063, -22.437279622536202, -22.290149920093345, -22.143020217650488, -21.995890515207627, -21.848760812764766, -21.701631110321905, -21.554501407879044, -21.407371705436184, -21.260242002993323, -21.113112300550462, -20.9659825981076, -20.81885289566474, -20.67172319322188, -20.524593490779022, -20.37746378833616, -20.230334085893297, -20.08320438345044, -19.93607468100758, -19.788944978564718, -19.641815276121857, -19.494685573678996, -19.34755587123614, -19.20042616879328, -19.053296466350417, -18.906166763907557, -18.759037061464696, -18.611907359021835, -18.464777656578978, -18.317647954136113, -18.170518251693256, -18.02338854925039, -17.876258846807534, -17.729129144364673, -17.581999441921813, -17.434869739478955, -17.28774003703609, -17.140610334593234, -16.993480632150373, -16.846350929707512, -16.69922122726465, -16.55209152482179, -16.40496182237893, -16.257832119936072, -16.110702417493208, -15.96357271505035, -15.816443012607486, -15.669313310164629, -15.522183607721772, -15.375053905278907, -15.22792420283605, -15.080794500393186, -14.933664797950328, -14.786535095507464, -14.639405393064607, -14.492275690621746, -14.345145988178885, -14.198016285736024, -14.050886583293163, -13.903756880850302, -13.756627178407445, -13.609497475964584, -13.462367773521724, -13.315238071078863, -13.168108368636002, -13.020978666193145, -12.87384896375028, -12.726719261307423, -12.579589558864559, -12.432459856421701, -12.28533015397884, -12.13820045153598, -11.991070749093119, -11.843941046650258, -11.6968113442074, -11.54968164176454, -11.402551939321679, -11.255422236878818, -11.108292534435957, -10.961162831993096, -10.814033129550236, -10.666903427107375, -10.519773724664518, -10.372644022221653, -10.225514319778796, -10.078384617335931, -9.931254914893074, -9.784125212450217, -9.636995510007353, -9.489865807564495, -9.34273610512163, -9.195606402678774, -9.048476700235913, -8.901346997793052, -8.754217295350191, -8.60708759290733, -8.45995789046447, -8.312828188021612, -8.165698485578748, -8.01856878313589, -7.87143908069303, -7.724309378250169, -7.5771796758073116, -7.430049973364447, -7.28292027092159, -7.1357905684787255, -6.988660866035868, -6.841531163593007, -6.694401461150147, -6.547271758707286, -6.400142056264425, -6.253012353821564, -6.105882651378707, -5.958752948935846, -5.811623246492985, -5.664493544050124, -5.5173638416072635, -5.370234139164403, -5.223104436721542, -5.0759747342786845, -4.92884503183582, -4.781715329392963, -4.6345856269500985, -4.487455924507238, -4.340326222064384, -4.193196519621523, -4.046066817178662, -3.8989371147358014, -3.7518074122929335, -3.6046777098500797, -3.457548007407219, -3.310418304964358, -3.1632886025214972, -3.0161589000786364, -2.8690291976357756, -2.721899495192922, -2.574769792750054, -2.427640090307193, -2.2805103878643322, -2.1333806854214785, -1.9862509829786177, -1.8391212805357497, -1.691991578092896, -1.5448618756500352, -1.3977321732071744, -1.2506024707643135, -1.1034727683214527, -0.9563430658785919, -0.809213363435731, -0.6620836609928702, -0.5149539585500094, -0.36782425610714853, -0.2206945536642948, -0.07356485122143397, 0.07356485122143397, 0.2206945536642877, 0.36782425610714853, 0.5149539585500094, 0.6620836609928773, 0.809213363435731, 0.9563430658785919, 1.1034727683214527, 1.2506024707643135, 1.3977321732071744, 1.5448618756500352, 1.691991578092896, 1.8391212805357497, 1.9862509829786177, 2.1333806854214785, 2.2805103878643322, 2.427640090307193, 2.574769792750061, 2.7218994951929147, 2.8690291976357756, 3.0161589000786364, 3.1632886025215043, 3.310418304964358, 3.457548007407219, 3.6046777098500797, 3.7518074122929335, 3.8989371147358014, 4.046066817178662, 4.193196519621516, 4.340326222064377, 4.487455924507245, 4.634585626950106, 4.781715329392959, 4.92884503183582, 5.075974734278688, 5.223104436721542, 5.370234139164403, 5.5173638416072635, 5.664493544050117, 5.811623246492985, 5.958752948935846, 6.105882651378707, 6.2530123538215605, 6.4001420562644284, 6.547271758707289, 6.694401461150143, 6.841531163593004, 6.988660866035872, 7.135790568478733, 7.282920270921586, 7.430049973364447, 7.577179675807308, 7.724309378250169, 7.87143908069303, 8.01856878313589, 8.165698485578744, 8.312828188021612, 8.459957890464473, 8.607087592907334, 8.754217295350188, 8.901346997793055, 9.048476700235916, 9.19560640267877, 9.34273610512163, 9.489865807564492, 9.636995510007353, 9.784125212450213, 9.931254914893074, 10.078384617335935, 10.225514319778796, 10.372644022221657, 10.519773724664518, 10.666903427107371, 10.81403312955024, 10.9611628319931, 11.10829253443596, 11.255422236878815, 11.402551939321675, 11.549681641764543, 11.696811344207397, 11.843941046650258, 11.991070749093119, 12.13820045153598, 12.28533015397884, 12.432459856421701, 12.579589558864562, 12.726719261307423, 12.873848963750284, 13.020978666193145, 13.168108368635998, 13.31523807107886, 13.462367773521727, 13.60949747596458, 13.756627178407442, 13.903756880850302, 14.05088658329317, 14.198016285736024, 14.345145988178885, 14.492275690621746, 14.639405393064607, 14.786535095507467, 14.933664797950328, 15.08079450039319, 15.227924202836043, 15.37505390527891, 15.522183607721772, 15.669313310164625, 15.816443012607486, 15.963572715050354, 16.110702417493208, 16.25783211993607, 16.40496182237893, 16.552091524821797, 16.69922122726465, 16.846350929707512, 16.993480632150373, 17.140610334593227, 17.287740037036095, 17.434869739478955, 17.58199944192181, 17.72912914436467, 17.876258846807538, 18.0233885492504, 18.170518251693252, 18.317647954136113, 18.46477765657898, 18.611907359021835, 18.759037061464696, 18.906166763907557, 19.05329646635041, 19.20042616879328, 19.34755587123614, 19.494685573679, 19.641815276121854, 19.78894497856472, 19.936074681007582, 20.083204383450436, 20.230334085893297, 20.377463788336165, 20.524593490779026, 20.67172319322188, 20.81885289566474, 20.9659825981076, 21.113112300550462, 21.260242002993323, 21.407371705436184, 21.554501407879037, 21.701631110321905, 21.848760812764766, 21.995890515207627, 22.14302021765048, 22.29014992009335, 22.43727962253621, 22.584409324979063, 22.731539027421924, 22.878668729864785, 23.025798432307646, 23.172928134750507, 23.320057837193367, 23.467187539636228, 23.61431724207909, 23.76144694452195, 23.90857664696481, 24.055706349407664, 24.202836051850532, 24.349965754293393, 24.497095456736247, 24.644225159179108, 24.79135486162197, 24.938484564064836, 25.08561426650769, 25.23274396895055, 25.379873671393412, 25.527003373836273, 25.674133076279134, 25.821262778721994, 25.968392481164855, 26.115522183607716, 26.262651886050577, 26.409781588493438, 26.55691129093629, 26.704040993379152, 26.85117069582202, 26.998300398264874, 27.145430100707735, 27.292559803150596, 27.439689505593464, 27.586819208036317, 27.733948910479185, 27.88107861292204, 28.028208315364893, 28.17533801780776, 28.322467720250614, 28.469597422693482, 28.616727125136336, 28.763856827579204, 28.910986530022058, 29.058116232464926, 29.205245934907794, 29.352375637350647, 29.4995053397935, 29.64663504223637, 29.793764744679223, 29.940894447122076, 30.088024149564944, 30.235153852007798, 30.382283554450666, 30.529413256893534, 30.676542959336388, 30.82367266177924, 30.97080236422211, 31.117932066664963, 31.265061769107817, 31.412191471550685, 31.559321173993553, 31.706450876436406, 31.853580578879274, 32.00071028132213, 32.147839983764996, 32.29496968620785, 32.4420993886507, 32.58922909109357, 32.736358793536425, 32.88348849597929, 33.03061819842216, 33.177747900865015, 33.32487760330787, 33.472007305750736, 33.61913700819359, 33.766266710636444, 33.91339641307931, 34.060526115522165, 34.20765581796503, 34.3547855204079, 34.501915222850755, 34.64904492529362, 34.79617462773648, 34.94330433017933, 35.0904340326222, 35.23756373506505, 35.38469343750792, 35.53182313995079, 35.67895284239364, 35.826082544836495, 35.97321224727936, 36.12034194972222, 36.26747165216507, 36.41460135460794, 36.56173105705079, 36.70886075949366])
+              .range(['#0066ccff', '#0066ccff', '#0167cdff', '#0268cdff', '#0368cdff', '#0469cdff', '#0569cdff', '#066aceff', '#076bceff', '#086bceff', '#096cceff', '#0a6cceff', '#0b6dceff', '#0c6dcfff', '#0d6ecfff', '#0e6fcfff', '#0f6fcfff', '#1070cfff', '#1170cfff', '#1271d0ff', '#1372d0ff', '#1472d0ff', '#1573d0ff', '#1673d0ff', '#1774d0ff', '#1874d1ff', '#1975d1ff', '#1a76d1ff', '#1b76d1ff', '#1c77d1ff', '#1d77d1ff', '#1e78d2ff', '#1f79d2ff', '#2079d2ff', '#217ad2ff', '#227ad2ff', '#237bd3ff', '#247bd3ff', '#257cd3ff', '#267dd3ff', '#277dd3ff', '#287ed3ff', '#297ed4ff', '#2a7fd4ff', '#2b80d4ff', '#2c80d4ff', '#2d81d4ff', '#2e81d4ff', '#2f82d5ff', '#3082d5ff', '#3183d5ff', '#3284d5ff', '#3384d5ff', '#3485d5ff', '#3585d6ff', '#3686d6ff', '#3787d6ff', '#3887d6ff', '#3988d6ff', '#3a88d7ff', '#3b89d7ff', '#3c89d7ff', '#3d8ad7ff', '#3e8bd7ff', '#3f8bd7ff', '#408cd8ff', '#418cd8ff', '#428dd8ff', '#438ed8ff', '#448ed8ff', '#458fd8ff', '#468fd9ff', '#4790d9ff', '#4890d9ff', '#4991d9ff', '#4a92d9ff', '#4b92d9ff', '#4c93daff', '#4d93daff', '#4e94daff', '#4f95daff', '#5095daff', '#5196daff', '#5296dbff', '#5397dbff', '#5497dbff', '#5598dbff', '#5699dbff', '#5799dcff', '#589adcff', '#599adcff', '#5a9bdcff', '#5b9cdcff', '#5c9cdcff', '#5d9dddff', '#5e9dddff', '#5f9eddff', '#609eddff', '#619fddff', '#62a0ddff', '#63a0deff', '#64a1deff', '#65a1deff', '#66a2deff', '#67a3deff', '#68a3deff', '#69a4dfff', '#6aa4dfff', '#6ba5dfff', '#6ca5dfff', '#6da6dfff', '#6ea7e0ff', '#6fa7e0ff', '#70a8e0ff', '#71a8e0ff', '#72a9e0ff', '#73aae0ff', '#74aae1ff', '#75abe1ff', '#76abe1ff', '#77ace1ff', '#78ace1ff', '#79ade1ff', '#7aaee2ff', '#7baee2ff', '#7cafe2ff', '#7dafe2ff', '#7eb0e2ff', '#7fb1e2ff', '#80b1e3ff', '#81b2e3ff', '#82b2e3ff', '#83b3e3ff', '#84b3e3ff', '#85b4e3ff', '#86b5e4ff', '#87b5e4ff', '#88b6e4ff', '#89b6e4ff', '#8ab7e4ff', '#8bb8e5ff', '#8cb8e5ff', '#8db9e5ff', '#8eb9e5ff', '#8fbae5ff', '#90bae5ff', '#91bbe6ff', '#92bce6ff', '#93bce6ff', '#94bde6ff', '#95bde6ff', '#96bee6ff', '#97bfe7ff', '#98bfe7ff', '#99c0e7ff', '#9ac0e7ff', '#9bc1e7ff', '#9cc2e7ff', '#9dc2e8ff', '#9ec3e8ff', '#9fc3e8ff', '#a0c4e8ff', '#a1c4e8ff', '#a1c5e9ff', '#a2c6e9ff', '#a3c6e9ff', '#a4c7e9ff', '#a5c7e9ff', '#a6c8e9ff', '#a7c9eaff', '#a8c9eaff', '#a9caeaff', '#aacaeaff', '#abcbeaff', '#accbeaff', '#adccebff', '#aecdebff', '#afcdebff', '#b0ceebff', '#b1ceebff', '#b2cfebff', '#b3d0ecff', '#b4d0ecff', '#b5d1ecff', '#b6d1ecff', '#b7d2ecff', '#b8d2ecff', '#b9d3edff', '#bad4edff', '#bbd4edff', '#bcd5edff', '#bdd5edff', '#bed6eeff', '#bfd7eeff', '#c0d7eeff', '#c1d8eeff', '#c2d8eeff', '#c3d9eeff', '#c4d9efff', '#c5daefff', '#c6dbefff', '#c7dbefff', '#c8dcefff', '#c9dcefff', '#caddf0ff', '#cbdef0ff', '#ccdef0ff', '#cddff0ff', '#cedff0ff', '#cfe0f0ff', '#d0e0f1ff', '#d1e1f1ff', '#d2e2f1ff', '#d3e2f1ff', '#d4e3f1ff', '#d5e3f1ff', '#d6e4f2ff', '#d7e5f2ff', '#d8e5f2ff', '#d9e6f2ff', '#dae6f2ff', '#dbe7f3ff', '#dce7f3ff', '#dde8f3ff', '#dee9f3ff', '#dfe9f3ff', '#e0eaf3ff', '#e1eaf4ff', '#e2ebf4ff', '#e3ecf4ff', '#e4ecf4ff', '#e5edf4ff', '#e6edf4ff', '#e7eef5ff', '#e8eef5ff', '#e9eff5ff', '#eaf0f5ff', '#ebf0f5ff', '#ecf1f5ff', '#edf1f6ff', '#eef2f6ff', '#eff3f6ff', '#f0f3f6ff', '#f1f4f6ff', '#f2f4f7ff', '#f3f5f7ff', '#f4f5f7ff', '#f5f6f7ff', '#f6f7f7ff', '#f7f7f7ff', '#f7f7f7ff', '#f7f6f6ff', '#f7f5f5ff', '#f7f4f4ff', '#f7f3f4ff', '#f7f3f3ff', '#f7f2f2ff', '#f7f1f1ff', '#f6f0f0ff', '#f6efefff', '#f6eeeeff', '#f6edeeff', '#f6ecedff', '#f6ebecff', '#f6ebebff', '#f5eaeaff', '#f5e9e9ff', '#f5e8e8ff', '#f5e7e7ff', '#f5e6e7ff', '#f5e5e6ff', '#f5e4e5ff', '#f5e3e4ff', '#f4e2e3ff', '#f4e2e2ff', '#f4e1e1ff', '#f4e0e1ff', '#f4dfe0ff', '#f4dedfff', '#f4dddeff', '#f4dcddff', '#f3dbdcff', '#f3dadbff', '#f3dadaff', '#f3d9daff', '#f3d8d9ff', '#f3d7d8ff', '#f3d6d7ff', '#f3d5d6ff', '#f2d4d5ff', '#f2d3d4ff', '#f2d2d4ff', '#f2d2d3ff', '#f2d1d2ff', '#f2d0d1ff', '#f2cfd0ff', '#f1cecfff', '#f1cdceff', '#f1ccceff', '#f1cbcdff', '#f1caccff', '#f1c9cbff', '#f1c9caff', '#f1c8c9ff', '#f0c7c8ff', '#f0c6c7ff', '#f0c5c7ff', '#f0c4c6ff', '#f0c3c5ff', '#f0c2c4ff', '#f0c1c3ff', '#f0c1c2ff', '#efc0c1ff', '#efbfc1ff', '#efbec0ff', '#efbdbfff', '#efbcbeff', '#efbbbdff', '#efbabcff', '#efb9bbff', '#eeb8baff', '#eeb8baff', '#eeb7b9ff', '#eeb6b8ff', '#eeb5b7ff', '#eeb4b6ff', '#eeb3b5ff', '#edb2b4ff', '#edb1b4ff', '#edb0b3ff', '#edb0b2ff', '#edafb1ff', '#edaeb0ff', '#edadafff', '#edacaeff', '#ecabaeff', '#ecaaadff', '#eca9acff', '#eca8abff', '#eca8aaff', '#eca7a9ff', '#eca6a8ff', '#eca5a7ff', '#eba4a7ff', '#eba3a6ff', '#eba2a5ff', '#eba1a4ff', '#eba0a3ff', '#eb9fa2ff', '#eb9fa1ff', '#eb9ea1ff', '#ea9da0ff', '#ea9c9fff', '#ea9b9eff', '#ea9a9dff', '#ea999cff', '#ea989bff', '#ea979aff', '#e9979aff', '#e99699ff', '#e99598ff', '#e99497ff', '#e99396ff', '#e99295ff', '#e99194ff', '#e99094ff', '#e88f93ff', '#e88f92ff', '#e88e91ff', '#e88d90ff', '#e88c8fff', '#e88b8eff', '#e88a8dff', '#e8898dff', '#e7888cff', '#e7878bff', '#e7868aff', '#e78689ff', '#e78588ff', '#e78487ff', '#e78387ff', '#e78286ff', '#e68185ff', '#e68084ff', '#e67f83ff', '#e67e82ff', '#e67e81ff', '#e67d81ff', '#e67c80ff', '#e67b7fff', '#e57a7eff', '#e5797dff', '#e5787cff', '#e5777bff', '#e5767aff', '#e5757aff', '#e57579ff', '#e47478ff', '#e47377ff', '#e47276ff', '#e47175ff', '#e47074ff', '#e46f74ff', '#e46e73ff', '#e46d72ff', '#e36d71ff', '#e36c70ff', '#e36b6fff', '#e36a6eff', '#e3696dff', '#e3686dff', '#e3676cff', '#e3666bff', '#e2656aff', '#e26569ff', '#e26468ff', '#e26367ff', '#e26267ff', '#e26166ff', '#e26065ff', '#e25f64ff', '#e15e63ff', '#e15d62ff', '#e15c61ff', '#e15c61ff', '#e15b60ff', '#e15a5fff', '#e1595eff', '#e0585dff', '#e0575cff', '#e0565bff', '#e0555aff', '#e0545aff', '#e05459ff', '#e05358ff', '#e05257ff', '#df5156ff', '#df5055ff', '#df4f54ff', '#df4e54ff', '#df4d53ff', '#df4c52ff', '#df4c51ff', '#df4b50ff', '#de4a4fff', '#de494eff', '#de484dff', '#de474dff', '#de464cff', '#de454bff', '#de444aff', '#de4349ff', '#dd4348ff', '#dd4247ff', '#dd4147ff', '#dd4046ff', '#dd3f45ff', '#dd3e44ff', '#dd3d43ff', '#dc3c42ff', '#dc3b41ff', '#dc3b40ff', '#dc3a40ff', '#dc393fff', '#dc383eff', '#dc373dff', '#dc363cff', '#db353bff', '#db343aff', '#db333aff', '#db3339ff', '#db3238ff', '#db3137ff', '#db3036ff', '#db2f35ff', '#da2e34ff', '#da2d34ff', '#da2c33ff', '#da2b32ff', '#da2a31ff', '#da2a30ff', '#da292fff', '#da282eff', '#d9272dff', '#d9262dff', '#d9252cff', '#d9242bff', '#d9232aff', '#d92229ff', '#d92228ff', '#d92127ff', '#d82027ff', '#d81f26ff', '#d81e25ff', '#d81d24ff', '#d81c23ff', '#d81b22ff', '#d81a21ff', '#d71920ff', '#d71920ff']);
+    
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.x = d3.scale.linear()
+              .domain([-36.70886075949366, 36.70886075949366])
+              .range([0, 450 - 50]);
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.legend = L.control({position: 'topright'});
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.legend.addTo(map_6ab1c38b4c00018968426cfc2a05eb2a);
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.xAxis = d3.svg.axis()
+        .scale(color_map_5b89b2e3e579feccc5f2fd617d480fe7.x)
+        .orient("top")
+        .tickSize(1)
+        .tickValues([-36.70886075949366, 0.0, 36.70886075949366]);
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.svg = d3.select(".legend.leaflet-control").append("svg")
+        .attr("id", 'legend')
+        .attr("width", 450)
+        .attr("height", 40);
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.g = color_map_5b89b2e3e579feccc5f2fd617d480fe7.svg.append("g")
+        .attr("class", "key")
+        .attr("fill", "black")
+        .attr("transform", "translate(25,16)");
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.g.selectAll("rect")
+        .data(color_map_5b89b2e3e579feccc5f2fd617d480fe7.color.range().map(function(d, i) {
+          return {
+            x0: i ? color_map_5b89b2e3e579feccc5f2fd617d480fe7.x(color_map_5b89b2e3e579feccc5f2fd617d480fe7.color.domain()[i - 1]) : color_map_5b89b2e3e579feccc5f2fd617d480fe7.x.range()[0],
+            x1: i < color_map_5b89b2e3e579feccc5f2fd617d480fe7.color.domain().length ? color_map_5b89b2e3e579feccc5f2fd617d480fe7.x(color_map_5b89b2e3e579feccc5f2fd617d480fe7.color.domain()[i]) : color_map_5b89b2e3e579feccc5f2fd617d480fe7.x.range()[1],
+            z: d
+          };
+        }))
+      .enter().append("rect")
+        .attr("height", 40 - 30)
+        .attr("x", function(d) { return d.x0; })
+        .attr("width", function(d) { return d.x1 - d.x0; })
+        .style("fill", function(d) { return d.z; });
+
+    color_map_5b89b2e3e579feccc5f2fd617d480fe7.g.call(color_map_5b89b2e3e579feccc5f2fd617d480fe7.xAxis).append("text")
+        .attr("class", "caption")
+        .attr("y", 21)
+        .attr("fill", "black")
+        .text("Margem no 2\u00ba turno (p.p.): azul = Fl\u00e1vio, vermelho = Lula");
+    
+            var layer_control_dd7ef87a8c928e3e9ffe71dc1f7114a0_layers = {
+                base_layers : {
+                    "Mapa base" : tile_layer_80055cca2b2a93236caa976c79dd4dcf,
+                },
+                overlays :  {
+                    "Os dois candidatos (margem)" : feature_group_3b615852b77d3cc466572e67ba3ee95c,
+                    "Domin\u00e2ncia de Lula" : feature_group_c7ad9a0c2d846ac903537c341a3835cb,
+                    "Domin\u00e2ncia de Fl\u00e1vio Bolsonaro" : feature_group_24f149bbcde3bae88e48ad144fa36cca,
+                },
+            };
+            let layer_control_dd7ef87a8c928e3e9ffe71dc1f7114a0 = L.control.layers(
+                layer_control_dd7ef87a8c928e3e9ffe71dc1f7114a0_layers.base_layers,
+                layer_control_dd7ef87a8c928e3e9ffe71dc1f7114a0_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_6ab1c38b4c00018968426cfc2a05eb2a);
+
+        
+    
+            map_6ab1c38b4c00018968426cfc2a05eb2a.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ca1770f25e2ea7beaec5894373064a79 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ca1770f25e2ea7beaec5894373064a79" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ca1770f25e2ea7beaec5894373064a79 = L.map(
+                "map_ca1770f25e2ea7beaec5894373064a79",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_48d96820d5959193223c550d8379139c = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_48d96820d5959193223c550d8379139c.addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+            var circle_marker_bc12f9cb548247737eb9d53c7e0a512d = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.412527967540036, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_15d9f82076fda8a31412d5b0fada3ffc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_00d5b97da897468493f7af9f894474f7 = $(`<div id="html_00d5b97da897468493f7af9f894474f7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</h4>             <p><b>Endereço:</b> PRAÇA DO MILITO, S/N</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 67</p>         </div>         </div>`)[0];
+                popup_15d9f82076fda8a31412d5b0fada3ffc.setContent(html_00d5b97da897468493f7af9f894474f7);
+            
+        
+
+        circle_marker_bc12f9cb548247737eb9d53c7e0a512d.bindPopup(popup_15d9f82076fda8a31412d5b0fada3ffc)
+        ;
+
+        
+    
+    
+            circle_marker_bc12f9cb548247737eb9d53c7e0a512d.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR — 67 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5be9008ae42c9d865bdb0b4cd8d7c763 = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.711515089406993, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_dc7a74daffa6e71d9cc7db04fd4f0b5a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e576435a5000aabcaa8a05aad52a3441 = $(`<div id="html_e576435a5000aabcaa8a05aad52a3441" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</h4>             <p><b>Endereço:</b> RUA CORNÉLIO ROCHA.322</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 17</p>         </div>         </div>`)[0];
+                popup_dc7a74daffa6e71d9cc7db04fd4f0b5a.setContent(html_e576435a5000aabcaa8a05aad52a3441);
+            
+        
+
+        circle_marker_5be9008ae42c9d865bdb0b4cd8d7c763.bindPopup(popup_dc7a74daffa6e71d9cc7db04fd4f0b5a)
+        ;
+
+        
+    
+    
+            circle_marker_5be9008ae42c9d865bdb0b4cd8d7c763.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA — 17 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4f6c76534fee1135bebf96be2dc08cf7 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.514275921491382, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_e4e9c8882e837b9d24881407c1b6aae8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f5829738c6a243da6634413403e851a9 = $(`<div id="html_f5829738c6a243da6634413403e851a9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  ESTADUAL  DR. AVELAR</h4>             <p><b>Endereço:</b> RUA CAMPINAS, 59</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 77</p>         </div>         </div>`)[0];
+                popup_e4e9c8882e837b9d24881407c1b6aae8.setContent(html_f5829738c6a243da6634413403e851a9);
+            
+        
+
+        circle_marker_4f6c76534fee1135bebf96be2dc08cf7.bindPopup(popup_e4e9c8882e837b9d24881407c1b6aae8)
+        ;
+
+        
+    
+    
+            circle_marker_4f6c76534fee1135bebf96be2dc08cf7.bindTooltip(
+                `<div>
+                     ESCOLA  ESTADUAL  DR. AVELAR — 77 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6cbd30fad174d04d20318db8f351cfe5 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.711515089406993, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_a8e3cc16f684bc2ee4aad5a9be07fd80 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_357b5381631a9c8b78114832ce18eeb4 = $(`<div id="html_357b5381631a9c8b78114832ce18eeb4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</h4>             <p><b>Endereço:</b> RUA JOAQUIM HENRIQUE NOGUEIRA,347</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 17</p>         </div>         </div>`)[0];
+                popup_a8e3cc16f684bc2ee4aad5a9be07fd80.setContent(html_357b5381631a9c8b78114832ce18eeb4);
+            
+        
+
+        circle_marker_6cbd30fad174d04d20318db8f351cfe5.bindPopup(popup_a8e3cc16f684bc2ee4aad5a9be07fd80)
+        ;
+
+        
+    
+    
+            circle_marker_6cbd30fad174d04d20318db8f351cfe5.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND — 17 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cfefe9c61c1f6af262f4cf947e965a7c = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.230066889656156, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_50c560bd69951ded3235a63d0d195994 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_32f140b274cdde44c167077bb18370b8 = $(`<div id="html_32f140b274cdde44c167077bb18370b8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</h4>             <p><b>Endereço:</b> RUA SANTA JULIANA, 2287</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 167</p>         </div>         </div>`)[0];
+                popup_50c560bd69951ded3235a63d0d195994.setContent(html_32f140b274cdde44c167077bb18370b8);
+            
+        
+
+        circle_marker_cfefe9c61c1f6af262f4cf947e965a7c.bindPopup(popup_50c560bd69951ded3235a63d0d195994)
+        ;
+
+        
+    
+    
+            circle_marker_cfefe9c61c1f6af262f4cf947e965a7c.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM — 167 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13677946b9569e8e7882d38e50833085 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.170411471961305, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_920f8c46e8deecda60559f375c2997f7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f93785b999cc8e57f0fa5eca1600e3a9 = $(`<div id="html_f93785b999cc8e57f0fa5eca1600e3a9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIVERSIDADE UNOPAR</h4>             <p><b>Endereço:</b> RUA MONSENHOR MESSIAS, 94</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 46</p>         </div>         </div>`)[0];
+                popup_920f8c46e8deecda60559f375c2997f7.setContent(html_f93785b999cc8e57f0fa5eca1600e3a9);
+            
+        
+
+        circle_marker_13677946b9569e8e7882d38e50833085.bindPopup(popup_920f8c46e8deecda60559f375c2997f7)
+        ;
+
+        
+    
+    
+            circle_marker_13677946b9569e8e7882d38e50833085.bindTooltip(
+                `<div>
+                     UNIVERSIDADE UNOPAR — 46 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5e402175e002eac3aa2d4dc6dce0a0f2 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.572342500657053, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_4ea23c25eb2e773ba1ceb2201c5c741e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6beb20c2215aed46f326b26faf653d0 = $(`<div id="html_a6beb20c2215aed46f326b26faf653d0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADES PROMOVE</h4>             <p><b>Endereço:</b> RUA DR PENA, 157</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 11</p>         </div>         </div>`)[0];
+                popup_4ea23c25eb2e773ba1ceb2201c5c741e.setContent(html_a6beb20c2215aed46f326b26faf653d0);
+            
+        
+
+        circle_marker_5e402175e002eac3aa2d4dc6dce0a0f2.bindPopup(popup_4ea23c25eb2e773ba1ceb2201c5c741e)
+        ;
+
+        
+    
+    
+            circle_marker_5e402175e002eac3aa2d4dc6dce0a0f2.bindTooltip(
+                `<div>
+                     FACULDADES PROMOVE — 11 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c55c8f3b41f21b035dfbc0970e2ca604 = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.3408229439226105, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_157ba0f62295d19e3116ffe58a9a6506 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ca20cb179dfd0eebb95ca914dbe2613a = $(`<div id="html_ca20cb179dfd0eebb95ca914dbe2613a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 275</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 184</p>         </div>         </div>`)[0];
+                popup_157ba0f62295d19e3116ffe58a9a6506.setContent(html_ca20cb179dfd0eebb95ca914dbe2613a);
+            
+        
+
+        circle_marker_c55c8f3b41f21b035dfbc0970e2ca604.bindPopup(popup_157ba0f62295d19e3116ffe58a9a6506)
+        ;
+
+        
+    
+    
+            circle_marker_c55c8f3b41f21b035dfbc0970e2ca604.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO — 184 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b3e4ad9d07876d6bd52bbec80c87073a = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.244403792221039, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_d5d2c9449a1b5c746e30c34b87850421 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b4d99ca19f73f8634efa5736912cc35 = $(`<div id="html_4b4d99ca19f73f8634efa5736912cc35" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</h4>             <p><b>Endereço:</b> RUA A, S/NR</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 52</p>         </div>         </div>`)[0];
+                popup_d5d2c9449a1b5c746e30c34b87850421.setContent(html_4b4d99ca19f73f8634efa5736912cc35);
+            
+        
+
+        circle_marker_b3e4ad9d07876d6bd52bbec80c87073a.bindPopup(popup_d5d2c9449a1b5c746e30c34b87850421)
+        ;
+
+        
+    
+    
+            circle_marker_b3e4ad9d07876d6bd52bbec80c87073a.bindTooltip(
+                `<div>
+                     ESF MORRO REDONDO ANEXO DE FAZENDA VELHA — 52 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c467232def1e3183e704fe71fa033a23 = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.8303216543466805, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_b213119cd62bb4f1b59016a21dd6ad44 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_454499a09f140e529b69301bb40e0425 = $(`<div id="html_454499a09f140e529b69301bb40e0425" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</h4>             <p><b>Endereço:</b> R. JOSÉ LUIZ BARBOSA, 91</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 269</p>         </div>         </div>`)[0];
+                popup_b213119cd62bb4f1b59016a21dd6ad44.setContent(html_454499a09f140e529b69301bb40e0425);
+            
+        
+
+        circle_marker_c467232def1e3183e704fe71fa033a23.bindPopup(popup_b213119cd62bb4f1b59016a21dd6ad44)
+        ;
+
+        
+    
+    
+            circle_marker_c467232def1e3183e704fe71fa033a23.bindTooltip(
+                `<div>
+                     ESCOLA  MUNICIPAL QUINCAS NOGUEIRA — 269 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_97494617b49fe88e0c307accbb15a95b = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.230066889656156, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_e85d6aa2a4bbd8869a829fddc1e4d90d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8d8981e97dd2e912bc8e47703a4b465e = $(`<div id="html_8d8981e97dd2e912bc8e47703a4b465e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</h4>             <p><b>Endereço:</b> RUA MAJOR CAMPOS,82</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 167</p>         </div>         </div>`)[0];
+                popup_e85d6aa2a4bbd8869a829fddc1e4d90d.setContent(html_8d8981e97dd2e912bc8e47703a4b465e);
+            
+        
+
+        circle_marker_97494617b49fe88e0c307accbb15a95b.bindPopup(popup_e85d6aa2a4bbd8869a829fddc1e4d90d)
+        ;
+
+        
+    
+    
+            circle_marker_97494617b49fe88e0c307accbb15a95b.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO — 167 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_30300a1f17a708be5752aaabb3c7c3c7 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.302857993703457, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_d8fd956ba91a22155b41835780cea8f5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_948bd9efd1d027ca2733464c39a0c27f = $(`<div id="html_948bd9efd1d027ca2733464c39a0c27f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO FRANCISCANO REGINA PACIS</h4>             <p><b>Endereço:</b> PRACA TIRADENTES, 34</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 57</p>         </div>         </div>`)[0];
+                popup_d8fd956ba91a22155b41835780cea8f5.setContent(html_948bd9efd1d027ca2733464c39a0c27f);
+            
+        
+
+        circle_marker_30300a1f17a708be5752aaabb3c7c3c7.bindPopup(popup_d8fd956ba91a22155b41835780cea8f5)
+        ;
+
+        
+    
+    
+            circle_marker_30300a1f17a708be5752aaabb3c7c3c7.bindTooltip(
+                `<div>
+                     COLÉGIO FRANCISCANO REGINA PACIS — 57 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6a37aad61e276823d73b49a9e343bf26 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.24404766228169, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_6e8bc1631f7f14362a132b9311a13114 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_51987c1872ccc92a2f826ada9480d002 = $(`<div id="html_51987c1872ccc92a2f826ada9480d002" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</h4>             <p><b>Endereço:</b> R. MANOEL DE SOUZA, S/N</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 2</p>         </div>         </div>`)[0];
+                popup_6e8bc1631f7f14362a132b9311a13114.setContent(html_51987c1872ccc92a2f826ada9480d002);
+            
+        
+
+        circle_marker_6a37aad61e276823d73b49a9e343bf26.bindPopup(popup_6e8bc1631f7f14362a132b9311a13114)
+        ;
+
+        
+    
+    
+            circle_marker_6a37aad61e276823d73b49a9e343bf26.bindTooltip(
+                `<div>
+                     SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS — 2 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9f0603244d27b3af778da34446a0db1b = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.391168982036851, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_90c9a8349d17cc7c102271ce6d82c6cb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b91090cee8c76cc49a16dc23050bde86 = $(`<div id="html_b91090cee8c76cc49a16dc23050bde86" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</h4>             <p><b>Endereço:</b> RUA DR LUCIANO SOARES SANTANA, 641</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 192</p>         </div>         </div>`)[0];
+                popup_90c9a8349d17cc7c102271ce6d82c6cb.setContent(html_b91090cee8c76cc49a16dc23050bde86);
+            
+        
+
+        circle_marker_9f0603244d27b3af778da34446a0db1b.bindPopup(popup_90c9a8349d17cc7c102271ce6d82c6cb)
+        ;
+
+        
+    
+    
+            circle_marker_9f0603244d27b3af778da34446a0db1b.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DR. MÁRCIO PAULINO — 192 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e57260efd31df6c57ced0949e9a5497b = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.514275921491382, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_f8c3a97fa09250f769d1dc3b44bdc295 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4a97a106a3ae15c3ba67661ddce1dc0e = $(`<div id="html_4a97a106a3ae15c3ba67661ddce1dc0e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIFEMM CENTRO UNIVERSITÁRIO</h4>             <p><b>Endereço:</b> AV. MARECHAL CASTELO BRANCO, 2765</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 77</p>         </div>         </div>`)[0];
+                popup_f8c3a97fa09250f769d1dc3b44bdc295.setContent(html_4a97a106a3ae15c3ba67661ddce1dc0e);
+            
+        
+
+        circle_marker_e57260efd31df6c57ced0949e9a5497b.bindPopup(popup_f8c3a97fa09250f769d1dc3b44bdc295)
+        ;
+
+        
+    
+    
+            circle_marker_e57260efd31df6c57ced0949e9a5497b.bindTooltip(
+                `<div>
+                     UNIFEMM CENTRO UNIVERSITÁRIO — 77 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4dd3b0526d244efc562846f1717934f4 = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.336704097380843, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_298ac8a21a9c155473d5b30095f2a671 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6784e433cc0cf14fd12d8f67abbdb16c = $(`<div id="html_6784e433cc0cf14fd12d8f67abbdb16c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO EDUCACIONAL PETER PAN</h4>             <p><b>Endereço:</b> RUA JOAQUIM MURTINHO, 317/325</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 60</p>         </div>         </div>`)[0];
+                popup_298ac8a21a9c155473d5b30095f2a671.setContent(html_6784e433cc0cf14fd12d8f67abbdb16c);
+            
+        
+
+        circle_marker_4dd3b0526d244efc562846f1717934f4.bindPopup(popup_298ac8a21a9c155473d5b30095f2a671)
+        ;
+
+        
+    
+    
+            circle_marker_4dd3b0526d244efc562846f1717934f4.bindTooltip(
+                `<div>
+                     INSTITUTO EDUCACIONAL PETER PAN — 60 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8f3705497a5de2deb6aa286d0b6c1e0 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.1830649366924915, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_29aa4691698d6f78cd8a140f832abec0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0c6c24078130fcc923ecdcaf57b506a8 = $(`<div id="html_0c6c24078130fcc923ecdcaf57b506a8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</h4>             <p><b>Endereço:</b> RUA CAPITÃO JOSÉ PEREIRA DA COSTA,167</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 47</p>         </div>         </div>`)[0];
+                popup_29aa4691698d6f78cd8a140f832abec0.setContent(html_0c6c24078130fcc923ecdcaf57b506a8);
+            
+        
+
+        circle_marker_c8f3705497a5de2deb6aa286d0b6c1e0.bindPopup(popup_29aa4691698d6f78cd8a140f832abec0)
+        ;
+
+        
+    
+    
+            circle_marker_c8f3705497a5de2deb6aa286d0b6c1e0.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL GOVERNADOR JUSCELINO — 47 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fd843e138e948a7caa44e2f997b160cc = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.70833363597183, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_5ab6fe7c706b7a20850740249eb30201 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67c3ae6fc183c58deb49af5de8b504ce = $(`<div id="html_67c3ae6fc183c58deb49af5de8b504ce" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MARIA AMÂNCIO</h4>             <p><b>Endereço:</b> RUA SÃO JOSÉ,747</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 98</p>         </div>         </div>`)[0];
+                popup_5ab6fe7c706b7a20850740249eb30201.setContent(html_67c3ae6fc183c58deb49af5de8b504ce);
+            
+        
+
+        circle_marker_fd843e138e948a7caa44e2f997b160cc.bindPopup(popup_5ab6fe7c706b7a20850740249eb30201)
+        ;
+
+        
+    
+    
+            circle_marker_fd843e138e948a7caa44e2f997b160cc.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MARIA AMÂNCIO — 98 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aaab21a2a892f4ba7563ac6e5fc117bc = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.315239411349117, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_b3826d830976c502aa38ee1799df0ffb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_baf75d270b5f3769034688046aaae2d1 = $(`<div id="html_baf75d270b5f3769034688046aaae2d1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOVELINO LANZA</h4>             <p><b>Endereço:</b> RUA RUI BARBOSA, 59</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 180</p>         </div>         </div>`)[0];
+                popup_b3826d830976c502aa38ee1799df0ffb.setContent(html_baf75d270b5f3769034688046aaae2d1);
+            
+        
+
+        circle_marker_aaab21a2a892f4ba7563ac6e5fc117bc.bindPopup(popup_b3826d830976c502aa38ee1799df0ffb)
+        ;
+
+        
+    
+    
+            circle_marker_aaab21a2a892f4ba7563ac6e5fc117bc.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOVELINO LANZA — 180 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58c848280e91844191312d8dd34393a7 = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.46428597369014, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_3dabbfbe22d622484cce9b789c285a60 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f86905fd1cabc25649b921ad00d24358 = $(`<div id="html_f86905fd1cabc25649b921ad00d24358" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO ALICE MACIEL</h4>             <p><b>Endereço:</b> RUA GOIÁS,609</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 72</p>         </div>         </div>`)[0];
+                popup_3dabbfbe22d622484cce9b789c285a60.setContent(html_f86905fd1cabc25649b921ad00d24358);
+            
+        
+
+        circle_marker_58c848280e91844191312d8dd34393a7.bindPopup(popup_3dabbfbe22d622484cce9b789c285a60)
+        ;
+
+        
+    
+    
+            circle_marker_58c848280e91844191312d8dd34393a7.bindTooltip(
+                `<div>
+                     INSTITUTO ALICE MACIEL — 72 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b436f91b0e60554dcfff77b54aa53e21 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.512624467624784, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_d6d71e72751aa9b499059735863daa96 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e1ca34f094791c4ab54b733b70ed89b6 = $(`<div id="html_e1ca34f094791c4ab54b733b70ed89b6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL LUZIA BARBOSA</h4>             <p><b>Endereço:</b> AV. MAURÍLIO DE JESUS PEIXOTO,1160</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 212</p>         </div>         </div>`)[0];
+                popup_d6d71e72751aa9b499059735863daa96.setContent(html_e1ca34f094791c4ab54b733b70ed89b6);
+            
+        
+
+        circle_marker_b436f91b0e60554dcfff77b54aa53e21.bindPopup(popup_d6d71e72751aa9b499059735863daa96)
+        ;
+
+        
+    
+    
+            circle_marker_b436f91b0e60554dcfff77b54aa53e21.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL LUZIA BARBOSA — 212 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e476b08a30354cdc1be425fe955d4368 = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.571201668993025, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_c3ebf88152e6b72315f975a47daabb93 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_19b7337c1a332cd348811ac1c213b709 = $(`<div id="html_19b7337c1a332cd348811ac1c213b709" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</h4>             <p><b>Endereço:</b> RUA APUCARANA, 68</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 222</p>         </div>         </div>`)[0];
+                popup_c3ebf88152e6b72315f975a47daabb93.setContent(html_19b7337c1a332cd348811ac1c213b709);
+            
+        
+
+        circle_marker_e476b08a30354cdc1be425fe955d4368.bindPopup(popup_c3ebf88152e6b72315f975a47daabb93)
+        ;
+
+        
+    
+    
+            circle_marker_e476b08a30354cdc1be425fe955d4368.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PREFEITO ZICO PAIVA — 222 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8cfb11611aa081320af3eafba48ac8c6 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.7908048086501225, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_a5c62ff7f57016e47f0812e3bb270d31 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_03901c3545f1d2c08e31b2017f3290ca = $(`<div id="html_03901c3545f1d2c08e31b2017f3290ca" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</h4>             <p><b>Endereço:</b> RUA GOIÁS, 1696</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 21</p>         </div>         </div>`)[0];
+                popup_a5c62ff7f57016e47f0812e3bb270d31.setContent(html_03901c3545f1d2c08e31b2017f3290ca);
+            
+        
+
+        circle_marker_8cfb11611aa081320af3eafba48ac8c6.bindPopup(popup_a5c62ff7f57016e47f0812e3bb270d31)
+        ;
+
+        
+    
+    
+            circle_marker_8cfb11611aa081320af3eafba48ac8c6.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR — 21 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_624853e21eaf79ff729a47e590dbdd3f = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.71759975376794, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_c5d5b35c61fd56fe11340647c359eee4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0372a69b533eb553acc859767660e6cf = $(`<div id="html_0372a69b533eb553acc859767660e6cf" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</h4>             <p><b>Endereço:</b> RUA ARAÇAÍ, 150</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 248</p>         </div>         </div>`)[0];
+                popup_c5d5b35c61fd56fe11340647c359eee4.setContent(html_0372a69b533eb553acc859767660e6cf);
+            
+        
+
+        circle_marker_624853e21eaf79ff729a47e590dbdd3f.bindPopup(popup_c5d5b35c61fd56fe11340647c359eee4)
+        ;
+
+        
+    
+    
+            circle_marker_624853e21eaf79ff729a47e590dbdd3f.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL) — 248 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b3c4b158823a94f5a0f56894e97b939 = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.06377909729323, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_c29ac065f418e78995406cc096650330 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ba919be9733f2c2f24f37df7cf472f3 = $(`<div id="html_8ba919be9733f2c2f24f37df7cf472f3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SANTOS AZEREDO</h4>             <p><b>Endereço:</b> AV. FRANCISCO ANTONIO DE MENDONÇA CHAVES, 22</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 38</p>         </div>         </div>`)[0];
+                popup_c29ac065f418e78995406cc096650330.setContent(html_8ba919be9733f2c2f24f37df7cf472f3);
+            
+        
+
+        circle_marker_9b3c4b158823a94f5a0f56894e97b939.bindPopup(popup_c29ac065f418e78995406cc096650330)
+        ;
+
+        
+    
+    
+            circle_marker_9b3c4b158823a94f5a0f56894e97b939.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SANTOS AZEREDO — 38 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2f6a6441398c88719d5dbb50b2f393f4 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.484483975733938, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_b84787de1c1cd46f730988f7faf4bbcf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3914f5cc279ccf40dc9ea89b197b0494 = $(`<div id="html_3914f5cc279ccf40dc9ea89b197b0494" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 1111</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 74</p>         </div>         </div>`)[0];
+                popup_b84787de1c1cd46f730988f7faf4bbcf.setContent(html_3914f5cc279ccf40dc9ea89b197b0494);
+            
+        
+
+        circle_marker_2f6a6441398c88719d5dbb50b2f393f4.bindPopup(popup_b84787de1c1cd46f730988f7faf4bbcf)
+        ;
+
+        
+    
+    
+            circle_marker_2f6a6441398c88719d5dbb50b2f393f4.bindTooltip(
+                `<div>
+                     ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP — 74 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_66af3d53279ec053f078c8fd27e61f93 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.9234831999261, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_8083c9e0a4a2bb7c91b00dbf51cad94b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3d41621de4be6bb617618352815067bd = $(`<div id="html_3d41621de4be6bb617618352815067bd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</h4>             <p><b>Endereço:</b> RUA ALECRIM, 329</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 287</p>         </div>         </div>`)[0];
+                popup_8083c9e0a4a2bb7c91b00dbf51cad94b.setContent(html_3d41621de4be6bb617618352815067bd);
+            
+        
+
+        circle_marker_66af3d53279ec053f078c8fd27e61f93.bindPopup(popup_8083c9e0a4a2bb7c91b00dbf51cad94b)
+        ;
+
+        
+    
+    
+            circle_marker_66af3d53279ec053f078c8fd27e61f93.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA — 287 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_20488534c89e620c240189e87c6d74ad = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.378682374591024, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_ce84579886f5ab2927ec2d48e0c12cbc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a654fc198755951c2eb6ab964eaf8382 = $(`<div id="html_a654fc198755951c2eb6ab964eaf8382" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</h4>             <p><b>Endereço:</b> RUA PINTASSILGO, 1491</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 190</p>         </div>         </div>`)[0];
+                popup_ce84579886f5ab2927ec2d48e0c12cbc.setContent(html_a654fc198755951c2eb6ab964eaf8382);
+            
+        
+
+        circle_marker_20488534c89e620c240189e87c6d74ad.bindPopup(popup_ce84579886f5ab2927ec2d48e0c12cbc)
+        ;
+
+        
+    
+    
+            circle_marker_20488534c89e620c240189e87c6d74ad.bindTooltip(
+                `<div>
+                     E. M. DOUTOR ENÍZIO ANTÔNIO VIANA — 190 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2b5e43b67b616ae2227afe0d00096980 = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.06377909729323, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_84782782c9fa611689176132838ea9f5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f7ace0309617a8640565104bc1ffb934 = $(`<div id="html_f7ace0309617a8640565104bc1ffb934" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL TEREZINHA GODOY</h4>             <p><b>Endereço:</b> RUA ORQUIDEA, Nº 30</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 38</p>         </div>         </div>`)[0];
+                popup_84782782c9fa611689176132838ea9f5.setContent(html_f7ace0309617a8640565104bc1ffb934);
+            
+        
+
+        circle_marker_2b5e43b67b616ae2227afe0d00096980.bindPopup(popup_84782782c9fa611689176132838ea9f5)
+        ;
+
+        
+    
+    
+            circle_marker_2b5e43b67b616ae2227afe0d00096980.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL TEREZINHA GODOY — 38 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_218697bb6023823240eb4a1dc5aec591 = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.412527967540036, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_f88a502ec0c9a47cc6c2905520ef665c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_399305d16cc9f44e5976909c3fb4efe6 = $(`<div id="html_399305d16cc9f44e5976909c3fb4efe6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</h4>             <p><b>Endereço:</b> RUA QUINTINO BOCAIUVA, 331              </p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 67</p>         </div>         </div>`)[0];
+                popup_f88a502ec0c9a47cc6c2905520ef665c.setContent(html_399305d16cc9f44e5976909c3fb4efe6);
+            
+        
+
+        circle_marker_218697bb6023823240eb4a1dc5aec591.bindPopup(popup_f88a502ec0c9a47cc6c2905520ef665c)
+        ;
+
+        
+    
+    
+            circle_marker_218697bb6023823240eb4a1dc5aec591.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA — 67 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_87b0e382c7dfcb7645ed972630dff3e4 = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.562667501444716, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_4e9ba2fcd8776a4742aa973ea9cf1085 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14163e4b158dbfad47e959056454f073 = $(`<div id="html_14163e4b158dbfad47e959056454f073" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</h4>             <p><b>Endereço:</b> AVENIDA VILLA LOBOS, 730</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 82</p>         </div>         </div>`)[0];
+                popup_4e9ba2fcd8776a4742aa973ea9cf1085.setContent(html_14163e4b158dbfad47e959056454f073);
+            
+        
+
+        circle_marker_87b0e382c7dfcb7645ed972630dff3e4.bindPopup(popup_4e9ba2fcd8776a4742aa973ea9cf1085)
+        ;
+
+        
+    
+    
+            circle_marker_87b0e382c7dfcb7645ed972630dff3e4.bindTooltip(
+                `<div>
+                     COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA — 82 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f23716d59e103634f39d21cfafeb7031 = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.2988961227546065, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_32a05bc574bee0c0e977e67b5a31d03c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_feb98980286d4a031ecd7c12f1f60d5f = $(`<div id="html_feb98980286d4a031ecd7c12f1f60d5f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</h4>             <p><b>Endereço:</b> AVENIDA PIO RODRIGUES DE LIMA, 289</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 3</p>         </div>         </div>`)[0];
+                popup_32a05bc574bee0c0e977e67b5a31d03c.setContent(html_feb98980286d4a031ecd7c12f1f60d5f);
+            
+        
+
+        circle_marker_f23716d59e103634f39d21cfafeb7031.bindPopup(popup_32a05bc574bee0c0e977e67b5a31d03c)
+        ;
+
+        
+    
+    
+            circle_marker_f23716d59e103634f39d21cfafeb7031.bindTooltip(
+                `<div>
+                     ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX — 3 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b2d65fc60226015e37b9a440d741b905 = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.359828584239173, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_ad20f736d357aba33dcdd7932792acdd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_39ddcb0f6e5ca4ff7b30fa79614273d8 = $(`<div id="html_39ddcb0f6e5ca4ff7b30fa79614273d8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</h4>             <p><b>Endereço:</b> PRACA JK, 110                              </p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 187</p>         </div>         </div>`)[0];
+                popup_ad20f736d357aba33dcdd7932792acdd.setContent(html_39ddcb0f6e5ca4ff7b30fa79614273d8);
+            
+        
+
+        circle_marker_b2d65fc60226015e37b9a440d741b905.bindPopup(popup_ad20f736d357aba33dcdd7932792acdd)
+        ;
+
+        
+    
+    
+            circle_marker_b2d65fc60226015e37b9a440d741b905.bindTooltip(
+                `<div>
+                     ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA — 187 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c02c8205b52dc340401d5a2c5a9a1df9 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.440476622816901, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_5e735c6b0745a2dc201a132214bfe80e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eba8ec1e03588f290035c71f6b3a9253 = $(`<div id="html_eba8ec1e03588f290035c71f6b3a9253" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</h4>             <p><b>Endereço:</b> RUA VEREADORA LUMARIZA MARQUES VIANA, 95</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 200</p>         </div>         </div>`)[0];
+                popup_5e735c6b0745a2dc201a132214bfe80e.setContent(html_eba8ec1e03588f290035c71f6b3a9253);
+            
+        
+
+        circle_marker_c02c8205b52dc340401d5a2c5a9a1df9.bindPopup(popup_5e735c6b0745a2dc201a132214bfe80e)
+        ;
+
+        
+    
+    
+            circle_marker_c02c8205b52dc340401d5a2c5a9a1df9.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO — 200 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c67556068aecb535d02d4a3a6215462c = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.533815773772631, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_8dd4126f1c2dbbbe2d6c16335b032b37 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e816788c1fe22f3ee4094709bd089b19 = $(`<div id="html_e816788c1fe22f3ee4094709bd089b19" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</h4>             <p><b>Endereço:</b> AV. GOVERNADOR BIAS FORTES, 375</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 79</p>         </div>         </div>`)[0];
+                popup_8dd4126f1c2dbbbe2d6c16335b032b37.setContent(html_e816788c1fe22f3ee4094709bd089b19);
+            
+        
+
+        circle_marker_c67556068aecb535d02d4a3a6215462c.bindPopup(popup_8dd4126f1c2dbbbe2d6c16335b032b37)
+        ;
+
+        
+    
+    
+            circle_marker_c67556068aecb535d02d4a3a6215462c.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO — 79 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_029b04940d9d66a3dce5ac6dac5e2809 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.662245690080797, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_e65eefe7b41640ac94c31a1c12f9b74e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c103f67a95c9bbd6058e8a29b3dd1bc3 = $(`<div id="html_c103f67a95c9bbd6058e8a29b3dd1bc3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</h4>             <p><b>Endereço:</b> RUA DAS PALMAS, 638</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 238</p>         </div>         </div>`)[0];
+                popup_e65eefe7b41640ac94c31a1c12f9b74e.setContent(html_c103f67a95c9bbd6058e8a29b3dd1bc3);
+            
+        
+
+        circle_marker_029b04940d9d66a3dce5ac6dac5e2809.bindPopup(popup_e65eefe7b41640ac94c31a1c12f9b74e)
+        ;
+
+        
+    
+    
+            circle_marker_029b04940d9d66a3dce5ac6dac5e2809.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC) — 238 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2558e3d0f32d0cd124d75377848829f4 = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.514275921491382, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_9667d4ac97e1f0499bf1cc120ca636a4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ad9899c0373cde222d8750c7e29b1988 = $(`<div id="html_ad9899c0373cde222d8750c7e29b1988" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</h4>             <p><b>Endereço:</b> RUA ZEZITO FILIZOLLA, 15</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 77</p>         </div>         </div>`)[0];
+                popup_9667d4ac97e1f0499bf1cc120ca636a4.setContent(html_ad9899c0373cde222d8750c7e29b1988);
+            
+        
+
+        circle_marker_2558e3d0f32d0cd124d75377848829f4.bindPopup(popup_9667d4ac97e1f0499bf1cc120ca636a4)
+        ;
+
+        
+    
+    
+            circle_marker_2558e3d0f32d0cd124d75377848829f4.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR EDSON ABREU — 77 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec5d23603873cce3f43f7c76c417fb09 = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.975128255574265, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_609cc52c12d2211554e20777d9007343 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9a494215cc5996a66307bdd11182f581 = $(`<div id="html_9a494215cc5996a66307bdd11182f581" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</h4>             <p><b>Endereço:</b> RUA HONDURAS, 28</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 131</p>         </div>         </div>`)[0];
+                popup_609cc52c12d2211554e20777d9007343.setContent(html_9a494215cc5996a66307bdd11182f581);
+            
+        
+
+        circle_marker_ec5d23603873cce3f43f7c76c417fb09.bindPopup(popup_609cc52c12d2211554e20777d9007343)
+        ;
+
+        
+    
+    
+            circle_marker_ec5d23603873cce3f43f7c76c417fb09.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO — 131 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f44c133c9f85d2a3c852cd1803c48010 = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.553109812388967, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_40da88be066c471b236e7d251c318efa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f719a44f3c5a3ccf599b3f6d8055e2ca = $(`<div id="html_f719a44f3c5a3ccf599b3f6d8055e2ca" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</h4>             <p><b>Endereço:</b> AV. JOSE SERVULO SOALHEIRO, 2585</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 81</p>         </div>         </div>`)[0];
+                popup_40da88be066c471b236e7d251c318efa.setContent(html_f719a44f3c5a3ccf599b3f6d8055e2ca);
+            
+        
+
+        circle_marker_f44c133c9f85d2a3c852cd1803c48010.bindPopup(popup_40da88be066c471b236e7d251c318efa)
+        ;
+
+        
+    
+    
+            circle_marker_f44c133c9f85d2a3c852cd1803c48010.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS — 81 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aa131072d8129e975512eff64769058d = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.967575156184703, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_d6a3e22311efe065d299eb1cec56b51e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a4eb49cd9ae9297bc3b4e40d005558f2 = $(`<div id="html_a4eb49cd9ae9297bc3b4e40d005558f2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JUCA DIAS</h4>             <p><b>Endereço:</b> AVENIDA EURO ANDRADE, 241</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 130</p>         </div>         </div>`)[0];
+                popup_d6a3e22311efe065d299eb1cec56b51e.setContent(html_a4eb49cd9ae9297bc3b4e40d005558f2);
+            
+        
+
+        circle_marker_aa131072d8129e975512eff64769058d.bindPopup(popup_d6a3e22311efe065d299eb1cec56b51e)
+        ;
+
+        
+    
+    
+            circle_marker_aa131072d8129e975512eff64769058d.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JUCA DIAS — 130 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4e9041475c6700e043afa57adba0f52a = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.22023831140845, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_67a99a4c2fd404dd573ff7ff57f370ec = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dee15306e880859b0d797135ac01f498 = $(`<div id="html_dee15306e880859b0d797135ac01f498" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SINHÁ ANDRADE</h4>             <p><b>Endereço:</b> AV. RENATO AZEREDO, 2423</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 50</p>         </div>         </div>`)[0];
+                popup_67a99a4c2fd404dd573ff7ff57f370ec.setContent(html_dee15306e880859b0d797135ac01f498);
+            
+        
+
+        circle_marker_4e9041475c6700e043afa57adba0f52a.bindPopup(popup_67a99a4c2fd404dd573ff7ff57f370ec)
+        ;
+
+        
+    
+    
+            circle_marker_4e9041475c6700e043afa57adba0f52a.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SINHÁ ANDRADE — 50 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ea140dc2a1a1c3051fbaf38477159e6 = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.415948597049504, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_03e8b00d97eb2ce351305b7332aa1245 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2c87dcade7594f7108e938d8166213db = $(`<div id="html_2c87dcade7594f7108e938d8166213db" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</h4>             <p><b>Endereço:</b> RUA TUPINIQUINS, 19</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 196</p>         </div>         </div>`)[0];
+                popup_03e8b00d97eb2ce351305b7332aa1245.setContent(html_2c87dcade7594f7108e938d8166213db);
+            
+        
+
+        circle_marker_5ea140dc2a1a1c3051fbaf38477159e6.bindPopup(popup_03e8b00d97eb2ce351305b7332aa1245)
+        ;
+
+        
+    
+    
+            circle_marker_5ea140dc2a1a1c3051fbaf38477159e6.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS — 196 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ff30cc45a3ee5734c4f4952afddad9d6 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.29137884488806, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_b86cfc1598c4247e8d43000e17c38029 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_da927b184fa5c85c2070164ddbfed7fd = $(`<div id="html_da927b184fa5c85c2070164ddbfed7fd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADE ATENAS DE SETE LAGOAS</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 6000</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 56</p>         </div>         </div>`)[0];
+                popup_b86cfc1598c4247e8d43000e17c38029.setContent(html_da927b184fa5c85c2070164ddbfed7fd);
+            
+        
+
+        circle_marker_ff30cc45a3ee5734c4f4952afddad9d6.bindPopup(popup_b86cfc1598c4247e8d43000e17c38029)
+        ;
+
+        
+    
+    
+            circle_marker_ff30cc45a3ee5734c4f4952afddad9d6.bindTooltip(
+                `<div>
+                     FACULDADE ATENAS DE SETE LAGOAS — 56 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_15568e2cf86c32d29d241dbf1ced92d6 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.793376736527638, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_4eb76e2bb2118a71315b0a139a562418 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5565afe51d18f591f56e24e9a85e80d6 = $(`<div id="html_5565afe51d18f591f56e24e9a85e80d6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</h4>             <p><b>Endereço:</b> R. LAURA BRAGA CUNHA, 88</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 108</p>         </div>         </div>`)[0];
+                popup_4eb76e2bb2118a71315b0a139a562418.setContent(html_5565afe51d18f591f56e24e9a85e80d6);
+            
+        
+
+        circle_marker_15568e2cf86c32d29d241dbf1ced92d6.bindPopup(popup_4eb76e2bb2118a71315b0a139a562418)
+        ;
+
+        
+    
+    
+            circle_marker_15568e2cf86c32d29d241dbf1ced92d6.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA — 108 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acf35699d44ba84cc9d7b3f0c63e28f8 = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.6461914823812815, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_737f8af08b06f50283986507d4aa22e1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e2034d1d89667133c052199ff2bb0a19 = $(`<div id="html_e2034d1d89667133c052199ff2bb0a19" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</h4>             <p><b>Endereço:</b> RUA DELCI BARBOSA, 566</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 91</p>         </div>         </div>`)[0];
+                popup_737f8af08b06f50283986507d4aa22e1.setContent(html_e2034d1d89667133c052199ff2bb0a19);
+            
+        
+
+        circle_marker_acf35699d44ba84cc9d7b3f0c63e28f8.bindPopup(popup_737f8af08b06f50283986507d4aa22e1)
+        ;
+
+        
+    
+    
+            circle_marker_acf35699d44ba84cc9d7b3f0c63e28f8.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURO FACCIO GONÇALVES — 91 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6da414f254f4f34cb633c714ebe56ef4 = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.960816607220101, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_6508cce3b47f632084a9b1e96a5e652e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7b9e0ec5556ef6cb050830479e253f75 = $(`<div id="html_7b9e0ec5556ef6cb050830479e253f75" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</h4>             <p><b>Endereço:</b> RUA ADOLAR NAPOLEÃO FRANÇA, 175</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 31</p>         </div>         </div>`)[0];
+                popup_6508cce3b47f632084a9b1e96a5e652e.setContent(html_7b9e0ec5556ef6cb050830479e253f75);
+            
+        
+
+        circle_marker_6da414f254f4f34cb633c714ebe56ef4.bindPopup(popup_6508cce3b47f632084a9b1e96a5e652e)
+        ;
+
+        
+    
+    
+            circle_marker_6da414f254f4f34cb633c714ebe56ef4.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS — 31 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_40ee9e199fa14a50483350680eea4fc4 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.929305811476926, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_079ea1d2e482a0ecb7fad44e6543d953 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d75d403752a28d9b1cb8f5bf71ea579c = $(`<div id="html_d75d403752a28d9b1cb8f5bf71ea579c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JULIO CÉSAR</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 95 - ENTRADA PELA RUA DIVINÓPOLIS</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 29</p>         </div>         </div>`)[0];
+                popup_079ea1d2e482a0ecb7fad44e6543d953.setContent(html_d75d403752a28d9b1cb8f5bf71ea579c);
+            
+        
+
+        circle_marker_40ee9e199fa14a50483350680eea4fc4.bindPopup(popup_079ea1d2e482a0ecb7fad44e6543d953)
+        ;
+
+        
+    
+    
+            circle_marker_40ee9e199fa14a50483350680eea4fc4.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JULIO CÉSAR — 29 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3a16210b8443cb7fc95bca22630ccd77 = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.207974298524752, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_5c19fb51ccc439323b1fe97e6a6b2f76 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cabfd125347699c42212045c15489191 = $(`<div id="html_cabfd125347699c42212045c15489191" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</h4>             <p><b>Endereço:</b> RUA CEL. JOÃO ANTONIO AVELAR, 217</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 49</p>         </div>         </div>`)[0];
+                popup_5c19fb51ccc439323b1fe97e6a6b2f76.setContent(html_cabfd125347699c42212045c15489191);
+            
+        
+
+        circle_marker_3a16210b8443cb7fc95bca22630ccd77.bindPopup(popup_5c19fb51ccc439323b1fe97e6a6b2f76)
+        ;
+
+        
+    
+    
+            circle_marker_3a16210b8443cb7fc95bca22630ccd77.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO — 49 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_33ef2cf9e81c2892e805656ddb2da3a9 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.771746470449705, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_70c650c53674e30e344e6cf8e6c981b1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c91e4429e41f2bdb61da072aa2c7b18c = $(`<div id="html_c91e4429e41f2bdb61da072aa2c7b18c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</h4>             <p><b>Endereço:</b> RUA EZIO SOUZA DE DEUS, 87</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 20</p>         </div>         </div>`)[0];
+                popup_70c650c53674e30e344e6cf8e6c981b1.setContent(html_c91e4429e41f2bdb61da072aa2c7b18c);
+            
+        
+
+        circle_marker_33ef2cf9e81c2892e805656ddb2da3a9.bindPopup(popup_70c650c53674e30e344e6cf8e6c981b1)
+        ;
+
+        
+    
+    
+            circle_marker_33ef2cf9e81c2892e805656ddb2da3a9.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY — 20 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8fa66c73c13d2a60c8bc8bdff2543199 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.913142738301198, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_aaca7becdcf738057415f6ccfc02ee82 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_89ba47d82577ff8d2ed341fea0c5e436 = $(`<div id="html_89ba47d82577ff8d2ed341fea0c5e436" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</h4>             <p><b>Endereço:</b> AV. JOSÉ SÉRVULO SOALHEIRO, 4373</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 28</p>         </div>         </div>`)[0];
+                popup_aaca7becdcf738057415f6ccfc02ee82.setContent(html_89ba47d82577ff8d2ed341fea0c5e436);
+            
+        
+
+        circle_marker_8fa66c73c13d2a60c8bc8bdff2543199.bindPopup(popup_aaca7becdcf738057415f6ccfc02ee82)
+        ;
+
+        
+    
+    
+            circle_marker_8fa66c73c13d2a60c8bc8bdff2543199.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO — 28 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fe89ff648f364eec39bc5ebcd3b4bba = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.690271027728429, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_5ff6f304c90bfaf0441830e92e07464d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a1cefafdc67f4110e37ff9c376c2d161 = $(`<div id="html_a1cefafdc67f4110e37ff9c376c2d161" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</h4>             <p><b>Endereço:</b> AVENIDA SETE, 200</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 16</p>         </div>         </div>`)[0];
+                popup_5ff6f304c90bfaf0441830e92e07464d.setContent(html_a1cefafdc67f4110e37ff9c376c2d161);
+            
+        
+
+        circle_marker_5fe89ff648f364eec39bc5ebcd3b4bba.bindPopup(popup_5ff6f304c90bfaf0441830e92e07464d)
+        ;
+
+        
+    
+    
+            circle_marker_5fe89ff648f364eec39bc5ebcd3b4bba.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO — 16 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d8ef8748c09b7140d36ecccf0bdd8d2d = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#FFD700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FFD700", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.690271027728429, "stroke": true, "weight": 1}
+            ).addTo(map_ca1770f25e2ea7beaec5894373064a79);
+        
+    
+        var popup_adab1f1f847c05c2fdbcd9fc76a8800d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ecf39f2aaa1078353f0c48f72b1a7210 = $(`<div id="html_ecf39f2aaa1078353f0c48f72b1a7210" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CEMEI MARISA MARA VAZ COSTA GALUPPO</h4>             <p><b>Endereço:</b> RUA MARIA DA CONCEIÇÃO BARCELOS, 185</p>             <hr>             <p><b>Candidato:</b> AUGUSTO JORGE CURY</p>             <p><b>Votos recebidos:</b> 16</p>         </div>         </div>`)[0];
+                popup_adab1f1f847c05c2fdbcd9fc76a8800d.setContent(html_ecf39f2aaa1078353f0c48f72b1a7210);
+            
+        
+
+        circle_marker_d8ef8748c09b7140d36ecccf0bdd8d2d.bindPopup(popup_adab1f1f847c05c2fdbcd9fc76a8800d)
+        ;
+
+        
+    
+    
+            circle_marker_d8ef8748c09b7140d36ecccf0bdd8d2d.bindTooltip(
+                `<div>
+                     CEMEI MARISA MARA VAZ COSTA GALUPPO — 16 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_ca1770f25e2ea7beaec5894373064a79.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>

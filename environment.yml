@@ -1,0 +1,6 @@
+name: mapeamento_eleitoral
+channels:
+  - defaults
+dependencies:
+  - pandas
+prefix: /home/giovanna/miniconda3/envs/mapeamento_eleitoral

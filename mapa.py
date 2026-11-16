@@ -154,7 +154,7 @@ for candidato in candidatos:
         .replace('/', '_')
     )
 
-    mapa.save(f'mapa_{nome_arquivo}.html')
+    mapa.save(f'mapas/mapa_{nome_arquivo}.html')
 
     print(os.path.join(PASTA, f'Mapa criado: mapa_{nome_arquivo}.html'))
 

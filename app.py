@@ -136,7 +136,7 @@ for i, candidato in enumerate(candidatos):
         with col_total:
             st.metric("Total de votos", f"{votos_candidato:,.0f}")
 
-        exibir_mapa(f"mapa_{candidato.lower().replace(' ', '_')}.html")
+        exibir_mapa(f"mapas/mapa_{candidato.lower().replace(' ', '_')}.html")
 
 if turno == 2:
     with st.container(border=True):
