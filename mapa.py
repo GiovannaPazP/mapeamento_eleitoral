@@ -3,7 +3,11 @@ import pandas as pd
 import folium
 from html import escape
 from math import sqrt
+import branca.colormap as cm
+import os
 
+PASTA = "mapas"
+os.makedirs(PASTA, exist_ok=True)
 
 ARQUIVO_CSV = 'sete_lagoas_eleitorado.csv'
 
@@ -152,4 +156,121 @@ for candidato in candidatos:
 
     mapa.save(f'mapa_{nome_arquivo}.html')
 
-    print(f'Mapa criado: mapa_{nome_arquivo}.html')
+    print(os.path.join(PASTA, f'Mapa criado: mapa_{nome_arquivo}.html'))
+
+
+# parte 3
+df2 = pd.read_csv(
+    ARQUIVO_CSV, 
+    sep=";",
+    encoding="cp1252",
+    decimal=","
+)
+
+df2 = df2[df2["NR_TURNO"] == 2]
+
+LULA = "LUIZ INÁCIO LULA DA SILVA"
+FLAVIO = "FLAVIO NANTES BOLSONARO"
+
+# votos por local e candidato
+v2 = (
+    df2[df2["NM_VOTAVEL"].isin([LULA, FLAVIO])]
+    .pivot_table(
+        index="NR_LOCAL_VOTACAO", 
+        columns="NM_VOTAVEL",
+        values="QT_VOTOS", 
+        aggfunc="sum", 
+        fill_value=0
+    )
+    .reset_index()
+)
+
+v2["validos"] = v2[LULA] + v2[FLAVIO]
+v2["pct_lula"] = v2[LULA] / v2["validos"] * 100
+v2["pct_flavio"] = v2[FLAVIO] / v2["validos"] * 100
+v2["margem"] = v2["pct_lula"] - v2["pct_flavio"] # positivo == Lula, negativo==Flavio
+v2["lider"] = v2["margem"].apply(lambda m: "Lula" if m > 0 else "Flávio Bolsonaro")
+
+locais2 = totais_locais.merge(
+    v2, 
+    on="NR_LOCAL_VOTACAO", 
+    how="inner"
+)
+print(len(locais2))
+
+m_abs = float(locais2["margem"].abs().max())
+cmap = cm.LinearColormap(
+    colors=["#0066CC", "#f7f7f7", "#D71920"],
+    index=[-m_abs, 0, m_abs],
+    vmin=-m_abs, vmax=m_abs,
+    caption="Margem no 2º turno (p.p.): azul = Flávio, vermelho = Lula",
+)
+
+# mapa base
+mapa2 = folium.Map(
+    location=centro, 
+    zoom_start=12, 
+    tiles=None
+)
+
+folium.TileLayer(
+    tiles="https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+    attr="&copy; OpenStreetMap contributors",
+    name="Mapa base",
+).add_to(mapa2)
+
+# camadas
+g_ambos = folium.FeatureGroup(
+    name="Os dois candidatos (margem)", 
+    show=True
+)
+g_lula = folium.FeatureGroup(
+    name="Dominância de Lula", 
+    show=False
+)
+g_flavio = folium.FeatureGroup(
+    name="Dominância de Flávio Bolsonaro", 
+    show=False
+)
+
+maior_validos = locais2["validos"].max()
+
+for _, r in locais2.iterrows():
+    raio = 4 + 10 * sqrt(r["validos"] / maior_validos)
+    tip = f"""
+    <div style="font-family:Arial; font-size:12px">
+      <b>{escape(str(r["nome"]))}</b><br>
+      Líder: <b>{r["lider"]}</b><br>
+      Lula: {r["pct_lula"]:.1f}% · Flávio: {r["pct_flavio"]:.1f}%<br>
+      Vantagem: {abs(r["margem"]):.1f} p.p.
+    </div>"""
+
+    # camada 1: os dois juntos, cor pela margem
+    folium.CircleMarker(
+        location=[r["latitude"], r["longitude"]],
+        radius=raio, color="#333", weight=0.8,
+        fill=True, fill_color=cmap(r["margem"]), fill_opacity=0.85,
+        tooltip=folium.Tooltip(tip, sticky=True),
+    ).add_to(g_ambos)
+
+    # camadas 2 e 3: só o candidato que lidera, intensidade = tamanho da vantagem
+    lula_lidera = r["margem"] > 0
+    cor = "#D71920" if lula_lidera else "#0066CC"
+    folium.CircleMarker(
+        location=[r["latitude"], r["longitude"]],
+        radius=raio, color=cor, weight=1,
+        fill=True, fill_color=cor,
+        fill_opacity=0.35 + 0.55 * abs(r["margem"]) / m_abs,
+        tooltip=folium.Tooltip(tip, sticky=True),
+    ).add_to(g_lula if lula_lidera else g_flavio)
+
+g_ambos.add_to(mapa2)
+g_lula.add_to(mapa2)
+g_flavio.add_to(mapa2)
+
+cmap.add_to(mapa2)
+folium.LayerControl(collapsed=False).add_to(mapa2)
+
+mapa2.fit_bounds([[locais2["latitude"].min(), locais2["longitude"].min()],
+                  [locais2["latitude"].max(), locais2["longitude"].max()]])
+mapa2.save(os.path.join(PASTA, "mapa_2turno.html"))
