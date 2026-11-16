@@ -21,21 +21,22 @@
 
 6. **Validação e exportação:** conferência da quantidade de registros e da presença das coordenadas geográficas, seguida da exportação do dataset final em CSV.
 
+### mapa.py
 
-### unificacao.py
+1. **Leitura e agrupamento dos dados.**
 
-1. **Leitura e inspeção dos dados:** carregamento do arquivo de eleitorado e votação, com verificação das dimensões, colunas e registros duplicados.
+2. **Filtragem dos 5 candidatos mais votados e agrupamento por local de votação.**
 
-2. **Padronização das coordenadas:** conversão de latitude e longitude para formato numérico e identificação dos locais de votação distintos.
+3. **Criação dos mapas para cada candidato nos 5 mais votados no primeiro turno.**
 
-3. **Separação por turno:** divisão dos registros entre primeiro e segundo turnos.
+4. **Adição dos pontos de cada local de votação no mapa, o tamanho de acordo com a raiz quadrada da quantidade de votos e cor referente a cada candidato.**
 
-4. **Reorganização dos votos:** aplicação de `pivot()` para transformar os candidatos em colunas, mantendo uma linha por seção eleitoral e local de votação.
+5. **Salvamento dos 5 arquivos.**
 
-5. **Identificação dos candidatos:** separação dos candidatos de votos em branco e nulos, com identificação dos candidatos de interesse.
+### app.py
 
-6. **Agregação por local de votação:** soma dos votos das seções com as mesmas coordenadas geográficas, preservando o nome e endereço dos locais e contabilizando zonas e seções.
+1. **Carregamento dos dados em cache.**
 
-7. **Cálculo dos indicadores:** identificação do candidato líder em cada local, totalização dos votos válidos, cálculo das porcentagens por candidato e agrupamento dos demais candidatos na categoria "outros" no primeiro turno.
+2. **Exibição dos mapas com streamlit.**
 
-8. **Validação e exportação:** conferência da consistência dos totais e exportação dos resultados de cada turno em arquivos CSV separados, na pasta `dados_processados`.
+3. **Seleção de turno.**
