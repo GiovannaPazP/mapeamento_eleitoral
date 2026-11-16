@@ -39,3 +39,40 @@
 7. **Cálculo dos indicadores:** identificação do candidato líder em cada local, totalização dos votos válidos, cálculo das porcentagens por candidato e agrupamento dos demais candidatos na categoria "outros" no primeiro turno.
 
 8. **Validação e exportação:** conferência da consistência dos totais e exportação dos resultados de cada turno em arquivos CSV separados, na pasta `dados_processados`.
+
+
+# Mapa do 2º Turno: Lula x Flávio Bolsonaro
+
+## mapa_2turno 
+
+1. **Releitura dos dados:** o arquivo `sete_lagoas_eleitorado.csv` foi lido novamente (`sep=';'`, `encoding='cp1252'`, `decimal=','`) e filtrado para `NR_TURNO == 2`, pois o `df` usado no 1º turno já estava filtrado.
+
+2. **Seleção dos finalistas:** apenas os votos de Lula e Flávio Bolsonaro, de modo que o total de votos válidos de cada local é a soma dos dois.
+
+3. **Reorganização dos votos:** aplicação de `pivot_table()` por `NR_LOCAL_VOTACAO`, com os dois candidatos em colunas e soma de `QT_VOTOS`.
+
+4. **Cálculo dos indicadores:** votos válidos, porcentagem de cada candidato e margem em pontos percentuais (`pct_lula - pct_flavio`, positiva para Lula e negativa para Flávio). O líder do local foi definido pelo sinal da margem.
+
+5. **Integração com os locais:** junção com a tabela `totais_locais` (já usada no 1º turno) por `NR_LOCAL_VOTACAO`, trazendo nome, endereço, latitude e longitude (média das seções do local).
+
+6. **Paleta de cores:** escala divergente do `branca.colormap.LinearColormap`, centrada em zero e simétrica (de `-m_abs` a `+m_abs`), usando as mesmas cores do 1º turno: azul (`#0066CC`) para Flávio e vermelho (`#D71920`) para Lula, com cinza claro no empate.
+
+7. **Construção do mapa:** `folium.Map` com o mesmo fundo do 1º turno e um `CircleMarker` por local de votação. O raio é proporcional à raiz dos votos válidos do local, para manter a escala dos círculos comparável.
+
+8. **Camadas e controle:** três `FeatureGroup` alternáveis pelo `folium.LayerControl`:
+   - **Os dois candidatos (margem):** cor pela escala divergente.
+   - **Dominância de Lula:** apenas locais onde Lula lidera, na cor dele, com opacidade proporcional à vantagem.
+   - **Dominância de Flávio Bolsonaro:** apenas locais onde Flávio lidera, na cor dele, com opacidade proporcional à vantagem.
+
+9. **Tooltip:** `folium.Tooltip` com HTML/CSS exibindo nome do local, líder, porcentagem de cada candidato e vantagem em pontos percentuais.
+
+10. **Exportação:** ajuste do enquadramento com `fit_bounds` e salvamento em `mapas/mapa_2turno.html`.
+
+## index.html
+
+Página de navegação escrita manualmente, com links para os mapas do 1º turno (um por candidato) e para o mapa do 2º turno.
+
+### Observações
+
+- A unidade do mapa é o **local de votação**, e não a seção individual.
+- Foram usados pontos graduados (`CircleMarker`) no lugar de polígonos.
