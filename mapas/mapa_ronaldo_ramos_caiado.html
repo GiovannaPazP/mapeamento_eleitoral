@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c02dc01cad6baa62781bb8384976e5ed {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c02dc01cad6baa62781bb8384976e5ed" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c02dc01cad6baa62781bb8384976e5ed = L.map(
+                "map_c02dc01cad6baa62781bb8384976e5ed",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b89993955050479bd3598e00ad811fc0 = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b89993955050479bd3598e00ad811fc0.addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+            var circle_marker_cf0ed035dd3dccf7d5a9be7e497c16d0 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.035406541592645, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_c6b45be4d6a77816dfedbf92d4d0a5f7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_205959a317ccc48b494ecc47624189cd = $(`<div id="html_205959a317ccc48b494ecc47624189cd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</h4>             <p><b>Endereço:</b> PRAÇA DO MILITO, S/N</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 36</p>         </div>         </div>`)[0];
+                popup_c6b45be4d6a77816dfedbf92d4d0a5f7.setContent(html_205959a317ccc48b494ecc47624189cd);
+            
+        
+
+        circle_marker_cf0ed035dd3dccf7d5a9be7e497c16d0.bindPopup(popup_c6b45be4d6a77816dfedbf92d4d0a5f7)
+        ;
+
+        
+    
+    
+            circle_marker_cf0ed035dd3dccf7d5a9be7e497c16d0.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR — 36 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_616519d4ff360c2992f5769f1192b70c = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.517703270796322, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_2247f4034d9fed26e1fed86372109872 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_adce62779f7ae4679cc97195f10a3121 = $(`<div id="html_adce62779f7ae4679cc97195f10a3121" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</h4>             <p><b>Endereço:</b> RUA CORNÉLIO ROCHA.322</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 9</p>         </div>         </div>`)[0];
+                popup_2247f4034d9fed26e1fed86372109872.setContent(html_adce62779f7ae4679cc97195f10a3121);
+            
+        
+
+        circle_marker_616519d4ff360c2992f5769f1192b70c.bindPopup(popup_2247f4034d9fed26e1fed86372109872)
+        ;
+
+        
+    
+    
+            circle_marker_616519d4ff360c2992f5769f1192b70c.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA — 9 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b7432a296402195f4639449b4c4983e6 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.22023831140845, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_25fcee212e3db3c2f98c96fb4efb56af = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_49a7168c9cae8664938326f14b866e52 = $(`<div id="html_49a7168c9cae8664938326f14b866e52" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  ESTADUAL  DR. AVELAR</h4>             <p><b>Endereço:</b> RUA CAMPINAS, 59</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 50</p>         </div>         </div>`)[0];
+                popup_25fcee212e3db3c2f98c96fb4efb56af.setContent(html_49a7168c9cae8664938326f14b866e52);
+            
+        
+
+        circle_marker_b7432a296402195f4639449b4c4983e6.bindPopup(popup_25fcee212e3db3c2f98c96fb4efb56af)
+        ;
+
+        
+    
+    
+            circle_marker_b7432a296402195f4639449b4c4983e6.bindTooltip(
+                `<div>
+                     ESCOLA  ESTADUAL  DR. AVELAR — 50 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d6927149d0a44c838d3232fcecf0cd1 = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.517703270796322, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_17c871fad38fc16dda4996471b3c18e2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a4bcbcc6012f2c3c99d34e322c8cacec = $(`<div id="html_a4bcbcc6012f2c3c99d34e322c8cacec" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</h4>             <p><b>Endereço:</b> RUA JOAQUIM HENRIQUE NOGUEIRA,347</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 9</p>         </div>         </div>`)[0];
+                popup_17c871fad38fc16dda4996471b3c18e2.setContent(html_a4bcbcc6012f2c3c99d34e322c8cacec);
+            
+        
+
+        circle_marker_4d6927149d0a44c838d3232fcecf0cd1.bindPopup(popup_17c871fad38fc16dda4996471b3c18e2)
+        ;
+
+        
+    
+    
+            circle_marker_4d6927149d0a44c838d3232fcecf0cd1.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND — 9 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_290867de6349c1b9fbad26f306bf2343 = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.858611622953853, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_0c191d375381a9148725be0ef318c13f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_330bd6cfd9e7f54033935ef84a63cd7d = $(`<div id="html_330bd6cfd9e7f54033935ef84a63cd7d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</h4>             <p><b>Endereço:</b> RUA SANTA JULIANA, 2287</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 116</p>         </div>         </div>`)[0];
+                popup_0c191d375381a9148725be0ef318c13f.setContent(html_330bd6cfd9e7f54033935ef84a63cd7d);
+            
+        
+
+        circle_marker_290867de6349c1b9fbad26f306bf2343.bindPopup(popup_0c191d375381a9148725be0ef318c13f)
+        ;
+
+        
+    
+    
+            circle_marker_290867de6349c1b9fbad26f306bf2343.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM — 116 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fbd02216e6050ac87e2e7e895d2cc7c0 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.0209246180008895, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_08fb7db796398f696043499f60c51560 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_859ff820f9bebf7961f6919bf9c870ba = $(`<div id="html_859ff820f9bebf7961f6919bf9c870ba" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIVERSIDADE UNOPAR</h4>             <p><b>Endereço:</b> RUA MONSENHOR MESSIAS, 94</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 35</p>         </div>         </div>`)[0];
+                popup_08fb7db796398f696043499f60c51560.setContent(html_859ff820f9bebf7961f6919bf9c870ba);
+            
+        
+
+        circle_marker_fbd02216e6050ac87e2e7e895d2cc7c0.bindPopup(popup_08fb7db796398f696043499f60c51560)
+        ;
+
+        
+    
+    
+            circle_marker_fbd02216e6050ac87e2e7e895d2cc7c0.bindTooltip(
+                `<div>
+                     UNIVERSIDADE UNOPAR — 35 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b4c6d7780508d64e2b5284fd15ad14a8 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.572342500657053, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_83cfd947919b7c12d507979f11e585d2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_687471328f8e388777cca6f1b03296c2 = $(`<div id="html_687471328f8e388777cca6f1b03296c2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADES PROMOVE</h4>             <p><b>Endereço:</b> RUA DR PENA, 157</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 11</p>         </div>         </div>`)[0];
+                popup_83cfd947919b7c12d507979f11e585d2.setContent(html_687471328f8e388777cca6f1b03296c2);
+            
+        
+
+        circle_marker_b4c6d7780508d64e2b5284fd15ad14a8.bindPopup(popup_83cfd947919b7c12d507979f11e585d2)
+        ;
+
+        
+    
+    
+            circle_marker_b4c6d7780508d64e2b5284fd15ad14a8.bindTooltip(
+                `<div>
+                     FACULDADES PROMOVE — 11 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_12b8bd76d6d351f665f362baced22ed6 = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.085144140570748, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_0071a8b71378a097ba6ff04013a1ef84 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3b2a56d7977cde1ee831005fcd7e37a5 = $(`<div id="html_3b2a56d7977cde1ee831005fcd7e37a5" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 275</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 146</p>         </div>         </div>`)[0];
+                popup_0071a8b71378a097ba6ff04013a1ef84.setContent(html_3b2a56d7977cde1ee831005fcd7e37a5);
+            
+        
+
+        circle_marker_12b8bd76d6d351f665f362baced22ed6.bindPopup(popup_0071a8b71378a097ba6ff04013a1ef84)
+        ;
+
+        
+    
+    
+            circle_marker_12b8bd76d6d351f665f362baced22ed6.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO — 146 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c21019eae28bee4d7e7f1eb6567368e = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.879926360013752, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_8251ebce45020920a8aaa3aeb1b71399 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_91baa2570d77be8a76beef47b77a950c = $(`<div id="html_91baa2570d77be8a76beef47b77a950c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</h4>             <p><b>Endereço:</b> RUA A, S/NR</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 26</p>         </div>         </div>`)[0];
+                popup_8251ebce45020920a8aaa3aeb1b71399.setContent(html_91baa2570d77be8a76beef47b77a950c);
+            
+        
+
+        circle_marker_3c21019eae28bee4d7e7f1eb6567368e.bindPopup(popup_8251ebce45020920a8aaa3aeb1b71399)
+        ;
+
+        
+    
+    
+            circle_marker_3c21019eae28bee4d7e7f1eb6567368e.bindTooltip(
+                `<div>
+                     ESF MORRO REDONDO ANEXO DE FAZENDA VELHA — 26 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2a23fa6a93f56f58f38a40628a29fe26 = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.14150954534813, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_50c0bac392eed73cb41381a8d3fee4ba = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_468f989eb31821a46e2c0c172367a295 = $(`<div id="html_468f989eb31821a46e2c0c172367a295" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</h4>             <p><b>Endereço:</b> R. JOSÉ LUIZ BARBOSA, 91</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 154</p>         </div>         </div>`)[0];
+                popup_50c0bac392eed73cb41381a8d3fee4ba.setContent(html_468f989eb31821a46e2c0c172367a295);
+            
+        
+
+        circle_marker_2a23fa6a93f56f58f38a40628a29fe26.bindPopup(popup_50c0bac392eed73cb41381a8d3fee4ba)
+        ;
+
+        
+    
+    
+            circle_marker_2a23fa6a93f56f58f38a40628a29fe26.bindTooltip(
+                `<div>
+                     ESCOLA  MUNICIPAL QUINCAS NOGUEIRA — 154 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6ca03d2745569b61661389efc38c8958 = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.673106478638589, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_f4a1f2570d87bb1be141d7f7181b6c24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4672df7b7f76a654a8e36088840e5e1c = $(`<div id="html_4672df7b7f76a654a8e36088840e5e1c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</h4>             <p><b>Endereço:</b> RUA MAJOR CAMPOS,82</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 94</p>         </div>         </div>`)[0];
+                popup_f4a1f2570d87bb1be141d7f7181b6c24.setContent(html_4672df7b7f76a654a8e36088840e5e1c);
+            
+        
+
+        circle_marker_6ca03d2745569b61661389efc38c8958.bindPopup(popup_f4a1f2570d87bb1be141d7f7181b6c24)
+        ;
+
+        
+    
+    
+            circle_marker_6ca03d2745569b61661389efc38c8958.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO — 94 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf10986ae832ad413c09592668010f97 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.077685296629112, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_c7369d71f48547fa2ed85861a7afca8c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c6541682878bc75583bee1f52d4976ff = $(`<div id="html_c6541682878bc75583bee1f52d4976ff" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO FRANCISCANO REGINA PACIS</h4>             <p><b>Endereço:</b> PRACA TIRADENTES, 34</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 39</p>         </div>         </div>`)[0];
+                popup_c7369d71f48547fa2ed85861a7afca8c.setContent(html_c6541682878bc75583bee1f52d4976ff);
+            
+        
+
+        circle_marker_bf10986ae832ad413c09592668010f97.bindPopup(popup_c7369d71f48547fa2ed85861a7afca8c)
+        ;
+
+        
+    
+    
+            circle_marker_bf10986ae832ad413c09592668010f97.bindTooltip(
+                `<div>
+                     COLÉGIO FRANCISCANO REGINA PACIS — 39 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51d137209f70e293bb1eb19717823147 = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.24404766228169, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_494427640f413b4bc16278aa950f88fe = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_68c9950067c61bfb5b5c25b5456170ad = $(`<div id="html_68c9950067c61bfb5b5c25b5456170ad" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</h4>             <p><b>Endereço:</b> R. MANOEL DE SOUZA, S/N</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 2</p>         </div>         </div>`)[0];
+                popup_494427640f413b4bc16278aa950f88fe.setContent(html_68c9950067c61bfb5b5c25b5456170ad);
+            
+        
+
+        circle_marker_51d137209f70e293bb1eb19717823147.bindPopup(popup_494427640f413b4bc16278aa950f88fe)
+        ;
+
+        
+    
+    
+            circle_marker_51d137209f70e293bb1eb19717823147.bindTooltip(
+                `<div>
+                     SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS — 2 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a51d88728e58011c9710547737b4e711 = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.113514752701489, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_fdc7ee3b2111db2268531b88624561ac = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_da98921d6704fc8b9dfd241bbba11696 = $(`<div id="html_da98921d6704fc8b9dfd241bbba11696" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</h4>             <p><b>Endereço:</b> RUA DR LUCIANO SOARES SANTANA, 641</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 150</p>         </div>         </div>`)[0];
+                popup_fdc7ee3b2111db2268531b88624561ac.setContent(html_da98921d6704fc8b9dfd241bbba11696);
+            
+        
+
+        circle_marker_a51d88728e58011c9710547737b4e711.bindPopup(popup_fdc7ee3b2111db2268531b88624561ac)
+        ;
+
+        
+    
+    
+            circle_marker_a51d88728e58011c9710547737b4e711.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DR. MÁRCIO PAULINO — 150 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7e55159c52e8710300a47d874c8dbc9f = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.302857993703457, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_8889839505dc3b326950ddd3972f0d9c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_765ea73ed564d5c31f0c701f5070a485 = $(`<div id="html_765ea73ed564d5c31f0c701f5070a485" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIFEMM CENTRO UNIVERSITÁRIO</h4>             <p><b>Endereço:</b> AV. MARECHAL CASTELO BRANCO, 2765</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 57</p>         </div>         </div>`)[0];
+                popup_8889839505dc3b326950ddd3972f0d9c.setContent(html_765ea73ed564d5c31f0c701f5070a485);
+            
+        
+
+        circle_marker_7e55159c52e8710300a47d874c8dbc9f.bindPopup(popup_8889839505dc3b326950ddd3972f0d9c)
+        ;
+
+        
+    
+    
+            circle_marker_7e55159c52e8710300a47d874c8dbc9f.bindTooltip(
+                `<div>
+                     UNIFEMM CENTRO UNIVERSITÁRIO — 57 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6d7fb77bfec0e6352d260ff291bfe9ba = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.314236882182804, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_a420c077c24ce5fa9ba5ed0cf8639d56 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c44b360401427f88a31d8f559d796826 = $(`<div id="html_c44b360401427f88a31d8f559d796826" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO EDUCACIONAL PETER PAN</h4>             <p><b>Endereço:</b> RUA JOAQUIM MURTINHO, 317/325</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 58</p>         </div>         </div>`)[0];
+                popup_a420c077c24ce5fa9ba5ed0cf8639d56.setContent(html_c44b360401427f88a31d8f559d796826);
+            
+        
+
+        circle_marker_6d7fb77bfec0e6352d260ff291bfe9ba.bindPopup(popup_a420c077c24ce5fa9ba5ed0cf8639d56)
+        ;
+
+        
+    
+    
+            circle_marker_6d7fb77bfec0e6352d260ff291bfe9ba.bindTooltip(
+                `<div>
+                     INSTITUTO EDUCACIONAL PETER PAN — 58 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ce3997966f55d563653ceb79c043742 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.827605888602368, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_5b2071ec5180dde31ed28dff963b3833 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab92a4378bc721568016f03d52934009 = $(`<div id="html_ab92a4378bc721568016f03d52934009" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</h4>             <p><b>Endereço:</b> RUA CAPITÃO JOSÉ PEREIRA DA COSTA,167</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 23</p>         </div>         </div>`)[0];
+                popup_5b2071ec5180dde31ed28dff963b3833.setContent(html_ab92a4378bc721568016f03d52934009);
+            
+        
+
+        circle_marker_3ce3997966f55d563653ceb79c043742.bindPopup(popup_5b2071ec5180dde31ed28dff963b3833)
+        ;
+
+        
+    
+    
+            circle_marker_3ce3997966f55d563653ceb79c043742.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL GOVERNADOR JUSCELINO — 23 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_668f69e4b414eeacad139435cf5fa81c = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.401947084718325, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_2cb01c535e8a8d4988bf2e60a4f20a27 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_824120b5fee844c9138cf0b71b8af551 = $(`<div id="html_824120b5fee844c9138cf0b71b8af551" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MARIA AMÂNCIO</h4>             <p><b>Endereço:</b> RUA SÃO JOSÉ,747</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 66</p>         </div>         </div>`)[0];
+                popup_2cb01c535e8a8d4988bf2e60a4f20a27.setContent(html_824120b5fee844c9138cf0b71b8af551);
+            
+        
+
+        circle_marker_668f69e4b414eeacad139435cf5fa81c.bindPopup(popup_2cb01c535e8a8d4988bf2e60a4f20a27)
+        ;
+
+        
+    
+    
+            circle_marker_668f69e4b414eeacad139435cf5fa81c.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MARIA AMÂNCIO — 66 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9ed2845a571e8262e28ec82ac9517f70 = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.9293661761242635, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_fe102f4182acb9aa3f0c3cce2974b0d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a72799247b2cd16c124f7db33c2ed121 = $(`<div id="html_a72799247b2cd16c124f7db33c2ed121" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOVELINO LANZA</h4>             <p><b>Endereço:</b> RUA RUI BARBOSA, 59</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 125</p>         </div>         </div>`)[0];
+                popup_fe102f4182acb9aa3f0c3cce2974b0d8.setContent(html_a72799247b2cd16c124f7db33c2ed121);
+            
+        
+
+        circle_marker_9ed2845a571e8262e28ec82ac9517f70.bindPopup(popup_fe102f4182acb9aa3f0c3cce2974b0d8)
+        ;
+
+        
+    
+    
+            circle_marker_9ed2845a571e8262e28ec82ac9517f70.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOVELINO LANZA — 125 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de764dcd3b5e1320471f07548254fe1a = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.170411471961305, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_3657424717694b2a011378fc8b2dc863 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d40f4ca872cb9027ad0b900b6984684f = $(`<div id="html_d40f4ca872cb9027ad0b900b6984684f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO ALICE MACIEL</h4>             <p><b>Endereço:</b> RUA GOIÁS,609</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 46</p>         </div>         </div>`)[0];
+                popup_3657424717694b2a011378fc8b2dc863.setContent(html_d40f4ca872cb9027ad0b900b6984684f);
+            
+        
+
+        circle_marker_de764dcd3b5e1320471f07548254fe1a.bindPopup(popup_3657424717694b2a011378fc8b2dc863)
+        ;
+
+        
+    
+    
+            circle_marker_de764dcd3b5e1320471f07548254fe1a.bindTooltip(
+                `<div>
+                     INSTITUTO ALICE MACIEL — 46 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c041a3ff4bf41067d1f9dbb4c2b07c1 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.801660275926375, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_34287b5188d563f02c09134ef6c89b17 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_29c8d0ed1d703b8204b1805ea6cba098 = $(`<div id="html_29c8d0ed1d703b8204b1805ea6cba098" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL LUZIA BARBOSA</h4>             <p><b>Endereço:</b> AV. MAURÍLIO DE JESUS PEIXOTO,1160</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 109</p>         </div>         </div>`)[0];
+                popup_34287b5188d563f02c09134ef6c89b17.setContent(html_29c8d0ed1d703b8204b1805ea6cba098);
+            
+        
+
+        circle_marker_1c041a3ff4bf41067d1f9dbb4c2b07c1.bindPopup(popup_34287b5188d563f02c09134ef6c89b17)
+        ;
+
+        
+    
+    
+            circle_marker_1c041a3ff4bf41067d1f9dbb4c2b07c1.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL LUZIA BARBOSA — 109 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5ae59a9ee620cd40d6bc9af3c22b94cb = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.959992950115556, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_214aca1a84ce88af60b762deda9cba62 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3f6332cad5229a8d615e1f80f932e9d6 = $(`<div id="html_3f6332cad5229a8d615e1f80f932e9d6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</h4>             <p><b>Endereço:</b> RUA APUCARANA, 68</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 129</p>         </div>         </div>`)[0];
+                popup_214aca1a84ce88af60b762deda9cba62.setContent(html_3f6332cad5229a8d615e1f80f932e9d6);
+            
+        
+
+        circle_marker_5ae59a9ee620cd40d6bc9af3c22b94cb.bindPopup(popup_214aca1a84ce88af60b762deda9cba62)
+        ;
+
+        
+    
+    
+            circle_marker_5ae59a9ee620cd40d6bc9af3c22b94cb.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PREFEITO ZICO PAIVA — 129 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_76db7ca3e95e0e6873e2ee8c0e2e058b = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.517703270796322, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_6ab5bfe3ca4b24a349a220ee5849eea7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_294993d0720487a25c7c4be6189aa936 = $(`<div id="html_294993d0720487a25c7c4be6189aa936" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</h4>             <p><b>Endereço:</b> RUA GOIÁS, 1696</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 9</p>         </div>         </div>`)[0];
+                popup_6ab5bfe3ca4b24a349a220ee5849eea7.setContent(html_294993d0720487a25c7c4be6189aa936);
+            
+        
+
+        circle_marker_76db7ca3e95e0e6873e2ee8c0e2e058b.bindPopup(popup_6ab5bfe3ca4b24a349a220ee5849eea7)
+        ;
+
+        
+    
+    
+            circle_marker_76db7ca3e95e0e6873e2ee8c0e2e058b.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR — 9 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_88675bb0f5bb08a58b312b80f00a33b9 = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.092272859282245, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_f8da6cd7228df5a5e64d058cbe4598ab = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_29a1c529a9f744317e2c07a903e7bf2b = $(`<div id="html_29a1c529a9f744317e2c07a903e7bf2b" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</h4>             <p><b>Endereço:</b> RUA ARAÇAÍ, 150</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 147</p>         </div>         </div>`)[0];
+                popup_f8da6cd7228df5a5e64d058cbe4598ab.setContent(html_29a1c529a9f744317e2c07a903e7bf2b);
+            
+        
+
+        circle_marker_88675bb0f5bb08a58b312b80f00a33b9.bindPopup(popup_f8da6cd7228df5a5e64d058cbe4598ab)
+        ;
+
+        
+    
+    
+            circle_marker_88675bb0f5bb08a58b312b80f00a33b9.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL) — 147 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_233dcaa8ab622a4b31aaf55f88f16d68 = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.991326290469038, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_e9505d32c8914dc5a0de24428087ce20 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fdb7cd467e8c57ea7b51f1c63084a5ef = $(`<div id="html_fdb7cd467e8c57ea7b51f1c63084a5ef" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SANTOS AZEREDO</h4>             <p><b>Endereço:</b> AV. FRANCISCO ANTONIO DE MENDONÇA CHAVES, 22</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 33</p>         </div>         </div>`)[0];
+                popup_e9505d32c8914dc5a0de24428087ce20.setContent(html_fdb7cd467e8c57ea7b51f1c63084a5ef);
+            
+        
+
+        circle_marker_233dcaa8ab622a4b31aaf55f88f16d68.bindPopup(popup_e9505d32c8914dc5a0de24428087ce20)
+        ;
+
+        
+    
+    
+            circle_marker_233dcaa8ab622a4b31aaf55f88f16d68.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SANTOS AZEREDO — 33 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5bd10d6b4d317b167d9d34291368ec54 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.256312233812392, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_bac1562149d60bc2f60e0d4ece12f403 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61153e461ef142ef9509d9acbaafae35 = $(`<div id="html_61153e461ef142ef9509d9acbaafae35" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 1111</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 53</p>         </div>         </div>`)[0];
+                popup_bac1562149d60bc2f60e0d4ece12f403.setContent(html_61153e461ef142ef9509d9acbaafae35);
+            
+        
+
+        circle_marker_5bd10d6b4d317b167d9d34291368ec54.bindPopup(popup_bac1562149d60bc2f60e0d4ece12f403)
+        ;
+
+        
+    
+    
+            circle_marker_5bd10d6b4d317b167d9d34291368ec54.bindTooltip(
+                `<div>
+                     ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP — 53 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_13a8b31d67986ca27ba16b8c719c1fb1 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.155370593258224, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_c9aa803d85a79a9b0bf0f66a0e87f505 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9a09f86b3d0f8efe76f3cfaba21dd168 = $(`<div id="html_9a09f86b3d0f8efe76f3cfaba21dd168" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</h4>             <p><b>Endereço:</b> RUA ALECRIM, 329</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 156</p>         </div>         </div>`)[0];
+                popup_c9aa803d85a79a9b0bf0f66a0e87f505.setContent(html_9a09f86b3d0f8efe76f3cfaba21dd168);
+            
+        
+
+        circle_marker_13a8b31d67986ca27ba16b8c719c1fb1.bindPopup(popup_c9aa803d85a79a9b0bf0f66a0e87f505)
+        ;
+
+        
+    
+    
+            circle_marker_13a8b31d67986ca27ba16b8c719c1fb1.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA — 156 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_95bd7cbb4a68fc476019138a2af6423f = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.8505830254940125, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_c7a2a2f44b71aaeed8080bdf19f919b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8e3258a202ac4b989a5a2cf02b923726 = $(`<div id="html_8e3258a202ac4b989a5a2cf02b923726" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</h4>             <p><b>Endereço:</b> RUA PINTASSILGO, 1491</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 115</p>         </div>         </div>`)[0];
+                popup_c7a2a2f44b71aaeed8080bdf19f919b4.setContent(html_8e3258a202ac4b989a5a2cf02b923726);
+            
+        
+
+        circle_marker_95bd7cbb4a68fc476019138a2af6423f.bindPopup(popup_c7a2a2f44b71aaeed8080bdf19f919b4)
+        ;
+
+        
+    
+    
+            circle_marker_95bd7cbb4a68fc476019138a2af6423f.bindTooltip(
+                `<div>
+                     E. M. DOUTOR ENÍZIO ANTÔNIO VIANA — 115 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5c9d5682e45447624a347b767bd1ceea = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.929305811476926, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_e2fd7c3bbc7b0d5de10b9a354c31a822 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_66a82d390b88ab60df82013352d56d21 = $(`<div id="html_66a82d390b88ab60df82013352d56d21" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL TEREZINHA GODOY</h4>             <p><b>Endereço:</b> RUA ORQUIDEA, Nº 30</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 29</p>         </div>         </div>`)[0];
+                popup_e2fd7c3bbc7b0d5de10b9a354c31a822.setContent(html_66a82d390b88ab60df82013352d56d21);
+            
+        
+
+        circle_marker_5c9d5682e45447624a347b767bd1ceea.bindPopup(popup_e2fd7c3bbc7b0d5de10b9a354c31a822)
+        ;
+
+        
+    
+    
+            circle_marker_5c9d5682e45447624a347b767bd1ceea.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL TEREZINHA GODOY — 29 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d819b1cbb72bfb153280aed3f0d4ee9d = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.006234289272475, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_d784722d843ae079ae3d31793e9acc84 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_85fec1d36b0d6cc4f571c02d3e44e17c = $(`<div id="html_85fec1d36b0d6cc4f571c02d3e44e17c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</h4>             <p><b>Endereço:</b> RUA QUINTINO BOCAIUVA, 331              </p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 34</p>         </div>         </div>`)[0];
+                popup_d784722d843ae079ae3d31793e9acc84.setContent(html_85fec1d36b0d6cc4f571c02d3e44e17c);
+            
+        
+
+        circle_marker_d819b1cbb72bfb153280aed3f0d4ee9d.bindPopup(popup_d784722d843ae079ae3d31793e9acc84)
+        ;
+
+        
+    
+    
+            circle_marker_d819b1cbb72bfb153280aed3f0d4ee9d.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA — 34 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_04d6901c52436ec13fbc293649a3929b = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.336704097380843, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_8f2005d154a6ce15c1ac2ad1ae7518ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9de6d82e48fed0e50329af5ccb3de0f1 = $(`<div id="html_9de6d82e48fed0e50329af5ccb3de0f1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</h4>             <p><b>Endereço:</b> AVENIDA VILLA LOBOS, 730</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 60</p>         </div>         </div>`)[0];
+                popup_8f2005d154a6ce15c1ac2ad1ae7518ed.setContent(html_9de6d82e48fed0e50329af5ccb3de0f1);
+            
+        
+
+        circle_marker_04d6901c52436ec13fbc293649a3929b.bindPopup(popup_8f2005d154a6ce15c1ac2ad1ae7518ed)
+        ;
+
+        
+    
+    
+            circle_marker_04d6901c52436ec13fbc293649a3929b.bindTooltip(
+                `<div>
+                     COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA — 60 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b79b06ceafa700378c36aabbdc262fda = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.345135513864215, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_094e92accb4da7204f05fd3300dda923 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_97791d2c8f5e4da346a2227b3c7f5ffd = $(`<div id="html_97791d2c8f5e4da346a2227b3c7f5ffd" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</h4>             <p><b>Endereço:</b> AVENIDA PIO RODRIGUES DE LIMA, 289</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 4</p>         </div>         </div>`)[0];
+                popup_094e92accb4da7204f05fd3300dda923.setContent(html_97791d2c8f5e4da346a2227b3c7f5ffd);
+            
+        
+
+        circle_marker_b79b06ceafa700378c36aabbdc262fda.bindPopup(popup_094e92accb4da7204f05fd3300dda923)
+        ;
+
+        
+    
+    
+            circle_marker_b79b06ceafa700378c36aabbdc262fda.bindTooltip(
+                `<div>
+                     ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX — 4 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_45458704dc5c4c7808611619562cb822 = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.734284493383502, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_93d8c62cecc09ec40c2f5bfc10d6f8df = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5db34c5348e63810fdd99b827f2a2da3 = $(`<div id="html_5db34c5348e63810fdd99b827f2a2da3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</h4>             <p><b>Endereço:</b> PRACA JK, 110                              </p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 101</p>         </div>         </div>`)[0];
+                popup_93d8c62cecc09ec40c2f5bfc10d6f8df.setContent(html_5db34c5348e63810fdd99b827f2a2da3);
+            
+        
+
+        circle_marker_45458704dc5c4c7808611619562cb822.bindPopup(popup_93d8c62cecc09ec40c2f5bfc10d6f8df)
+        ;
+
+        
+    
+    
+            circle_marker_45458704dc5c4c7808611619562cb822.bindTooltip(
+                `<div>
+                     ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA — 101 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_526156b87d2969b22c20214e66070323 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.070813083185289, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_d31888908ed6c12ee1a05625c8980564 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1d1644464c8c3810e5f9f84784a7bc83 = $(`<div id="html_1d1644464c8c3810e5f9f84784a7bc83" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</h4>             <p><b>Endereço:</b> RUA VEREADORA LUMARIZA MARQUES VIANA, 95</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 144</p>         </div>         </div>`)[0];
+                popup_d31888908ed6c12ee1a05625c8980564.setContent(html_1d1644464c8c3810e5f9f84784a7bc83);
+            
+        
+
+        circle_marker_526156b87d2969b22c20214e66070323.bindPopup(popup_d31888908ed6c12ee1a05625c8980564)
+        ;
+
+        
+    
+    
+            circle_marker_526156b87d2969b22c20214e66070323.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO — 144 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8101a24994f9675f56035c54701b07a1 = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.862838784660537, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_aab9c7de39c3d5f174c8b6fe7cd3f4f7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c67259232a6a5ea3588713c7e5bb2634 = $(`<div id="html_c67259232a6a5ea3588713c7e5bb2634" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</h4>             <p><b>Endereço:</b> AV. GOVERNADOR BIAS FORTES, 375</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 25</p>         </div>         </div>`)[0];
+                popup_aab9c7de39c3d5f174c8b6fe7cd3f4f7.setContent(html_c67259232a6a5ea3588713c7e5bb2634);
+            
+        
+
+        circle_marker_8101a24994f9675f56035c54701b07a1.bindPopup(popup_aab9c7de39c3d5f174c8b6fe7cd3f4f7)
+        ;
+
+        
+    
+    
+            circle_marker_8101a24994f9675f56035c54701b07a1.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO — 25 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_183d2b598fa772176a03f8a989a0bc4b = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.959992950115556, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_e1ef3b3e67d5a86e5524309ed2a668a0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_929ecc72047bf8401fe35506d299d1e6 = $(`<div id="html_929ecc72047bf8401fe35506d299d1e6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</h4>             <p><b>Endereço:</b> RUA DAS PALMAS, 638</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 129</p>         </div>         </div>`)[0];
+                popup_e1ef3b3e67d5a86e5524309ed2a668a0.setContent(html_929ecc72047bf8401fe35506d299d1e6);
+            
+        
+
+        circle_marker_183d2b598fa772176a03f8a989a0bc4b.bindPopup(popup_e1ef3b3e67d5a86e5524309ed2a668a0)
+        ;
+
+        
+    
+    
+            circle_marker_183d2b598fa772176a03f8a989a0bc4b.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC) — 129 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3b4ef57fd248a90f9605a5f16828157a = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.35879987688397, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_e8facfd3bcd8732e0a305bdfdd7ba460 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d2a60e8aaab33aef0fda8a46ea66d6d9 = $(`<div id="html_d2a60e8aaab33aef0fda8a46ea66d6d9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</h4>             <p><b>Endereço:</b> RUA ZEZITO FILIZOLLA, 15</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 62</p>         </div>         </div>`)[0];
+                popup_e8facfd3bcd8732e0a305bdfdd7ba460.setContent(html_d2a60e8aaab33aef0fda8a46ea66d6d9);
+            
+        
+
+        circle_marker_3b4ef57fd248a90f9605a5f16828157a.bindPopup(popup_e8facfd3bcd8732e0a305bdfdd7ba460)
+        ;
+
+        
+    
+    
+            circle_marker_3b4ef57fd248a90f9605a5f16828157a.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR EDSON ABREU — 62 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3f75542b016bfda38a67e7c516817579 = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.43345544770249, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_a7f17ed480db78012b187407e9e98390 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_438eb9313f079d5a2cd7f692189ffabc = $(`<div id="html_438eb9313f079d5a2cd7f692189ffabc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</h4>             <p><b>Endereço:</b> RUA HONDURAS, 28</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 69</p>         </div>         </div>`)[0];
+                popup_a7f17ed480db78012b187407e9e98390.setContent(html_438eb9313f079d5a2cd7f692189ffabc);
+            
+        
+
+        circle_marker_3f75542b016bfda38a67e7c516817579.bindPopup(popup_a7f17ed480db78012b187407e9e98390)
+        ;
+
+        
+    
+    
+            circle_marker_3f75542b016bfda38a67e7c516817579.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO — 69 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b77d9fe92f9bd23ca03eeeb6c36c6fea = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.279796737881387, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_14a7820da053440f788cbd22f573f24f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0e120d1b6b28022e99f952c91c336d86 = $(`<div id="html_0e120d1b6b28022e99f952c91c336d86" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</h4>             <p><b>Endereço:</b> AV. JOSE SERVULO SOALHEIRO, 2585</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 55</p>         </div>         </div>`)[0];
+                popup_14a7820da053440f788cbd22f573f24f.setContent(html_0e120d1b6b28022e99f952c91c336d86);
+            
+        
+
+        circle_marker_b77d9fe92f9bd23ca03eeeb6c36c6fea.bindPopup(popup_14a7820da053440f788cbd22f573f24f)
+        ;
+
+        
+    
+    
+            circle_marker_b77d9fe92f9bd23ca03eeeb6c36c6fea.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS — 55 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51bc970ccbadbb0aa30b1ed781790150 = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.45408176593103, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_4a7ce9dbaa6ba7b77eba87ac594ae65b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e2b112b1624b8a32dd8e7e102294b81e = $(`<div id="html_e2b112b1624b8a32dd8e7e102294b81e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JUCA DIAS</h4>             <p><b>Endereço:</b> AVENIDA EURO ANDRADE, 241</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 71</p>         </div>         </div>`)[0];
+                popup_4a7ce9dbaa6ba7b77eba87ac594ae65b.setContent(html_e2b112b1624b8a32dd8e7e102294b81e);
+            
+        
+
+        circle_marker_51bc970ccbadbb0aa30b1ed781790150.bindPopup(popup_4a7ce9dbaa6ba7b77eba87ac594ae65b)
+        ;
+
+        
+    
+    
+            circle_marker_51bc970ccbadbb0aa30b1ed781790150.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JUCA DIAS — 71 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aa4a0f63310b41bf69ff24440703a6c5 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.1049727870113975, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_ab7c1ddea021f317edadc4bbda6fb2fc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_af2fffe5360af1fa6083870df7cdb640 = $(`<div id="html_af2fffe5360af1fa6083870df7cdb640" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SINHÁ ANDRADE</h4>             <p><b>Endereço:</b> AV. RENATO AZEREDO, 2423</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 41</p>         </div>         </div>`)[0];
+                popup_ab7c1ddea021f317edadc4bbda6fb2fc.setContent(html_af2fffe5360af1fa6083870df7cdb640);
+            
+        
+
+        circle_marker_aa4a0f63310b41bf69ff24440703a6c5.bindPopup(popup_ab7c1ddea021f317edadc4bbda6fb2fc)
+        ;
+
+        
+    
+    
+            circle_marker_aa4a0f63310b41bf69ff24440703a6c5.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SINHÁ ANDRADE — 41 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5057cb2459a14b0df4e57d8dbfe79f9e = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.759852720027505, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_46b8c7dd1c07cab68fa21fdef8473d98 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0033b6221eb740e468f72a7fed50806d = $(`<div id="html_0033b6221eb740e468f72a7fed50806d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</h4>             <p><b>Endereço:</b> RUA TUPINIQUINS, 19</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 104</p>         </div>         </div>`)[0];
+                popup_46b8c7dd1c07cab68fa21fdef8473d98.setContent(html_0033b6221eb740e468f72a7fed50806d);
+            
+        
+
+        circle_marker_5057cb2459a14b0df4e57d8dbfe79f9e.bindPopup(popup_46b8c7dd1c07cab68fa21fdef8473d98)
+        ;
+
+        
+    
+    
+            circle_marker_5057cb2459a14b0df4e57d8dbfe79f9e.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS — 104 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8def226d113356f0285920600364b2d6 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.991326290469038, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_15b73253052b65e392546e994456b8d9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d6f7c086f322cee23dfdf535437cefc = $(`<div id="html_5d6f7c086f322cee23dfdf535437cefc" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADE ATENAS DE SETE LAGOAS</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 6000</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 33</p>         </div>         </div>`)[0];
+                popup_15b73253052b65e392546e994456b8d9.setContent(html_5d6f7c086f322cee23dfdf535437cefc);
+            
+        
+
+        circle_marker_8def226d113356f0285920600364b2d6.bindPopup(popup_15b73253052b65e392546e994456b8d9)
+        ;
+
+        
+    
+    
+            circle_marker_8def226d113356f0285920600364b2d6.bindTooltip(
+                `<div>
+                     FACULDADE ATENAS DE SETE LAGOAS — 33 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a7cb2689aff6514ef285aec8ffbd44d8 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.369714107451797, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_234da89ce7b887689cc8767020f8e357 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_37bfb50ca61c24a16bf993b183c5cbe8 = $(`<div id="html_37bfb50ca61c24a16bf993b183c5cbe8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</h4>             <p><b>Endereço:</b> R. LAURA BRAGA CUNHA, 88</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 63</p>         </div>         </div>`)[0];
+                popup_234da89ce7b887689cc8767020f8e357.setContent(html_37bfb50ca61c24a16bf993b183c5cbe8);
+            
+        
+
+        circle_marker_a7cb2689aff6514ef285aec8ffbd44d8.bindPopup(popup_234da89ce7b887689cc8767020f8e357)
+        ;
+
+        
+    
+    
+            circle_marker_a7cb2689aff6514ef285aec8ffbd44d8.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA — 63 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c9e3b45165f5a340a840470c69905412 = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.38054205545686, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_0993eac739de745f7bbe2e7251bf2726 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_07b9f1038df28af9370c33a66a8a50d0 = $(`<div id="html_07b9f1038df28af9370c33a66a8a50d0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</h4>             <p><b>Endereço:</b> RUA DELCI BARBOSA, 566</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 64</p>         </div>         </div>`)[0];
+                popup_0993eac739de745f7bbe2e7251bf2726.setContent(html_07b9f1038df28af9370c33a66a8a50d0);
+            
+        
+
+        circle_marker_c9e3b45165f5a340a840470c69905412.bindPopup(popup_0993eac739de745f7bbe2e7251bf2726)
+        ;
+
+        
+    
+    
+            circle_marker_c9e3b45165f5a340a840470c69905412.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURO FACCIO GONÇALVES — 64 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f11b1fb752d9d8a1e522be132c53a531 = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.62220189611052, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_9e18fb9dca6398c3d28d338b6189e8e0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_93f46508a7f27adb89aab7ac4adb67f6 = $(`<div id="html_93f46508a7f27adb89aab7ac4adb67f6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</h4>             <p><b>Endereço:</b> RUA ADOLAR NAPOLEÃO FRANÇA, 175</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 13</p>         </div>         </div>`)[0];
+                popup_9e18fb9dca6398c3d28d338b6189e8e0.setContent(html_93f46508a7f27adb89aab7ac4adb67f6);
+            
+        
+
+        circle_marker_f11b1fb752d9d8a1e522be132c53a531.bindPopup(popup_9e18fb9dca6398c3d28d338b6189e8e0)
+        ;
+
+        
+    
+    
+            circle_marker_f11b1fb752d9d8a1e522be132c53a531.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS — 13 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dfa6d37381b643f4f3679a04f2abde3b = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.771746470449705, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_514211db002752f05b43a21bd7847726 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ae9c0916036135854869c747fbffea04 = $(`<div id="html_ae9c0916036135854869c747fbffea04" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JULIO CÉSAR</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 95 - ENTRADA PELA RUA DIVINÓPOLIS</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 20</p>         </div>         </div>`)[0];
+                popup_514211db002752f05b43a21bd7847726.setContent(html_ae9c0916036135854869c747fbffea04);
+            
+        
+
+        circle_marker_dfa6d37381b643f4f3679a04f2abde3b.bindPopup(popup_514211db002752f05b43a21bd7847726)
+        ;
+
+        
+    
+    
+            circle_marker_dfa6d37381b643f4f3679a04f2abde3b.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JULIO CÉSAR — 20 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4818eaa9e69324d44b6ad2de8b6dd9da = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.809414526751736, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_339b9e2ceedf0415d028e3b6b4a64724 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e57bc6362e218501dc64eb81e4bfe7c0 = $(`<div id="html_e57bc6362e218501dc64eb81e4bfe7c0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</h4>             <p><b>Endereço:</b> RUA CEL. JOÃO ANTONIO AVELAR, 217</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 22</p>         </div>         </div>`)[0];
+                popup_339b9e2ceedf0415d028e3b6b4a64724.setContent(html_e57bc6362e218501dc64eb81e4bfe7c0);
+            
+        
+
+        circle_marker_4818eaa9e69324d44b6ad2de8b6dd9da.bindPopup(popup_339b9e2ceedf0415d028e3b6b4a64724)
+        ;
+
+        
+    
+    
+            circle_marker_4818eaa9e69324d44b6ad2de8b6dd9da.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO — 22 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c5387d3e238ac7486121388850665845 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.597792245509213, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_8ab633ae8905ee53f701d996630b6b5d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b6bce1e9fd35ae24255dbb7dd1b24151 = $(`<div id="html_b6bce1e9fd35ae24255dbb7dd1b24151" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</h4>             <p><b>Endereço:</b> RUA EZIO SOUZA DE DEUS, 87</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 12</p>         </div>         </div>`)[0];
+                popup_8ab633ae8905ee53f701d996630b6b5d.setContent(html_b6bce1e9fd35ae24255dbb7dd1b24151);
+            
+        
+
+        circle_marker_c5387d3e238ac7486121388850665845.bindPopup(popup_8ab633ae8905ee53f701d996630b6b5d)
+        ;
+
+        
+    
+    
+            circle_marker_c5387d3e238ac7486121388850665845.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY — 12 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_56f780b39d2261c472504f4885e41c70 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.62220189611052, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_3a6a2efe636ca3bd3c76f5aa4c947c45 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6a1a1806551d338854691a10ae7928b2 = $(`<div id="html_6a1a1806551d338854691a10ae7928b2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</h4>             <p><b>Endereço:</b> AV. JOSÉ SÉRVULO SOALHEIRO, 4373</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 13</p>         </div>         </div>`)[0];
+                popup_3a6a2efe636ca3bd3c76f5aa4c947c45.setContent(html_6a1a1806551d338854691a10ae7928b2);
+            
+        
+
+        circle_marker_56f780b39d2261c472504f4885e41c70.bindPopup(popup_3a6a2efe636ca3bd3c76f5aa4c947c45)
+        ;
+
+        
+    
+    
+            circle_marker_56f780b39d2261c472504f4885e41c70.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO — 13 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bcc963276f3ccfca01e1197af9809ae4 = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.48809532456338, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_f4c5eba48f352d62cdf5518612c71f3b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8d059f43a49772a9154fa126a2250942 = $(`<div id="html_8d059f43a49772a9154fa126a2250942" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</h4>             <p><b>Endereço:</b> AVENIDA SETE, 200</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 8</p>         </div>         </div>`)[0];
+                popup_f4c5eba48f352d62cdf5518612c71f3b.setContent(html_8d059f43a49772a9154fa126a2250942);
+            
+        
+
+        circle_marker_bcc963276f3ccfca01e1197af9809ae4.bindPopup(popup_f4c5eba48f352d62cdf5518612c71f3b)
+        ;
+
+        
+    
+    
+            circle_marker_bcc963276f3ccfca01e1197af9809ae4.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO — 8 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fe5122de489b15da246d02af6f7a1f8a = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#00843D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00843D", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.2988961227546065, "stroke": true, "weight": 1}
+            ).addTo(map_c02dc01cad6baa62781bb8384976e5ed);
+        
+    
+        var popup_38f37bfaedea93704400d9bbc2527a15 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b0c2b293bd2df35783c413ae952a6aa9 = $(`<div id="html_b0c2b293bd2df35783c413ae952a6aa9" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CEMEI MARISA MARA VAZ COSTA GALUPPO</h4>             <p><b>Endereço:</b> RUA MARIA DA CONCEIÇÃO BARCELOS, 185</p>             <hr>             <p><b>Candidato:</b> RONALDO RAMOS CAIADO</p>             <p><b>Votos recebidos:</b> 3</p>         </div>         </div>`)[0];
+                popup_38f37bfaedea93704400d9bbc2527a15.setContent(html_b0c2b293bd2df35783c413ae952a6aa9);
+            
+        
+
+        circle_marker_fe5122de489b15da246d02af6f7a1f8a.bindPopup(popup_38f37bfaedea93704400d9bbc2527a15)
+        ;
+
+        
+    
+    
+            circle_marker_fe5122de489b15da246d02af6f7a1f8a.bindTooltip(
+                `<div>
+                     CEMEI MARISA MARA VAZ COSTA GALUPPO — 3 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_c02dc01cad6baa62781bb8384976e5ed.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>

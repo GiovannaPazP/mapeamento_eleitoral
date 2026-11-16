@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_455eae0a9590ecd9e78e2ead82a09b7d {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_455eae0a9590ecd9e78e2ead82a09b7d" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_455eae0a9590ecd9e78e2ead82a09b7d = L.map(
+                "map_455eae0a9590ecd9e78e2ead82a09b7d",
+                {
+                    center: [-19.44689735250889, -44.23989406738291],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_63aa644612548be44ece48c47b43363f = L.tileLayer(
+                "https://tile.openstreetmap.de/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u0026copy; OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_63aa644612548be44ece48c47b43363f.addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+            var circle_marker_39f23f264444dc560823f6a3c2cf6386 = L.circleMarker(
+                [-19.4468101, -44.3252561],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.199990837028624, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_ac0b51b64b83b2cc3224877c9b19ef69 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_00e01c60483345566e4974a7f4995e7c = $(`<div id="html_00e01c60483345566e4974a7f4995e7c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR</h4>             <p><b>Endereço:</b> PRAÇA DO MILITO, S/N</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 908</p>         </div>         </div>`)[0];
+                popup_ac0b51b64b83b2cc3224877c9b19ef69.setContent(html_00e01c60483345566e4974a7f4995e7c);
+            
+        
+
+        circle_marker_39f23f264444dc560823f6a3c2cf6386.bindPopup(popup_ac0b51b64b83b2cc3224877c9b19ef69)
+        ;
+
+        
+    
+    
+            circle_marker_39f23f264444dc560823f6a3c2cf6386.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL FRANCISCA FERREIRA DE AVELAR — 908 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_095a97582ecdf8e8f4458a45da3b698d = L.circleMarker(
+                [-19.443742, -44.336258],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.70111264657397, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_59916fac884029338a6816acd6f304bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_40eb889b244587194104dbee1b2080c2 = $(`<div id="html_40eb889b244587194104dbee1b2080c2" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA</h4>             <p><b>Endereço:</b> RUA CORNÉLIO ROCHA.322</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 245</p>         </div>         </div>`)[0];
+                popup_59916fac884029338a6816acd6f304bb.setContent(html_40eb889b244587194104dbee1b2080c2);
+            
+        
+
+        circle_marker_095a97582ecdf8e8f4458a45da3b698d.bindPopup(popup_59916fac884029338a6816acd6f304bb)
+        ;
+
+        
+    
+    
+            circle_marker_095a97582ecdf8e8f4458a45da3b698d.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL ALFREDO PEREIRA DE SOUZA — 245 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_abea8df223ee3e3cb1a2e3786a540197 = L.circleMarker(
+                [-19.4699663, -44.2560079],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.500561207275068, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_110ea5aea297f7f9a2a78b273fc2982d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a5634dea2057962baae96eac389f295e = $(`<div id="html_a5634dea2057962baae96eac389f295e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  ESTADUAL  DR. AVELAR</h4>             <p><b>Endereço:</b> RUA CAMPINAS, 59</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,419</p>         </div>         </div>`)[0];
+                popup_110ea5aea297f7f9a2a78b273fc2982d.setContent(html_a5634dea2057962baae96eac389f295e);
+            
+        
+
+        circle_marker_abea8df223ee3e3cb1a2e3786a540197.bindPopup(popup_110ea5aea297f7f9a2a78b273fc2982d)
+        ;
+
+        
+    
+    
+            circle_marker_abea8df223ee3e3cb1a2e3786a540197.bindTooltip(
+                `<div>
+                     ESCOLA  ESTADUAL  DR. AVELAR — 1,419 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_24a76e8cc581b7b299a10296b0317b8a = L.circleMarker(
+                [-19.4811703, -44.239192],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.777215216676219, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_ca9b2ac168cb8c9f1d75f3d8e1cc8fad = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3a8f4307c4b348ccd9ce71dce1b0dc0c = $(`<div id="html_3a8f4307c4b348ccd9ce71dce1b0dc0c" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND</h4>             <p><b>Endereço:</b> RUA JOAQUIM HENRIQUE NOGUEIRA,347</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 259</p>         </div>         </div>`)[0];
+                popup_ca9b2ac168cb8c9f1d75f3d8e1cc8fad.setContent(html_3a8f4307c4b348ccd9ce71dce1b0dc0c);
+            
+        
+
+        circle_marker_24a76e8cc581b7b299a10296b0317b8a.bindPopup(popup_ca9b2ac168cb8c9f1d75f3d8e1cc8fad)
+        ;
+
+        
+    
+    
+            circle_marker_24a76e8cc581b7b299a10296b0317b8a.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL STELLA FIGUEIREDO CHASSIM DRUMOND — 259 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_de4a1dce8ec5dae3b3bb24cb10839056 = L.circleMarker(
+                [-19.457885665605097, -44.24609120764331],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.033060843770855, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_fd623eaa4a333d474e3f81b69c9fad2e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_44369879fd22653560ad59b7bf90f24d = $(`<div id="html_44369879fd22653560ad59b7bf90f24d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM</h4>             <p><b>Endereço:</b> RUA SANTA JULIANA, 2287</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,740</p>         </div>         </div>`)[0];
+                popup_fd623eaa4a333d474e3f81b69c9fad2e.setContent(html_44369879fd22653560ad59b7bf90f24d);
+            
+        
+
+        circle_marker_de4a1dce8ec5dae3b3bb24cb10839056.bindPopup(popup_fd623eaa4a333d474e3f81b69c9fad2e)
+        ;
+
+        
+    
+    
+            circle_marker_de4a1dce8ec5dae3b3bb24cb10839056.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DR. OLINTO SÁTYRO ALVIM — 2,740 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_614b6093ce817f9625cc2c93be487de3 = L.circleMarker(
+                [-19.50462530967742, -44.24044062258064],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.156860502688914, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_3fc2c77dc8a2918f0a1b16715154fecd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_72dc74bf88555abd9d522ddea1814a0e = $(`<div id="html_72dc74bf88555abd9d522ddea1814a0e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIVERSIDADE UNOPAR</h4>             <p><b>Endereço:</b> RUA MONSENHOR MESSIAS, 94</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 893</p>         </div>         </div>`)[0];
+                popup_3fc2c77dc8a2918f0a1b16715154fecd.setContent(html_72dc74bf88555abd9d522ddea1814a0e);
+            
+        
+
+        circle_marker_614b6093ce817f9625cc2c93be487de3.bindPopup(popup_3fc2c77dc8a2918f0a1b16715154fecd)
+        ;
+
+        
+    
+    
+            circle_marker_614b6093ce817f9625cc2c93be487de3.bindTooltip(
+                `<div>
+                     UNIVERSIDADE UNOPAR — 893 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8c77b1fa57372c09fbca387fd4b11363 = L.circleMarker(
+                [-19.446805796153846, -44.30891902692307],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.043265541787644, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_d339da431f332bd6e0315cd138994093 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_01a3e57d707dd2bbd848efae9eb2417f = $(`<div id="html_01a3e57d707dd2bbd848efae9eb2417f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADES PROMOVE</h4>             <p><b>Endereço:</b> RUA DR PENA, 157</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 311</p>         </div>         </div>`)[0];
+                popup_d339da431f332bd6e0315cd138994093.setContent(html_01a3e57d707dd2bbd848efae9eb2417f);
+            
+        
+
+        circle_marker_8c77b1fa57372c09fbca387fd4b11363.bindPopup(popup_d339da431f332bd6e0315cd138994093)
+        ;
+
+        
+    
+    
+            circle_marker_8c77b1fa57372c09fbca387fd4b11363.bindTooltip(
+                `<div>
+                     FACULDADES PROMOVE — 311 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_fab887cc335e334b4af127c7e19f828a = L.circleMarker(
+                [-19.443940796103895, -44.24141847012987],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.535051789401221, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_4cc105c93a63371a116eed7ce97b2326 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d9629ceb984355a9502e531e828958d0 = $(`<div id="html_d9629ceb984355a9502e531e828958d0" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 275</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 3,053</p>         </div>         </div>`)[0];
+                popup_4cc105c93a63371a116eed7ce97b2326.setContent(html_d9629ceb984355a9502e531e828958d0);
+            
+        
+
+        circle_marker_fab887cc335e334b4af127c7e19f828a.bindPopup(popup_4cc105c93a63371a116eed7ce97b2326)
+        ;
+
+        
+    
+    
+            circle_marker_fab887cc335e334b4af127c7e19f828a.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL DEPUTADO RENATO AZEREDO — 3,053 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_105b22679ded7bc2f88e207caaee8c8c = L.circleMarker(
+                [-19.43404583846154, -44.20787540769231],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.286494157467288, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_bec1ac2b4f6e0142efdb65c759ec30c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0e7012e2ef9e223a019fdd3500cf7fc4 = $(`<div id="html_0e7012e2ef9e223a019fdd3500cf7fc4" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESF MORRO REDONDO ANEXO DE FAZENDA VELHA</h4>             <p><b>Endereço:</b> RUA A, S/NR</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 617</p>         </div>         </div>`)[0];
+                popup_bec1ac2b4f6e0142efdb65c759ec30c8.setContent(html_0e7012e2ef9e223a019fdd3500cf7fc4);
+            
+        
+
+        circle_marker_105b22679ded7bc2f88e207caaee8c8c.bindPopup(popup_bec1ac2b4f6e0142efdb65c759ec30c8)
+        ;
+
+        
+    
+    
+            circle_marker_105b22679ded7bc2f88e207caaee8c8c.bindTooltip(
+                `<div>
+                     ESF MORRO REDONDO ANEXO DE FAZENDA VELHA — 617 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2d06d7d75ccba2b8b312e5a47b2d4ed = L.circleMarker(
+                [-19.45811670528846, -44.226488875961536],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.889201551479733, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_45178517396687065f5ead50bda9aa6f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_74010b60d97f8c81bbdacd7799d88f06 = $(`<div id="html_74010b60d97f8c81bbdacd7799d88f06" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA  MUNICIPAL QUINCAS NOGUEIRA</h4>             <p><b>Endereço:</b> R. JOSÉ LUIZ BARBOSA, 91</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 3,284</p>         </div>         </div>`)[0];
+                popup_45178517396687065f5ead50bda9aa6f.setContent(html_74010b60d97f8c81bbdacd7799d88f06);
+            
+        
+
+        circle_marker_f2d06d7d75ccba2b8b312e5a47b2d4ed.bindPopup(popup_45178517396687065f5ead50bda9aa6f)
+        ;
+
+        
+    
+    
+            circle_marker_f2d06d7d75ccba2b8b312e5a47b2d4ed.bindTooltip(
+                `<div>
+                     ESCOLA  MUNICIPAL QUINCAS NOGUEIRA — 3,284 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fc0cb6c1bc88381fd40c9f9664f9901 = L.circleMarker(
+                [-19.464976914893615, -44.23179353900709],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.138175394353178, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_e859546932c1eab457f89110d1d76175 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c87e53d2c90d3017c4d0d6c5476d99af = $(`<div id="html_c87e53d2c90d3017c4d0d6c5476d99af" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO</h4>             <p><b>Endereço:</b> RUA MAJOR CAMPOS,82</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,224</p>         </div>         </div>`)[0];
+                popup_e859546932c1eab457f89110d1d76175.setContent(html_c87e53d2c90d3017c4d0d6c5476d99af);
+            
+        
+
+        circle_marker_5fc0cb6c1bc88381fd40c9f9664f9901.bindPopup(popup_e859546932c1eab457f89110d1d76175)
+        ;
+
+        
+    
+    
+            circle_marker_5fc0cb6c1bc88381fd40c9f9664f9901.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURILO DE JESUS PEIXOTO — 2,224 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cb98b83ae34bc5f63751fcb1f4b09458 = L.circleMarker(
+                [-19.4669268, -44.2476794],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.780375911820403, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_7b311262651cbcb64eedcff4c3637c6a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ba27d12bfc9d4ce4932a16d58b1a5742 = $(`<div id="html_ba27d12bfc9d4ce4932a16d58b1a5742" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO FRANCISCANO REGINA PACIS</h4>             <p><b>Endereço:</b> PRACA TIRADENTES, 34</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,122</p>         </div>         </div>`)[0];
+                popup_7b311262651cbcb64eedcff4c3637c6a.setContent(html_ba27d12bfc9d4ce4932a16d58b1a5742);
+            
+        
+
+        circle_marker_cb98b83ae34bc5f63751fcb1f4b09458.bindPopup(popup_7b311262651cbcb64eedcff4c3637c6a)
+        ;
+
+        
+    
+    
+            circle_marker_cb98b83ae34bc5f63751fcb1f4b09458.bindTooltip(
+                `<div>
+                     COLÉGIO FRANCISCANO REGINA PACIS — 1,122 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6b0642dff7ab3be29423e3d949f1b02c = L.circleMarker(
+                [-19.441953, -44.364475],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.6641831804611655, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_e1d400bf8e6f521801ad55ea845d2274 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5954828b97fe494f2fe69692f99d0bd7 = $(`<div id="html_5954828b97fe494f2fe69692f99d0bd7" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS</h4>             <p><b>Endereço:</b> R. MANOEL DE SOUZA, S/N</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 93</p>         </div>         </div>`)[0];
+                popup_e1d400bf8e6f521801ad55ea845d2274.setContent(html_5954828b97fe494f2fe69692f99d0bd7);
+            
+        
+
+        circle_marker_6b0642dff7ab3be29423e3d949f1b02c.bindPopup(popup_e1d400bf8e6f521801ad55ea845d2274)
+        ;
+
+        
+    
+    
+            circle_marker_6b0642dff7ab3be29423e3d949f1b02c.bindTooltip(
+                `<div>
+                     SALÃO PAROQUIAL IGREJA N. SRA. DAS GRAÇAS — 93 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_34d1cba1df3ec5231fb0802f12491d09 = L.circleMarker(
+                [-19.467684443712574, -44.245821226946106],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.746649149931375, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_662cd7b17ebfd82afd4dabe61e063188 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e57d863bbb06434268626dcb0c8ca1e3 = $(`<div id="html_e57d863bbb06434268626dcb0c8ca1e3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DR. MÁRCIO PAULINO</h4>             <p><b>Endereço:</b> RUA DR LUCIANO SOARES SANTANA, 641</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,569</p>         </div>         </div>`)[0];
+                popup_662cd7b17ebfd82afd4dabe61e063188.setContent(html_e57d863bbb06434268626dcb0c8ca1e3);
+            
+        
+
+        circle_marker_34d1cba1df3ec5231fb0802f12491d09.bindPopup(popup_662cd7b17ebfd82afd4dabe61e063188)
+        ;
+
+        
+    
+    
+            circle_marker_34d1cba1df3ec5231fb0802f12491d09.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DR. MÁRCIO PAULINO — 2,569 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_edb179b195a4dc6d368ca0b4061a6a57 = L.circleMarker(
+                [-19.4808083, -44.266592],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.862226016232748, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_27142225610dab11f101fe5fc0792a11 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79e1936a2e8327f609eb44eb5c7eb5bf = $(`<div id="html_79e1936a2e8327f609eb44eb5c7eb5bf" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>UNIFEMM CENTRO UNIVERSITÁRIO</h4>             <p><b>Endereço:</b> AV. MARECHAL CASTELO BRANCO, 2765</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,154</p>         </div>         </div>`)[0];
+                popup_27142225610dab11f101fe5fc0792a11.setContent(html_79e1936a2e8327f609eb44eb5c7eb5bf);
+            
+        
+
+        circle_marker_edb179b195a4dc6d368ca0b4061a6a57.bindPopup(popup_27142225610dab11f101fe5fc0792a11)
+        ;
+
+        
+    
+    
+            circle_marker_edb179b195a4dc6d368ca0b4061a6a57.bindTooltip(
+                `<div>
+                     UNIFEMM CENTRO UNIVERSITÁRIO — 1,154 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3084d3715d254fabb6546b760d9af4f2 = L.circleMarker(
+                [-19.446994468421053, -44.243174026315785],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.95046056545511, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_d0ecdbdc10966266e0b71cd95f7f8021 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2d0e9913c1cb2afe7ae584deb47e50ac = $(`<div id="html_2d0e9913c1cb2afe7ae584deb47e50ac" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO EDUCACIONAL PETER PAN</h4>             <p><b>Endereço:</b> RUA JOAQUIM MURTINHO, 317/325</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,189</p>         </div>         </div>`)[0];
+                popup_d0ecdbdc10966266e0b71cd95f7f8021.setContent(html_2d0e9913c1cb2afe7ae584deb47e50ac);
+            
+        
+
+        circle_marker_3084d3715d254fabb6546b760d9af4f2.bindPopup(popup_d0ecdbdc10966266e0b71cd95f7f8021)
+        ;
+
+        
+    
+    
+            circle_marker_3084d3715d254fabb6546b760d9af4f2.bindTooltip(
+                `<div>
+                     INSTITUTO EDUCACIONAL PETER PAN — 1,189 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c7767b100b1dab3c07886115babee9c1 = L.circleMarker(
+                [-19.470114, -44.2358318],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.838056402710393, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_3314f679b1953042a4d627c27808d531 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6753c0ef32c8798a86d71db03f9e93f3 = $(`<div id="html_6753c0ef32c8798a86d71db03f9e93f3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL GOVERNADOR JUSCELINO</h4>             <p><b>Endereço:</b> RUA CAPITÃO JOSÉ PEREIRA DA COSTA,167</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 786</p>         </div>         </div>`)[0];
+                popup_3314f679b1953042a4d627c27808d531.setContent(html_6753c0ef32c8798a86d71db03f9e93f3);
+            
+        
+
+        circle_marker_c7767b100b1dab3c07886115babee9c1.bindPopup(popup_3314f679b1953042a4d627c27808d531)
+        ;
+
+        
+    
+    
+            circle_marker_c7767b100b1dab3c07886115babee9c1.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL GOVERNADOR JUSCELINO — 786 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acfbf3daba87f863b6325c818c37a074 = L.circleMarker(
+                [-19.4736677, -44.2455479],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.550759336569023, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_afd168e6c979985f52ac9cfad9d7f82e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6741c77a949ecd4d02eb407560e2ac2a = $(`<div id="html_6741c77a949ecd4d02eb407560e2ac2a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MARIA AMÂNCIO</h4>             <p><b>Endereço:</b> RUA SÃO JOSÉ,747</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,441</p>         </div>         </div>`)[0];
+                popup_afd168e6c979985f52ac9cfad9d7f82e.setContent(html_6741c77a949ecd4d02eb407560e2ac2a);
+            
+        
+
+        circle_marker_acfbf3daba87f863b6325c818c37a074.bindPopup(popup_afd168e6c979985f52ac9cfad9d7f82e)
+        ;
+
+        
+    
+    
+            circle_marker_acfbf3daba87f863b6325c818c37a074.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MARIA AMÂNCIO — 1,441 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_aa99a5983abe71675875f076674d4c35 = L.circleMarker(
+                [-19.47179549589041, -44.25441317260274],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.152600791618985, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_7cf9dfeacd39bb47e5d04bd9753ac027 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cb1f305a4bb5030ee48545a618a22eec = $(`<div id="html_cb1f305a4bb5030ee48545a618a22eec" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOVELINO LANZA</h4>             <p><b>Endereço:</b> RUA RUI BARBOSA, 59</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,813</p>         </div>         </div>`)[0];
+                popup_7cf9dfeacd39bb47e5d04bd9753ac027.setContent(html_cb1f305a4bb5030ee48545a618a22eec);
+            
+        
+
+        circle_marker_aa99a5983abe71675875f076674d4c35.bindPopup(popup_7cf9dfeacd39bb47e5d04bd9753ac027)
+        ;
+
+        
+    
+    
+            circle_marker_aa99a5983abe71675875f076674d4c35.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOVELINO LANZA — 2,813 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_31cddb43e7e2f3ae128cdb9d62b9fc8b = L.circleMarker(
+                [-19.4584943, -44.239479],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.61309623247887, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_0add329d31b8f227768e9a8cd28404c3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_efdef7bd1b2dc3af6a553948dd0497ab = $(`<div id="html_efdef7bd1b2dc3af6a553948dd0497ab" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>INSTITUTO ALICE MACIEL</h4>             <p><b>Endereço:</b> RUA GOIÁS,609</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,058</p>         </div>         </div>`)[0];
+                popup_0add329d31b8f227768e9a8cd28404c3.setContent(html_efdef7bd1b2dc3af6a553948dd0497ab);
+            
+        
+
+        circle_marker_31cddb43e7e2f3ae128cdb9d62b9fc8b.bindPopup(popup_0add329d31b8f227768e9a8cd28404c3)
+        ;
+
+        
+    
+    
+            circle_marker_31cddb43e7e2f3ae128cdb9d62b9fc8b.bindTooltip(
+                `<div>
+                     INSTITUTO ALICE MACIEL — 1,058 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_091fc241190b90fbd266567c1ec5be53 = L.circleMarker(
+                [-19.439075183050846, -44.2262657480226],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.744946639131806, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_202df3f160cc2ff872fafd544c4f83c9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4cb066892ec6c9e01044833219656cb8 = $(`<div id="html_4cb066892ec6c9e01044833219656cb8" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL LUZIA BARBOSA</h4>             <p><b>Endereço:</b> AV. MAURÍLIO DE JESUS PEIXOTO,1160</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,568</p>         </div>         </div>`)[0];
+                popup_202df3f160cc2ff872fafd544c4f83c9.setContent(html_4cb066892ec6c9e01044833219656cb8);
+            
+        
+
+        circle_marker_091fc241190b90fbd266567c1ec5be53.bindPopup(popup_202df3f160cc2ff872fafd544c4f83c9)
+        ;
+
+        
+    
+    
+            circle_marker_091fc241190b90fbd266567c1ec5be53.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL LUZIA BARBOSA — 2,568 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7d61c5cd13bccf3ad8d40ab7adc2efc8 = L.circleMarker(
+                [-19.446862317525774, -44.2364012701031],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.210980835780592, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_7502537a40170b0ac072797acdef8348 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c63a33b580569a373f8753f4483dbba3 = $(`<div id="html_c63a33b580569a373f8753f4483dbba3" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PREFEITO ZICO PAIVA</h4>             <p><b>Endereço:</b> RUA APUCARANA, 68</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,849</p>         </div>         </div>`)[0];
+                popup_7502537a40170b0ac072797acdef8348.setContent(html_c63a33b580569a373f8753f4483dbba3);
+            
+        
+
+        circle_marker_7d61c5cd13bccf3ad8d40ab7adc2efc8.bindPopup(popup_7502537a40170b0ac072797acdef8348)
+        ;
+
+        
+    
+    
+            circle_marker_7d61c5cd13bccf3ad8d40ab7adc2efc8.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PREFEITO ZICO PAIVA — 2,849 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8c496db4b0537c012b8aa0605931e91 = L.circleMarker(
+                [-19.4497861, -44.2436441],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.3059226365504175, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_30361a6d5ef5e600b1a32db3c535baf4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_57fa563d288a349ece9b893bfafb0f15 = $(`<div id="html_57fa563d288a349ece9b893bfafb0f15" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR</h4>             <p><b>Endereço:</b> RUA GOIÁS, 1696</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 367</p>         </div>         </div>`)[0];
+                popup_30361a6d5ef5e600b1a32db3c535baf4.setContent(html_57fa563d288a349ece9b893bfafb0f15);
+            
+        
+
+        circle_marker_f8c496db4b0537c012b8aa0605931e91.bindPopup(popup_30361a6d5ef5e600b1a32db3c535baf4)
+        ;
+
+        
+    
+    
+            circle_marker_f8c496db4b0537c012b8aa0605931e91.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL PROFESSOR JOÃO FERNANDINO JÚNIOR — 367 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bc7c1842758690547f63b4028cbcc8d7 = L.circleMarker(
+                [-19.432718103349284, -44.23427631578948],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.0, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_e6607b140ddb6b434e1c037fa61cdac7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7abb5c2d322f23dbfe677142a0cee8b6 = $(`<div id="html_7abb5c2d322f23dbfe677142a0cee8b6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL)</h4>             <p><b>Endereço:</b> RUA ARAÇAÍ, 150</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 3,358</p>         </div>         </div>`)[0];
+                popup_e6607b140ddb6b434e1c037fa61cdac7.setContent(html_7abb5c2d322f23dbfe677142a0cee8b6);
+            
+        
+
+        circle_marker_bc7c1842758690547f63b4028cbcc8d7.bindPopup(popup_e6607b140ddb6b434e1c037fa61cdac7)
+        ;
+
+        
+    
+    
+            circle_marker_bc7c1842758690547f63b4028cbcc8d7.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DALVA FERREIRA DINIZ (PLANETA AZUL) — 3,358 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_902a09c662165e2a9f425d0fdaa83e9a = L.circleMarker(
+                [-19.4652004, -44.2218516],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.969058409438471, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_26dc5ddf88417698a587e5cd38ebbb18 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_664a6a0e3a896a00ed4937fc3ef2470b = $(`<div id="html_664a6a0e3a896a00ed4937fc3ef2470b" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SANTOS AZEREDO</h4>             <p><b>Endereço:</b> AV. FRANCISCO ANTONIO DE MENDONÇA CHAVES, 22</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 529</p>         </div>         </div>`)[0];
+                popup_26dc5ddf88417698a587e5cd38ebbb18.setContent(html_664a6a0e3a896a00ed4937fc3ef2470b);
+            
+        
+
+        circle_marker_902a09c662165e2a9f425d0fdaa83e9a.bindPopup(popup_26dc5ddf88417698a587e5cd38ebbb18)
+        ;
+
+        
+    
+    
+            circle_marker_902a09c662165e2a9f425d0fdaa83e9a.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SANTOS AZEREDO — 529 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f17c162cae1a767d49ba614d1eb8bee2 = L.circleMarker(
+                [-19.4256395, -44.238912],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.251279659127675, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_6a6133caf552241d15157fb6358ea8c1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e738133071a6910abd8467519c9b99f1 = $(`<div id="html_e738133071a6910abd8467519c9b99f1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 1111</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 926</p>         </div>         </div>`)[0];
+                popup_6a6133caf552241d15157fb6358ea8c1.setContent(html_e738133071a6910abd8467519c9b99f1);
+            
+        
+
+        circle_marker_f17c162cae1a767d49ba614d1eb8bee2.bindPopup(popup_6a6133caf552241d15157fb6358ea8c1)
+        ;
+
+        
+    
+    
+            circle_marker_f17c162cae1a767d49ba614d1eb8bee2.bindTooltip(
+                `<div>
+                     ESCOLA TÉCNICA MUNICIPAL DE SETE LAGOAS FUMEP — 926 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7927ce31fe4c67b8f229b586e3ef5be8 = L.circleMarker(
+                [-19.454334385167463, -44.23045434784689],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.511599138187792, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_18421b1bcbf994bbf40084c3cd0fa936 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ae153fab7a865ff00b7db8958907243 = $(`<div id="html_8ae153fab7a865ff00b7db8958907243" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA</h4>             <p><b>Endereço:</b> RUA ALECRIM, 329</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 3,038</p>         </div>         </div>`)[0];
+                popup_18421b1bcbf994bbf40084c3cd0fa936.setContent(html_8ae153fab7a865ff00b7db8958907243);
+            
+        
+
+        circle_marker_7927ce31fe4c67b8f229b586e3ef5be8.bindPopup(popup_18421b1bcbf994bbf40084c3cd0fa936)
+        ;
+
+        
+    
+    
+            circle_marker_7927ce31fe4c67b8f229b586e3ef5be8.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL JOSE EVANGELISTA FRANCA — 3,038 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_238c674b0527a31990369ae53f8d637e = L.circleMarker(
+                [-19.4568229, -44.2190476],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.092305479956934, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_531850e314ca84fbde8bf8713f537323 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ecb731d128d290b295147f9a2311f31 = $(`<div id="html_8ecb731d128d290b295147f9a2311f31" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>E. M. DOUTOR ENÍZIO ANTÔNIO VIANA</h4>             <p><b>Endereço:</b> RUA PINTASSILGO, 1491</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,199</p>         </div>         </div>`)[0];
+                popup_531850e314ca84fbde8bf8713f537323.setContent(html_8ecb731d128d290b295147f9a2311f31);
+            
+        
+
+        circle_marker_238c674b0527a31990369ae53f8d637e.bindPopup(popup_531850e314ca84fbde8bf8713f537323)
+        ;
+
+        
+    
+    
+            circle_marker_238c674b0527a31990369ae53f8d637e.bindTooltip(
+                `<div>
+                     E. M. DOUTOR ENÍZIO ANTÔNIO VIANA — 2,199 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_54f9bfe5f61d9ae9fe2b5aadc3e230e9 = L.circleMarker(
+                [-19.481388212244898, -44.24446317142857],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.216448689045038, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_cff809c1d55d40352add7c94cff223e4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67b8b9249b0f420d726c9cadd0e80244 = $(`<div id="html_67b8b9249b0f420d726c9cadd0e80244" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL TEREZINHA GODOY</h4>             <p><b>Endereço:</b> RUA ORQUIDEA, Nº 30</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 597</p>         </div>         </div>`)[0];
+                popup_cff809c1d55d40352add7c94cff223e4.setContent(html_67b8b9249b0f420d726c9cadd0e80244);
+            
+        
+
+        circle_marker_54f9bfe5f61d9ae9fe2b5aadc3e230e9.bindPopup(popup_cff809c1d55d40352add7c94cff223e4)
+        ;
+
+        
+    
+    
+            circle_marker_54f9bfe5f61d9ae9fe2b5aadc3e230e9.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL TEREZINHA GODOY — 597 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f63e67e1f02c19539152fb8685cd8594 = L.circleMarker(
+                [-19.4601393, -44.249689],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.151082505913472, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_d43e2b7240fada6e9cabb189e832a633 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_831dc676ca353cc1901870cd2d128024 = $(`<div id="html_831dc676ca353cc1901870cd2d128024" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA</h4>             <p><b>Endereço:</b> RUA QUINTINO BOCAIUVA, 331              </p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 891</p>         </div>         </div>`)[0];
+                popup_d43e2b7240fada6e9cabb189e832a633.setContent(html_831dc676ca353cc1901870cd2d128024);
+            
+        
+
+        circle_marker_f63e67e1f02c19539152fb8685cd8594.bindPopup(popup_d43e2b7240fada6e9cabb189e832a633)
+        ;
+
+        
+    
+    
+            circle_marker_f63e67e1f02c19539152fb8685cd8594.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL EMILIO DE VASCONCELOS COSTA — 891 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_301d78e955f645e91c3478520719500c = L.circleMarker(
+                [-19.4515705, -44.2523805],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.461504645752074, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_5952ef4e822379a1d50c55490b1575cd = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ed6b2d8f58c42b7ae1e08cbf88ecafb = $(`<div id="html_0ed6b2d8f58c42b7ae1e08cbf88ecafb" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA</h4>             <p><b>Endereço:</b> AVENIDA VILLA LOBOS, 730</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,402</p>         </div>         </div>`)[0];
+                popup_5952ef4e822379a1d50c55490b1575cd.setContent(html_0ed6b2d8f58c42b7ae1e08cbf88ecafb);
+            
+        
+
+        circle_marker_301d78e955f645e91c3478520719500c.bindPopup(popup_5952ef4e822379a1d50c55490b1575cd)
+        ;
+
+        
+    
+    
+            circle_marker_301d78e955f645e91c3478520719500c.bindTooltip(
+                `<div>
+                     COLÉGIO DE ENSINO MÉDIO CAETANO E SILVA — 1,402 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0ac3c0e38ee8fb800c1a4106a99f3aaa = L.circleMarker(
+                [-19.34057825, -44.23967249],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5.443805440937429, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_67d1058e6b546db722ba1dbf14f3b46a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_19a2967d0a68d20928b33ad2ab6e3352 = $(`<div id="html_19a2967d0a68d20928b33ad2ab6e3352" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX</h4>             <p><b>Endereço:</b> AVENIDA PIO RODRIGUES DE LIMA, 289</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 70</p>         </div>         </div>`)[0];
+                popup_67d1058e6b546db722ba1dbf14f3b46a.setContent(html_19a2967d0a68d20928b33ad2ab6e3352);
+            
+        
+
+        circle_marker_0ac3c0e38ee8fb800c1a4106a99f3aaa.bindPopup(popup_67d1058e6b546db722ba1dbf14f3b46a)
+        ;
+
+        
+    
+    
+            circle_marker_0ac3c0e38ee8fb800c1a4106a99f3aaa.bindTooltip(
+                `<div>
+                     ASSOCIAÇÃO COMUNITÁRIA DE SILVA XAVIER - ASCOSIX — 70 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8d4666d684e2abdd2adf8aadb9ac70c = L.circleMarker(
+                [-19.419367, -44.2465041],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.841870788451914, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_7213328a89dd329cad089331bb23b25d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6cd75b0be5865dd773a9a5ae94f02cbf = $(`<div id="html_6cd75b0be5865dd773a9a5ae94f02cbf" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA</h4>             <p><b>Endereço:</b> PRACA JK, 110                              </p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,065</p>         </div>         </div>`)[0];
+                popup_7213328a89dd329cad089331bb23b25d.setContent(html_6cd75b0be5865dd773a9a5ae94f02cbf);
+            
+        
+
+        circle_marker_f8d4666d684e2abdd2adf8aadb9ac70c.bindPopup(popup_7213328a89dd329cad089331bb23b25d)
+        ;
+
+        
+    
+    
+            circle_marker_f8d4666d684e2abdd2adf8aadb9ac70c.bindTooltip(
+                `<div>
+                     ESCOLA DE PRIMEIRO GRAU JULIO CESAR REIS OLIVEIRA — 2,065 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf87859ced2a8a41e5d9dfdcbe507fa5 = L.circleMarker(
+                [-19.428728595555555, -44.23837350666667],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.461372521052757, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_ec6228a357d0f6900bef4d7c5275a088 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dd38c96beb7b32329bcebdbcecada57e = $(`<div id="html_dd38c96beb7b32329bcebdbcecada57e" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO</h4>             <p><b>Endereço:</b> RUA VEREADORA LUMARIZA MARQUES VIANA, 95</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 3,006</p>         </div>         </div>`)[0];
+                popup_ec6228a357d0f6900bef4d7c5275a088.setContent(html_dd38c96beb7b32329bcebdbcecada57e);
+            
+        
+
+        circle_marker_bf87859ced2a8a41e5d9dfdcbe507fa5.bindPopup(popup_ec6228a357d0f6900bef4d7c5275a088)
+        ;
+
+        
+    
+    
+            circle_marker_bf87859ced2a8a41e5d9dfdcbe507fa5.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL ÁPIO SÓLON CARDOSO — 3,006 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_38fba21e6f29780ac9bc8628c9923f77 = L.circleMarker(
+                [-19.4217205, -44.2497798],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.941588530089764, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_cfb99f78c206a411dbfa7453f369137b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bae5e06d3df714f38ce4e0ced5a87fee = $(`<div id="html_bae5e06d3df714f38ce4e0ced5a87fee" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO</h4>             <p><b>Endereço:</b> AV. GOVERNADOR BIAS FORTES, 375</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 820</p>         </div>         </div>`)[0];
+                popup_cfb99f78c206a411dbfa7453f369137b.setContent(html_bae5e06d3df714f38ce4e0ced5a87fee);
+            
+        
+
+        circle_marker_38fba21e6f29780ac9bc8628c9923f77.bindPopup(popup_cfb99f78c206a411dbfa7453f369137b)
+        ;
+
+        
+    
+    
+            circle_marker_38fba21e6f29780ac9bc8628c9923f77.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR VASCO DAMIAO — 820 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3482f023c448542f10274d30332b46d1 = L.circleMarker(
+                [-19.442375443333333, -44.22390653333333],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.095483174362109, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_f2dd51969a4317dbdd0217a797ba535b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e66e799e48e0c5999c106cc22633f510 = $(`<div id="html_e66e799e48e0c5999c106cc22633f510" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC)</h4>             <p><b>Endereço:</b> RUA DAS PALMAS, 638</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,778</p>         </div>         </div>`)[0];
+                popup_f2dd51969a4317dbdd0217a797ba535b.setContent(html_e66e799e48e0c5999c106cc22633f510);
+            
+        
+
+        circle_marker_3482f023c448542f10274d30332b46d1.bindPopup(popup_f2dd51969a4317dbdd0217a797ba535b)
+        ;
+
+        
+    
+    
+            circle_marker_3482f023c448542f10274d30332b46d1.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR GALVAO (CAIC) — 2,778 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_51bb2840445cc0eae1551b8feeb2286c = L.circleMarker(
+                [-19.4225862, -44.2312771],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.12311645261764, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_6033bac721c87391164c2efd29eb3f10 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2d4d3baf7975ae253984bd2d70d58f3a = $(`<div id="html_2d4d3baf7975ae253984bd2d70d58f3a" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR EDSON ABREU</h4>             <p><b>Endereço:</b> RUA ZEZITO FILIZOLLA, 15</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,259</p>         </div>         </div>`)[0];
+                popup_6033bac721c87391164c2efd29eb3f10.setContent(html_2d4d3baf7975ae253984bd2d70d58f3a);
+            
+        
+
+        circle_marker_51bb2840445cc0eae1551b8feeb2286c.bindPopup(popup_6033bac721c87391164c2efd29eb3f10)
+        ;
+
+        
+    
+    
+            circle_marker_51bb2840445cc0eae1551b8feeb2286c.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR EDSON ABREU — 1,259 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ebdd4609203d6eca53925a24cec3819e = L.circleMarker(
+                [-19.429676779130435, -44.235030251304345],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.125606668842103, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_e87da625649ac58910e778be49ff805d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e8067d097c7ee3d163eed5dfa3ca2cc1 = $(`<div id="html_e8067d097c7ee3d163eed5dfa3ca2cc1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO</h4>             <p><b>Endereço:</b> RUA HONDURAS, 28</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,705</p>         </div>         </div>`)[0];
+                popup_e87da625649ac58910e778be49ff805d.setContent(html_e8067d097c7ee3d163eed5dfa3ca2cc1);
+            
+        
+
+        circle_marker_ebdd4609203d6eca53925a24cec3819e.bindPopup(popup_e87da625649ac58910e778be49ff805d)
+        ;
+
+        
+    
+    
+            circle_marker_ebdd4609203d6eca53925a24cec3819e.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR  HEITOR LANZA NETO — 1,705 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d42c7e49aa1b5614f4d6c3806baa215e = L.circleMarker(
+                [-19.42665, -44.231129],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.867303735691653, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_3e9bec408e2ad955438ab3304b123611 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_716c84f56b121b7452912525afc0f913 = $(`<div id="html_716c84f56b121b7452912525afc0f913" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS</h4>             <p><b>Endereço:</b> AV. JOSE SERVULO SOALHEIRO, 2585</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,156</p>         </div>         </div>`)[0];
+                popup_3e9bec408e2ad955438ab3304b123611.setContent(html_716c84f56b121b7452912525afc0f913);
+            
+        
+
+        circle_marker_d42c7e49aa1b5614f4d6c3806baa215e.bindPopup(popup_3e9bec408e2ad955438ab3304b123611)
+        ;
+
+        
+    
+    
+            circle_marker_d42c7e49aa1b5614f4d6c3806baa215e.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL BERNARDO VALADARES DE VASCONCELOS — 1,156 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a2813feda7a56eddb88a198a88e88acf = L.circleMarker(
+                [-19.42093647027027, -44.2004320054054],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.954287908169187, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_5e0d07f88b58d1a4b999144e1b33b2ca = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dbd7f108299c04c1cc866be4401a0e6d = $(`<div id="html_dbd7f108299c04c1cc866be4401a0e6d" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JUCA DIAS</h4>             <p><b>Endereço:</b> AVENIDA EURO ANDRADE, 241</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,624</p>         </div>         </div>`)[0];
+                popup_5e0d07f88b58d1a4b999144e1b33b2ca.setContent(html_dbd7f108299c04c1cc866be4401a0e6d);
+            
+        
+
+        circle_marker_a2813feda7a56eddb88a198a88e88acf.bindPopup(popup_5e0d07f88b58d1a4b999144e1b33b2ca)
+        ;
+
+        
+    
+    
+            circle_marker_a2813feda7a56eddb88a198a88e88acf.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JUCA DIAS — 1,624 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e3631df32493a3ce9771014597598830 = L.circleMarker(
+                [-19.4661311, -44.2344895],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.41048768690264, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_a5786a483cf78ce8f10dd1de59ee7bee = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_062066660817241331685044efa1a2ee = $(`<div id="html_062066660817241331685044efa1a2ee" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL SINHÁ ANDRADE</h4>             <p><b>Endereço:</b> AV. RENATO AZEREDO, 2423</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 983</p>         </div>         </div>`)[0];
+                popup_a5786a483cf78ce8f10dd1de59ee7bee.setContent(html_062066660817241331685044efa1a2ee);
+            
+        
+
+        circle_marker_e3631df32493a3ce9771014597598830.bindPopup(popup_a5786a483cf78ce8f10dd1de59ee7bee)
+        ;
+
+        
+    
+    
+            circle_marker_e3631df32493a3ce9771014597598830.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL SINHÁ ANDRADE — 983 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0b53136f3bf5ae4874fbe8c1115e9987 = L.circleMarker(
+                [-19.4661823, -44.239261173749995],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.395736176418021, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_bc2b560c635bc808446469ec60ada12e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_25a8949fa65ae6c38b9da31b7c1078f1 = $(`<div id="html_25a8949fa65ae6c38b9da31b7c1078f1" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS</h4>             <p><b>Endereço:</b> RUA TUPINIQUINS, 19</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 2,367</p>         </div>         </div>`)[0];
+                popup_bc2b560c635bc808446469ec60ada12e.setContent(html_25a8949fa65ae6c38b9da31b7c1078f1);
+            
+        
+
+        circle_marker_0b53136f3bf5ae4874fbe8c1115e9987.bindPopup(popup_bc2b560c635bc808446469ec60ada12e)
+        ;
+
+        
+    
+    
+            circle_marker_0b53136f3bf5ae4874fbe8c1115e9987.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL DOUTOR MILTON CAMPOS — 2,367 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8f84898e1bda00c5e47ddd01c37b61f5 = L.circleMarker(
+                [-19.4779187, -44.218426],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.483441841319095, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_a406b71ea60516715733c1d9d6873682 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c2fae39d62797aecf12e5f9526a8fa38 = $(`<div id="html_c2fae39d62797aecf12e5f9526a8fa38" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>FACULDADE ATENAS DE SETE LAGOAS</h4>             <p><b>Endereço:</b> AV. PREFEITO ALBERTO MOURA, 6000</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 675</p>         </div>         </div>`)[0];
+                popup_a406b71ea60516715733c1d9d6873682.setContent(html_c2fae39d62797aecf12e5f9526a8fa38);
+            
+        
+
+        circle_marker_8f84898e1bda00c5e47ddd01c37b61f5.bindPopup(popup_a406b71ea60516715733c1d9d6873682)
+        ;
+
+        
+    
+    
+            circle_marker_8f84898e1bda00c5e47ddd01c37b61f5.bindTooltip(
+                `<div>
+                     FACULDADE ATENAS DE SETE LAGOAS — 675 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a3a5f88e50d548b0ae4451b4f2635d23 = L.circleMarker(
+                [-19.430776656626506, -44.22804061445783],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.241134271766088, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_cf2c2b0cc97f3df311108760857f16af = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d402aab0a48b75f0bd2b811d4b5d939f = $(`<div id="html_d402aab0a48b75f0bd2b811d4b5d939f" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA</h4>             <p><b>Endereço:</b> R. LAURA BRAGA CUNHA, 88</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,308</p>         </div>         </div>`)[0];
+                popup_cf2c2b0cc97f3df311108760857f16af.setContent(html_d402aab0a48b75f0bd2b811d4b5d939f);
+            
+        
+
+        circle_marker_a3a5f88e50d548b0ae4451b4f2635d23.bindPopup(popup_cf2c2b0cc97f3df311108760857f16af)
+        ;
+
+        
+    
+    
+            circle_marker_a3a5f88e50d548b0ae4451b4f2635d23.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL HILÁRIO PEREIRA DA FONSECA — 1,308 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_606a0f441a562822243ad40969564c4e = L.circleMarker(
+                [-19.4282927, -44.2067947],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.066928678125988, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_05fef4944ddf4ab4196e9b3d4fa6f456 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1496c7d04394153a6f421ff4aae75047 = $(`<div id="html_1496c7d04394153a6f421ff4aae75047" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA ESTADUAL MAURO FACCIO GONÇALVES</h4>             <p><b>Endereço:</b> RUA DELCI BARBOSA, 566</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 1,236</p>         </div>         </div>`)[0];
+                popup_05fef4944ddf4ab4196e9b3d4fa6f456.setContent(html_1496c7d04394153a6f421ff4aae75047);
+            
+        
+
+        circle_marker_606a0f441a562822243ad40969564c4e.bindPopup(popup_05fef4944ddf4ab4196e9b3d4fa6f456)
+        ;
+
+        
+    
+    
+            circle_marker_606a0f441a562822243ad40969564c4e.bindTooltip(
+                `<div>
+                     ESCOLA ESTADUAL MAURO FACCIO GONÇALVES — 1,236 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c63d073289170969272c3bfab0e223c6 = L.circleMarker(
+                [-19.4479854, -44.2253576],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.233055889887337, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_d4cee207071feb4af6c016c666a31dd5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3d301dca3bc23e30853d9e13782bb886 = $(`<div id="html_3d301dca3bc23e30853d9e13782bb886" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS</h4>             <p><b>Endereço:</b> RUA ADOLAR NAPOLEÃO FRANÇA, 175</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 351</p>         </div>         </div>`)[0];
+                popup_d4cee207071feb4af6c016c666a31dd5.setContent(html_3d301dca3bc23e30853d9e13782bb886);
+            
+        
+
+        circle_marker_c63d073289170969272c3bfab0e223c6.bindPopup(popup_d4cee207071feb4af6c016c666a31dd5)
+        ;
+
+        
+    
+    
+            circle_marker_c63d073289170969272c3bfab0e223c6.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇÃO INFANTIL MENINO DEUS — 351 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_66a9a42bcd43d9319569d70b6a781ad9 = L.circleMarker(
+                [-19.4386468, -44.2223243],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.721226718522965, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_f153e77a75017af0f1df32debd4f3f5c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14ea2db17ef61d2624c973235a68c4ae = $(`<div id="html_14ea2db17ef61d2624c973235a68c4ae" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JULIO CÉSAR</h4>             <p><b>Endereço:</b> RUA DELFINÓPOLIS, 95 - ENTRADA PELA RUA DIVINÓPOLIS</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 465</p>         </div>         </div>`)[0];
+                popup_f153e77a75017af0f1df32debd4f3f5c.setContent(html_14ea2db17ef61d2624c973235a68c4ae);
+            
+        
+
+        circle_marker_66a9a42bcd43d9319569d70b6a781ad9.bindPopup(popup_f153e77a75017af0f1df32debd4f3f5c)
+        ;
+
+        
+    
+    
+            circle_marker_66a9a42bcd43d9319569d70b6a781ad9.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JULIO CÉSAR — 465 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_46c8840ed18df35b32167df04695fcbb = L.circleMarker(
+                [-19.4735215, -44.2197959],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.987771659861826, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_f44755392e71d6f598ef18715d34c211 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_68b370f298b33cef39b453a80e5dbe96 = $(`<div id="html_68b370f298b33cef39b453a80e5dbe96" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO</h4>             <p><b>Endereço:</b> RUA CEL. JOÃO ANTONIO AVELAR, 217</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 534</p>         </div>         </div>`)[0];
+                popup_f44755392e71d6f598ef18715d34c211.setContent(html_68b370f298b33cef39b453a80e5dbe96);
+            
+        
+
+        circle_marker_46c8840ed18df35b32167df04695fcbb.bindPopup(popup_f44755392e71d6f598ef18715d34c211)
+        ;
+
+        
+    
+    
+            circle_marker_46c8840ed18df35b32167df04695fcbb.bindTooltip(
+                `<div>
+                     CENTRO MUNICIPAL DE EDUCAÇAO INFANTIL PE. TARCISO GONÇALVES FILHO — 534 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_64d4edd38f0be49bf4d903c83cf8fca4 = L.circleMarker(
+                [-19.4166858, -44.1763],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.542081798245215, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_f47b28c6de28079d77a50f779c612aa1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_733063456c6c7ba2aabcd874f04dc836 = $(`<div id="html_733063456c6c7ba2aabcd874f04dc836" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY</h4>             <p><b>Endereço:</b> RUA EZIO SOUZA DE DEUS, 87</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 217</p>         </div>         </div>`)[0];
+                popup_f47b28c6de28079d77a50f779c612aa1.setContent(html_733063456c6c7ba2aabcd874f04dc836);
+            
+        
+
+        circle_marker_64d4edd38f0be49bf4d903c83cf8fca4.bindPopup(popup_f47b28c6de28079d77a50f779c612aa1)
+        ;
+
+        
+    
+    
+            circle_marker_64d4edd38f0be49bf4d903c83cf8fca4.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL JOSÉ JACINTO MARTINS DE GODOY - PROF. GODOY — 217 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a60d253d2b71bede6704d11c31f26949 = L.circleMarker(
+                [-19.4113209, -44.223683],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.494230759460136, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_a38787cd32a20a520123c7bddbdb3fda = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a8c54a6ab9a52df805f1454a35d3dcba = $(`<div id="html_a8c54a6ab9a52df805f1454a35d3dcba" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO</h4>             <p><b>Endereço:</b> AV. JOSÉ SÉRVULO SOALHEIRO, 4373</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 410</p>         </div>         </div>`)[0];
+                popup_a38787cd32a20a520123c7bddbdb3fda.setContent(html_a8c54a6ab9a52df805f1454a35d3dcba);
+            
+        
+
+        circle_marker_a60d253d2b71bede6704d11c31f26949.bindPopup(popup_a38787cd32a20a520123c7bddbdb3fda)
+        ;
+
+        
+    
+    
+            circle_marker_a60d253d2b71bede6704d11c31f26949.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL PROFESSOR RAIMUNDO GRAVITO — 410 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c57968aef14b3d458c11dc511c15ae47 = L.circleMarker(
+                [-19.4197566, -44.199272],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.634132487307896, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_717bd91af8c4a4243717c5463681bc53 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_766f8ff8dc8a575b9726d27ba1be60d6 = $(`<div id="html_766f8ff8dc8a575b9726d27ba1be60d6" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO</h4>             <p><b>Endereço:</b> AVENIDA SETE, 200</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 233</p>         </div>         </div>`)[0];
+                popup_717bd91af8c4a4243717c5463681bc53.setContent(html_766f8ff8dc8a575b9726d27ba1be60d6);
+            
+        
+
+        circle_marker_c57968aef14b3d458c11dc511c15ae47.bindPopup(popup_717bd91af8c4a4243717c5463681bc53)
+        ;
+
+        
+    
+    
+            circle_marker_c57968aef14b3d458c11dc511c15ae47.bindTooltip(
+                `<div>
+                     ESCOLA MUNICIPAL MARILZA FLEURY COSTA FIGUEIREDO — 233 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9e0ef6be52110a5d78a90ad35921bd4c = L.circleMarker(
+                [-19.4147635, -44.1845016],
+                {"bubblingMouseEvents": true, "color": "#0066CC", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0066CC", "fillOpacity": 0.75, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.041849236001779, "stroke": true, "weight": 1}
+            ).addTo(map_455eae0a9590ecd9e78e2ead82a09b7d);
+        
+    
+        var popup_8e6f0212425b3f1df4a41d9ca3ab575d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_62913b4c39ca513b7bc6392a540541ae = $(`<div id="html_62913b4c39ca513b7bc6392a540541ae" style="width: 100.0%; height: 100.0%;">         <div style="width: 250px">             <h4>CEMEI MARISA MARA VAZ COSTA GALUPPO</h4>             <p><b>Endereço:</b> RUA MARIA DA CONCEIÇÃO BARCELOS, 185</p>             <hr>             <p><b>Candidato:</b> FLAVIO NANTES BOLSONARO</p>             <p><b>Votos recebidos:</b> 140</p>         </div>         </div>`)[0];
+                popup_8e6f0212425b3f1df4a41d9ca3ab575d.setContent(html_62913b4c39ca513b7bc6392a540541ae);
+            
+        
+
+        circle_marker_9e0ef6be52110a5d78a90ad35921bd4c.bindPopup(popup_8e6f0212425b3f1df4a41d9ca3ab575d)
+        ;
+
+        
+    
+    
+            circle_marker_9e0ef6be52110a5d78a90ad35921bd4c.bindTooltip(
+                `<div>
+                     CEMEI MARISA MARA VAZ COSTA GALUPPO — 140 votos
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_455eae0a9590ecd9e78e2ead82a09b7d.fitBounds(
+                [[-19.50462530967742, -44.364475], [-19.34057825, -44.1763]],
+                {}
+            );
+        
+</script>
+</html>
