@@ -1,0 +1,41 @@
+# Processamento dos Dados Eleitorais – TSE 2026
+
+## Dados necessários
+- **Dados do eleitorado:** https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip
+- **Dados da apuração:** https://cdn.tse.jus.br/estatistica/sead/odsele/votacao_secao/votacao_secao_2026_MG.zip
+
+
+## Etapas de processamento e agregação dos votos
+
+### filtra.py
+
+1. **Inspeção dos arquivos:** identificação das colunas e dos valores distintos relevantes nos datasets de votação e eleitorado.
+
+2. **Filtragem por município:** seleção dos registros do município desejado nos dois arquivos. No dataset de votação, foi utilizada leitura em blocos (`chunksize=100000`) para reduzir o consumo de memória.
+
+3. **Verificação das seções eleitorais:** identificação das zonas e seções existentes por meio de `NR_ZONA` e `NR_SECAO`.
+
+4. **Preparação do eleitorado:** seleção das colunas de turno, zona, seção, latitude e longitude. Os registros dos dois turnos foram preservados.
+
+5. **Integração dos datasets:** junção dos arquivos utilizando `NR_TURNO`, `NR_ZONA` e `NR_SECAO` como chaves, com `merge()` e `how="left"`.
+
+6. **Validação e exportação:** conferência da quantidade de registros e da presença das coordenadas geográficas, seguida da exportação do dataset final em CSV.
+
+
+### unificacao.py
+
+1. **Leitura e inspeção dos dados:** carregamento do arquivo de eleitorado e votação, com verificação das dimensões, colunas e registros duplicados.
+
+2. **Padronização das coordenadas:** conversão de latitude e longitude para formato numérico e identificação dos locais de votação distintos.
+
+3. **Separação por turno:** divisão dos registros entre primeiro e segundo turnos.
+
+4. **Reorganização dos votos:** aplicação de `pivot()` para transformar os candidatos em colunas, mantendo uma linha por seção eleitoral e local de votação.
+
+5. **Identificação dos candidatos:** separação dos candidatos de votos em branco e nulos, com identificação dos candidatos de interesse.
+
+6. **Agregação por local de votação:** soma dos votos das seções com as mesmas coordenadas geográficas, preservando o nome e endereço dos locais e contabilizando zonas e seções.
+
+7. **Cálculo dos indicadores:** identificação do candidato líder em cada local, totalização dos votos válidos, cálculo das porcentagens por candidato e agrupamento dos demais candidatos na categoria "outros" no primeiro turno.
+
+8. **Validação e exportação:** conferência da consistência dos totais e exportação dos resultados de cada turno em arquivos CSV separados, na pasta `dados_processados`.
